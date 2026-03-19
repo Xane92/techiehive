@@ -4,6 +4,9 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import NotFound from "@/pages/not-found";
+import NavbarShared from "@/components/Navbar";
+import FooterShared from "@/components/Footer";
+import CoursesPage from "@/pages/CoursesPage";
 
 const queryClient = new QueryClient();
 
@@ -73,102 +76,6 @@ const benefits = [
     description: "Earn a recognized certificate upon completing each course to boost your portfolio.",
   },
 ];
-
-function Navbar() {
-  return (
-    <nav
-      style={{
-        position: "sticky",
-        top: 0,
-        zIndex: 100,
-        backgroundColor: "rgba(10,10,10,0.95)",
-        backdropFilter: "blur(8px)",
-        borderBottom: "1px solid #1a1a1a",
-      }}
-    >
-      <div
-        style={{
-          maxWidth: "1200px",
-          margin: "0 auto",
-          padding: "0 32px",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "space-between",
-          height: "60px",
-        }}
-      >
-        <span
-          style={{ color: "#F5C400", fontWeight: 800, fontSize: "1.1rem", letterSpacing: "-0.02em", flexShrink: 0 }}
-          className="text-[25px]">
-          Techiehive
-        </span>
-
-        <div style={{ display: "flex", alignItems: "center", gap: "40px" }}>
-          <div style={{ display: "flex", gap: "28px" }} className="nav-links">
-            {["Home", "Courses", "About", "Contact"].map((link) => (
-              <a
-                key={link}
-                href="#"
-                style={{
-                  color: "#FFFFFF",
-                  textDecoration: "none",
-                  fontSize: "0.875rem",
-                  opacity: 0.75,
-                  transition: "opacity 0.2s",
-                }}
-                onMouseEnter={(e) => ((e.target as HTMLAnchorElement).style.opacity = "1")}
-                onMouseLeave={(e) => ((e.target as HTMLAnchorElement).style.opacity = "0.75")}
-              >
-                {link}
-              </a>
-            ))}
-          </div>
-
-          <div style={{ display: "flex", gap: "10px", alignItems: "center" }}>
-            <button
-              style={{
-                background: "transparent",
-                border: "1.5px solid #F5C400",
-                color: "#F5C400",
-                padding: "8px 16px",
-                borderRadius: "6px",
-                fontSize: "0.875rem",
-                fontWeight: 600,
-                cursor: "pointer",
-                height: "36px",
-                lineHeight: 1,
-                transition: "background 0.2s",
-              }}
-              onMouseEnter={(e) => ((e.currentTarget as HTMLButtonElement).style.background = "rgba(245,196,0,0.08)")}
-              onMouseLeave={(e) => ((e.currentTarget as HTMLButtonElement).style.background = "transparent")}
-            >
-              Login
-            </button>
-            <button
-              style={{
-                background: "#F5C400",
-                border: "none",
-                color: "#0A0A0A",
-                padding: "8px 16px",
-                borderRadius: "6px",
-                fontSize: "0.875rem",
-                fontWeight: 700,
-                cursor: "pointer",
-                height: "36px",
-                lineHeight: 1,
-                transition: "opacity 0.2s",
-              }}
-              onMouseEnter={(e) => ((e.currentTarget as HTMLButtonElement).style.opacity = "0.85")}
-              onMouseLeave={(e) => ((e.currentTarget as HTMLButtonElement).style.opacity = "1")}
-            >
-              Enroll Now
-            </button>
-          </div>
-        </div>
-      </div>
-    </nav>
-  );
-}
 
 function Hero() {
   return (
@@ -442,87 +349,14 @@ function BenefitsSection() {
   );
 }
 
-function Footer() {
-  return (
-    <footer style={{ background: "#0A0A0A", padding: "64px 24px 0" }}>
-      <div
-        style={{
-          maxWidth: "1200px",
-          margin: "0 auto",
-          display: "grid",
-          gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
-          gap: "48px",
-          paddingBottom: "48px",
-        }}
-      >
-        <div>
-          <span style={{ color: "#F5C400", fontWeight: 800, fontSize: "1.3rem", display: "block", marginBottom: "12px" }}>
-            Techiehive
-          </span>
-          <p style={{ color: "#888888", fontSize: "0.875rem", lineHeight: 1.7, margin: 0, maxWidth: "220px" }}>
-            Empowering the next generation of African tech professionals through quality education.
-          </p>
-        </div>
-
-        <div>
-          <h4 style={{ color: "#FFFFFF", fontSize: "0.9rem", fontWeight: 700, marginBottom: "16px", textTransform: "uppercase", letterSpacing: "0.06em" }}>
-            Quick Links
-          </h4>
-          <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
-            {["Home", "Courses", "About", "Contact"].map((link) => (
-              <a
-                key={link}
-                href="#"
-                style={{
-                  color: "#888888",
-                  textDecoration: "none",
-                  fontSize: "0.875rem",
-                  transition: "color 0.2s",
-                }}
-                onMouseEnter={(e) => ((e.target as HTMLAnchorElement).style.color = "#F5C400")}
-                onMouseLeave={(e) => ((e.target as HTMLAnchorElement).style.color = "#888888")}
-              >
-                {link}
-              </a>
-            ))}
-          </div>
-        </div>
-
-        <div>
-          <h4 style={{ color: "#FFFFFF", fontSize: "0.9rem", fontWeight: 700, marginBottom: "16px", textTransform: "uppercase", letterSpacing: "0.06em" }}>
-            Contact
-          </h4>
-          <p style={{ color: "#888888", fontSize: "0.875rem", margin: 0 }}>
-            hello@techiehive.com
-          </p>
-        </div>
-      </div>
-
-      <div
-        style={{
-          borderTop: "1px solid #1a1a1a",
-          padding: "20px 0",
-          textAlign: "center",
-          maxWidth: "1200px",
-          margin: "0 auto",
-        }}
-      >
-        <p style={{ color: "#555555", fontSize: "0.8rem", margin: 0 }}>
-          © 2025 Techiehive. All rights reserved.
-        </p>
-      </div>
-    </footer>
-  );
-}
-
 function Home() {
   return (
     <div style={{ backgroundColor: "#0A0A0A", minHeight: "100vh", color: "#FFFFFF" }}>
-      <Navbar />
+      <NavbarShared />
       <Hero />
       <CoursesSection />
       <BenefitsSection />
-      <Footer />
+      <FooterShared />
     </div>
   );
 }
@@ -531,6 +365,7 @@ function Router() {
   return (
     <Switch>
       <Route path="/" component={Home} />
+      <Route path="/courses" component={CoursesPage} />
       <Route component={NotFound} />
     </Switch>
   );

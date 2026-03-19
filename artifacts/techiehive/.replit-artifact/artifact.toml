@@ -1,0 +1,31 @@
+kind = "web"
+previewPath = "/"
+title = "Techiehive"
+version = "1.0.0"
+id = "artifacts/techiehive"
+router = "path"
+
+[[integratedSkills]]
+name = "react-vite"
+version = "1.0.0"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 20149
+
+[services.development]
+run = "pnpm --filter @workspace/techiehive run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/techiehive", "run", "build" ]
+publicDir = "artifacts/techiehive/dist/public"
+serve = "static"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "20149"
+BASE_PATH = "/"

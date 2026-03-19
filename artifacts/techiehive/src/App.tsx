@@ -209,9 +209,7 @@ function Hero() {
             letterSpacing: "0.06em",
             textTransform: "uppercase",
           }}
-        >
-          Africa's Premier EdTech Platform
-        </div>
+        >Africa's Premium EdTech Platform</div>
         <h1
           style={{
             color: "#FFFFFF",

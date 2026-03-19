@@ -99,7 +99,7 @@ function Navbar() {
       >
         <span
           style={{ color: "#F5C400", fontWeight: 800, fontSize: "1.1rem", letterSpacing: "-0.02em", flexShrink: 0 }}
-          className="text-[22px]">
+          className="text-[25px]">
           Techiehive
         </span>
 

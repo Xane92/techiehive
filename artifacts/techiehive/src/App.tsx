@@ -97,7 +97,7 @@ function Navbar() {
           height: "64px",
         }}
       >
-        <span style={{ color: "#F5C400", fontWeight: 800, fontSize: "1.4rem", letterSpacing: "-0.02em" }}>
+        <span style={{ color: "#F5C400", fontWeight: 800, fontSize: "1.1rem", letterSpacing: "-0.02em" }}>
           Techiehive
         </span>
 

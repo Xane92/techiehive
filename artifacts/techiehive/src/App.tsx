@@ -90,19 +90,19 @@ function Navbar() {
         style={{
           maxWidth: "1200px",
           margin: "0 auto",
-          padding: "0 24px",
+          padding: "0 32px",
           display: "flex",
           alignItems: "center",
           justifyContent: "space-between",
-          height: "64px",
+          height: "60px",
         }}
       >
-        <span style={{ color: "#F5C400", fontWeight: 800, fontSize: "1.1rem", letterSpacing: "-0.02em" }}>
+        <span style={{ color: "#F5C400", fontWeight: 800, fontSize: "1.1rem", letterSpacing: "-0.02em", flexShrink: 0 }}>
           Techiehive
         </span>
 
-        <div style={{ display: "flex", alignItems: "center", gap: "32px" }}>
-          <div style={{ display: "flex", gap: "24px" }} className="nav-links">
+        <div style={{ display: "flex", alignItems: "center", gap: "40px" }}>
+          <div style={{ display: "flex", gap: "28px" }} className="nav-links">
             {["Home", "Courses", "About", "Contact"].map((link) => (
               <a
                 key={link}
@@ -110,34 +110,36 @@ function Navbar() {
                 style={{
                   color: "#FFFFFF",
                   textDecoration: "none",
-                  fontSize: "0.9rem",
-                  opacity: 0.8,
+                  fontSize: "0.875rem",
+                  opacity: 0.75,
                   transition: "opacity 0.2s",
                 }}
                 onMouseEnter={(e) => ((e.target as HTMLAnchorElement).style.opacity = "1")}
-                onMouseLeave={(e) => ((e.target as HTMLAnchorElement).style.opacity = "0.8")}
+                onMouseLeave={(e) => ((e.target as HTMLAnchorElement).style.opacity = "0.75")}
               >
                 {link}
               </a>
             ))}
           </div>
 
-          <div style={{ display: "flex", gap: "12px" }}>
+          <div style={{ display: "flex", gap: "10px", alignItems: "center" }}>
             <button
               style={{
                 background: "transparent",
                 border: "1.5px solid #F5C400",
                 color: "#F5C400",
-                padding: "8px 20px",
+                padding: "8px 16px",
                 borderRadius: "6px",
                 fontSize: "0.875rem",
                 fontWeight: 600,
                 cursor: "pointer",
+                height: "36px",
+                lineHeight: 1,
                 transition: "background 0.2s",
               }}
               onMouseEnter={(e) => ((e.currentTarget as HTMLButtonElement).style.background = "rgba(245,196,0,0.08)")}
               onMouseLeave={(e) => ((e.currentTarget as HTMLButtonElement).style.background = "transparent")}
-              className="rounded-tl-[3px] rounded-tr-[3px] rounded-br-[3px] rounded-bl-[3px]">
+            >
               Login
             </button>
             <button
@@ -145,11 +147,13 @@ function Navbar() {
                 background: "#F5C400",
                 border: "none",
                 color: "#0A0A0A",
-                padding: "8px 20px",
+                padding: "8px 16px",
                 borderRadius: "6px",
                 fontSize: "0.875rem",
                 fontWeight: 700,
                 cursor: "pointer",
+                height: "36px",
+                lineHeight: 1,
                 transition: "opacity 0.2s",
               }}
               onMouseEnter={(e) => ((e.currentTarget as HTMLButtonElement).style.opacity = "0.85")}
@@ -237,11 +241,13 @@ function Hero() {
               background: "#F5C400",
               border: "none",
               color: "#0A0A0A",
-              padding: "14px 32px",
+              padding: "12px 24px",
               borderRadius: "8px",
-              fontSize: "1rem",
+              fontSize: "0.9375rem",
               fontWeight: 700,
               cursor: "pointer",
+              maxHeight: "48px",
+              lineHeight: 1,
               transition: "opacity 0.2s",
             }}
             onMouseEnter={(e) => ((e.currentTarget as HTMLButtonElement).style.opacity = "0.85")}
@@ -254,11 +260,13 @@ function Hero() {
               background: "transparent",
               border: "1.5px solid #FFFFFF",
               color: "#FFFFFF",
-              padding: "14px 32px",
+              padding: "12px 24px",
               borderRadius: "8px",
-              fontSize: "1rem",
+              fontSize: "0.9375rem",
               fontWeight: 600,
               cursor: "pointer",
+              maxHeight: "48px",
+              lineHeight: 1,
               transition: "background 0.2s",
             }}
             onMouseEnter={(e) => ((e.currentTarget as HTMLButtonElement).style.background = "rgba(255,255,255,0.07)")}

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Switch, Route, Router as WouterRouter } from "wouter";
+import { Switch, Route, Router as WouterRouter, Link } from "wouter";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -143,25 +143,27 @@ function Hero() {
           Techiehive offers structured video courses in web development, design, and digital skills — built for beginners who want real results.
         </p>
         <div style={{ display: "flex", gap: "16px", justifyContent: "center", flexWrap: "wrap" }}>
-          <button
-            style={{
-              background: "#F5C400",
-              border: "none",
-              color: "#0A0A0A",
-              padding: "12px 24px",
-              borderRadius: "8px",
-              fontSize: "0.9375rem",
-              fontWeight: 700,
-              cursor: "pointer",
-              maxHeight: "48px",
-              lineHeight: 1,
-              transition: "opacity 0.2s",
-            }}
-            onMouseEnter={(e) => ((e.currentTarget as HTMLButtonElement).style.opacity = "0.85")}
-            onMouseLeave={(e) => ((e.currentTarget as HTMLButtonElement).style.opacity = "1")}
-          >
-            View Courses
-          </button>
+          <Link href="/courses" style={{ textDecoration: "none" }}>
+            <button
+              style={{
+                background: "#F5C400",
+                border: "none",
+                color: "#0A0A0A",
+                padding: "12px 24px",
+                borderRadius: "8px",
+                fontSize: "0.9375rem",
+                fontWeight: 700,
+                cursor: "pointer",
+                maxHeight: "48px",
+                lineHeight: 1,
+                transition: "opacity 0.2s",
+              }}
+              onMouseEnter={(e) => ((e.currentTarget as HTMLButtonElement).style.opacity = "0.85")}
+              onMouseLeave={(e) => ((e.currentTarget as HTMLButtonElement).style.opacity = "1")}
+            >
+              View Courses
+            </button>
+          </Link>
           <button
             style={{
               background: "transparent",

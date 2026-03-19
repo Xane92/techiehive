@@ -137,7 +137,7 @@ function Navbar() {
               }}
               onMouseEnter={(e) => ((e.currentTarget as HTMLButtonElement).style.background = "rgba(245,196,0,0.08)")}
               onMouseLeave={(e) => ((e.currentTarget as HTMLButtonElement).style.background = "transparent")}
-            >
+              className="rounded-tl-[3px] rounded-tr-[3px] rounded-br-[3px] rounded-bl-[3px]">
               Login
             </button>
             <button

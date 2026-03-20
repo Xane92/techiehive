@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Switch, Route, Router as WouterRouter, Link, useLocation } from "wouter";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
@@ -232,17 +232,34 @@ function CoursesSection() {
 function CourseCard({ course }: { course: { id: number; title: string; description: string } }) {
   const [hovered, setHovered] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [enrolled, setEnrolled] = useState(false);
+  const [error, setError] = useState("");
   const [, setLocation] = useLocation();
 
-  async function handleEnroll() {
+  useEffect(() => {
+    const userRaw = localStorage.getItem("user");
+    const token = localStorage.getItem("token");
+    if (!userRaw || !token) return;
+    try {
+      const user = JSON.parse(userRaw) as { id: number };
+      fetch(`/api/enrollments/${user.id}`)
+        .then((r) => r.json())
+        .then((data) => {
+          const ids: number[] = (data.enrollments ?? []).map((e: { course_id: number }) => e.course_id);
+          if (ids.includes(course.id)) setEnrolled(true);
+        })
+        .catch(() => {});
+    } catch {}
+  }, [course.id]);
+
+  async function handleClick() {
+    if (enrolled) { setLocation(`/learn/${course.id}`); return; }
     const token = localStorage.getItem("token");
     const userRaw = localStorage.getItem("user");
-    if (!token || !userRaw) {
-      setLocation("/login");
-      return;
-    }
+    if (!token || !userRaw) { setLocation("/login"); return; }
     const user = JSON.parse(userRaw) as { email: string };
     setLoading(true);
+    setError("");
     try {
       const callbackUrl = `${window.location.origin}/payment/verify`;
       const res = await fetch("/api/payment/initialize", {
@@ -251,9 +268,11 @@ function CourseCard({ course }: { course: { id: number; title: string; descripti
         body: JSON.stringify({ email: user.email, amount: COURSE_AMOUNT, courseId: course.id, callbackUrl }),
       });
       const data = await res.json();
-      if (res.ok) window.location.href = data.authorization_url;
+      if (res.status === 409) { setEnrolled(true); setError(data.error); }
+      else if (res.ok) window.location.href = data.authorization_url;
+      else setError(data.error ?? "Payment initialization failed.");
     } catch {
-      /* silently fail on network errors */
+      setError("Network error. Please try again.");
     } finally {
       setLoading(false);
     }
@@ -303,14 +322,15 @@ function CourseCard({ course }: { course: { id: number; title: string; descripti
       <p style={{ color: "#888888", fontSize: "0.875rem", lineHeight: 1.6, margin: 0, flexGrow: 1 }}>
         {course.description}
       </p>
+      {error && <p style={{ color: "#ff6b6b", fontSize: "0.78rem", margin: 0 }}>{error}</p>}
       <button
-        onClick={handleEnroll}
+        onClick={handleClick}
         disabled={loading}
         style={{
           marginTop: "8px",
-          background: hovered ? "#F5C400" : "transparent",
+          background: enrolled ? "#F5C400" : hovered ? "#F5C400" : "transparent",
           border: "1.5px solid #F5C400",
-          color: hovered ? "#0A0A0A" : "#F5C400",
+          color: enrolled ? "#0A0A0A" : hovered ? "#0A0A0A" : "#F5C400",
           padding: "10px 20px",
           borderRadius: "6px",
           fontSize: "0.875rem",
@@ -321,7 +341,7 @@ function CourseCard({ course }: { course: { id: number; title: string; descripti
           alignSelf: "flex-start",
         }}
       >
-        {loading ? "Processing…" : "Enroll Now"}
+        {loading ? "Processing…" : enrolled ? "Continue Learning →" : "Enroll Now"}
       </button>
     </div>
   );

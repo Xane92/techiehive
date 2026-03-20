@@ -20,6 +20,18 @@ router.post("/payment/initialize", async (req, res) => {
   }
 
   try {
+    const userLookup = await pool.query("SELECT id FROM users WHERE email = $1", [email.toLowerCase()]);
+    if (userLookup.rows.length > 0) {
+      const userId: number = userLookup.rows[0].id;
+      const existing = await pool.query(
+        "SELECT id FROM enrollments WHERE user_id = $1 AND course_id = $2",
+        [userId, courseId]
+      );
+      if (existing.rows.length > 0) {
+        return res.status(409).json({ error: "You are already enrolled in this course." });
+      }
+    }
+
     const response = await axios.post(
       "https://api.paystack.co/transaction/initialize",
       {

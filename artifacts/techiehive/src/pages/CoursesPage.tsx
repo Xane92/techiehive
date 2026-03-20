@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useLocation } from "wouter";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -45,39 +45,43 @@ function CourseDetailCard({ course }: { course: typeof courses[0] }) {
   const [, setLocation] = useLocation();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [enrolled, setEnrolled] = useState(false);
 
-  async function handleEnroll() {
+  useEffect(() => {
+    const userRaw = localStorage.getItem("user");
+    const token = localStorage.getItem("token");
+    if (!userRaw || !token) return;
+    try {
+      const user = JSON.parse(userRaw) as { id: number };
+      fetch(`/api/enrollments/${user.id}`)
+        .then((r) => r.json())
+        .then((data) => {
+          const ids: number[] = (data.enrollments ?? []).map((e: { course_id: number }) => e.course_id);
+          if (ids.includes(course.id)) setEnrolled(true);
+        })
+        .catch(() => {});
+    } catch {}
+  }, [course.id]);
+
+  async function handleClick() {
+    if (enrolled) { setLocation(`/learn/${course.id}`); return; }
     const token = localStorage.getItem("token");
     const userRaw = localStorage.getItem("user");
-
-    if (!token || !userRaw) {
-      setLocation("/login");
-      return;
-    }
-
+    if (!token || !userRaw) { setLocation("/login"); return; }
     const user = JSON.parse(userRaw) as { email: string };
     setLoading(true);
     setError("");
-
     try {
       const callbackUrl = `${window.location.origin}/payment/verify`;
       const res = await fetch("/api/payment/initialize", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          email: user.email,
-          amount: COURSE_AMOUNT,
-          courseId: course.id,
-          callbackUrl,
-        }),
+        body: JSON.stringify({ email: user.email, amount: COURSE_AMOUNT, courseId: course.id, callbackUrl }),
       });
-
       const data = await res.json();
-      if (!res.ok) {
-        setError(data.error ?? "Payment initialization failed.");
-      } else {
-        window.location.href = data.authorization_url;
-      }
+      if (res.status === 409) { setEnrolled(true); setError(data.error); }
+      else if (res.ok) window.location.href = data.authorization_url;
+      else setError(data.error ?? "Payment initialization failed.");
     } catch {
       setError("Network error. Please try again.");
     } finally {
@@ -157,7 +161,7 @@ function CourseDetailCard({ course }: { course: typeof courses[0] }) {
       )}
 
       <button
-        onClick={handleEnroll}
+        onClick={handleClick}
         disabled={loading}
         style={{
           marginTop: "auto",
@@ -176,7 +180,7 @@ function CourseDetailCard({ course }: { course: typeof courses[0] }) {
         onMouseEnter={(e) => { if (!loading) (e.currentTarget as HTMLButtonElement).style.opacity = "0.85"; }}
         onMouseLeave={(e) => { if (!loading) (e.currentTarget as HTMLButtonElement).style.opacity = "1"; }}
       >
-        {loading ? "Processing…" : "Enroll Now — ₦15,000"}
+        {loading ? "Processing…" : enrolled ? "Continue Learning →" : "Enroll Now — ₦15,000"}
       </button>
     </div>
   );

@@ -5,14 +5,34 @@ import Footer from "@/components/Footer";
 export default function ContactPage() {
   const [form, setForm] = useState({ name: "", email: "", message: "" });
   const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
 
   function handleChange(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) {
     setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   }
 
-  function handleSubmit(e: React.FormEvent) {
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    setSubmitted(true);
+    setLoading(true);
+    setError("");
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form),
+      });
+      const data = await res.json();
+      if (res.ok) {
+        setSubmitted(true);
+      } else {
+        setError(data.error ?? "Failed to send message. Please try again.");
+      }
+    } catch {
+      setError("Network error. Please try again.");
+    } finally {
+      setLoading(false);
+    }
   }
 
   const inputStyle: React.CSSProperties = {
@@ -91,10 +111,10 @@ export default function ContactPage() {
           >
             <div style={{ fontSize: "2rem", marginBottom: "16px" }}>✓</div>
             <h3 style={{ color: "#F5C400", fontWeight: 700, fontSize: "1.1rem", marginBottom: "10px" }}>
-              Message Sent
+              Message Sent!
             </h3>
             <p style={{ color: "#888888", fontSize: "0.9rem", margin: 0 }}>
-              Thanks for reaching out! We'll get back to you at {form.email}.
+              Thanks for reaching out, {form.name}! We'll get back to you at {form.email} as soon as possible.
             </p>
           </div>
         ) : (
@@ -144,8 +164,15 @@ export default function ContactPage() {
               />
             </div>
 
+            {error && (
+              <p style={{ color: "#ff6b6b", fontSize: "0.875rem", margin: 0, background: "rgba(239,68,68,0.08)", border: "1px solid rgba(239,68,68,0.2)", padding: "12px 16px", borderRadius: "8px" }}>
+                {error}
+              </p>
+            )}
+
             <button
               type="submit"
+              disabled={loading}
               style={{
                 background: "#F5C400",
                 border: "none",
@@ -154,14 +181,15 @@ export default function ContactPage() {
                 borderRadius: "8px",
                 fontSize: "0.9375rem",
                 fontWeight: 700,
-                cursor: "pointer",
+                cursor: loading ? "not-allowed" : "pointer",
                 alignSelf: "flex-start",
+                opacity: loading ? 0.7 : 1,
                 transition: "opacity 0.2s",
               }}
-              onMouseEnter={(e) => ((e.currentTarget as HTMLButtonElement).style.opacity = "0.85")}
-              onMouseLeave={(e) => ((e.currentTarget as HTMLButtonElement).style.opacity = "1")}
+              onMouseEnter={(e) => { if (!loading) (e.currentTarget as HTMLButtonElement).style.opacity = "0.85"; }}
+              onMouseLeave={(e) => { (e.currentTarget as HTMLButtonElement).style.opacity = loading ? "0.7" : "1"; }}
             >
-              Send Message
+              {loading ? "Sending…" : "Send Message"}
             </button>
           </form>
         )}
@@ -171,10 +199,10 @@ export default function ContactPage() {
             Email
           </p>
           <a
-            href="mailto:hello@techiehive.com"
+            href="mailto:techiehive001@gmail.com"
             style={{ color: "#F5C400", fontSize: "0.95rem", textDecoration: "none", fontWeight: 600 }}
           >
-            hello@techiehive.com
+            techiehive001@gmail.com
           </a>
         </div>
       </div>

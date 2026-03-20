@@ -56,7 +56,7 @@ export default function Footer() {
             Contact
           </h4>
           <p style={{ color: "#888888", fontSize: "0.875rem", margin: 0 }}>
-            hello@techiehive.com
+            techiehive001@gmail.com
           </p>
         </div>
       </div>

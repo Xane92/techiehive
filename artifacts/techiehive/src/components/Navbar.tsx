@@ -54,44 +54,48 @@ export default function Navbar() {
           </div>
 
           <div style={{ display: "flex", gap: "10px", alignItems: "center" }}>
-            <button
-              style={{
-                background: "transparent",
-                border: "1.5px solid #F5C400",
-                color: "#F5C400",
-                padding: "8px 16px",
-                borderRadius: "6px",
-                fontSize: "0.875rem",
-                fontWeight: 600,
-                cursor: "pointer",
-                height: "36px",
-                lineHeight: 1,
-                transition: "background 0.2s",
-              }}
-              onMouseEnter={(e) => ((e.currentTarget as HTMLButtonElement).style.background = "rgba(245,196,0,0.08)")}
-              onMouseLeave={(e) => ((e.currentTarget as HTMLButtonElement).style.background = "transparent")}
-            >
-              Login
-            </button>
-            <button
-              style={{
-                background: "#F5C400",
-                border: "none",
-                color: "#0A0A0A",
-                padding: "8px 16px",
-                borderRadius: "6px",
-                fontSize: "0.875rem",
-                fontWeight: 700,
-                cursor: "pointer",
-                height: "36px",
-                lineHeight: 1,
-                transition: "opacity 0.2s",
-              }}
-              onMouseEnter={(e) => ((e.currentTarget as HTMLButtonElement).style.opacity = "0.85")}
-              onMouseLeave={(e) => ((e.currentTarget as HTMLButtonElement).style.opacity = "1")}
-            >
-              Enroll Now
-            </button>
+            <Link href="/login" style={{ textDecoration: "none" }}>
+              <button
+                style={{
+                  background: "transparent",
+                  border: "1.5px solid #F5C400",
+                  color: "#F5C400",
+                  padding: "8px 16px",
+                  borderRadius: "6px",
+                  fontSize: "0.875rem",
+                  fontWeight: 600,
+                  cursor: "pointer",
+                  height: "36px",
+                  lineHeight: 1,
+                  transition: "background 0.2s",
+                }}
+                onMouseEnter={(e) => ((e.currentTarget as HTMLButtonElement).style.background = "rgba(245,196,0,0.08)")}
+                onMouseLeave={(e) => ((e.currentTarget as HTMLButtonElement).style.background = "transparent")}
+              >
+                Login
+              </button>
+            </Link>
+            <Link href="/register" style={{ textDecoration: "none" }}>
+              <button
+                style={{
+                  background: "#F5C400",
+                  border: "none",
+                  color: "#0A0A0A",
+                  padding: "8px 16px",
+                  borderRadius: "6px",
+                  fontSize: "0.875rem",
+                  fontWeight: 700,
+                  cursor: "pointer",
+                  height: "36px",
+                  lineHeight: 1,
+                  transition: "opacity 0.2s",
+                }}
+                onMouseEnter={(e) => ((e.currentTarget as HTMLButtonElement).style.opacity = "0.85")}
+                onMouseLeave={(e) => ((e.currentTarget as HTMLButtonElement).style.opacity = "1")}
+              >
+                Enroll Now
+              </button>
+            </Link>
           </div>
         </div>
       </div>

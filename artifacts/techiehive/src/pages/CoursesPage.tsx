@@ -13,16 +13,6 @@ const courses = [
     ],
   },
   {
-    title: "Front End Web Development",
-    description: "Master the visual side of the web. HTML, CSS, JavaScript, and React for stunning interfaces.",
-    bullets: [
-      "Semantic HTML & responsive CSS",
-      "JavaScript DOM manipulation",
-      "React components, hooks & state",
-      "UI/UX design principles",
-    ],
-  },
-  {
     title: "Video Editing",
     description: "Learn professional editing techniques for content creation, YouTube, and brand videos.",
     bullets: [
@@ -40,16 +30,6 @@ const courses = [
       "Typography & color theory",
       "Social media graphic creation",
       "Adobe & Canva tool mastery",
-    ],
-  },
-  {
-    title: "YouTube Automation",
-    description: "Learn how to build and grow faceless YouTube channels that generate income.",
-    bullets: [
-      "Niche research & channel setup",
-      "Scripting & voiceover workflows",
-      "Thumbnail & SEO optimization",
-      "Monetization & scaling strategies",
     ],
   },
 ];

@@ -16,20 +16,12 @@ const courses = [
     description: "Build complete web applications from front to back using modern frameworks and tools.",
   },
   {
-    title: "Front End Web Development",
-    description: "Master HTML, CSS, JavaScript, and React to craft stunning user interfaces.",
-  },
-  {
     title: "Video Editing",
     description: "Learn professional video editing techniques for content creation and production.",
   },
   {
     title: "Graphics Design",
     description: "Create compelling visuals, logos, and brand identities using industry tools.",
-  },
-  {
-    title: "YouTube Automation",
-    description: "Build and grow automated YouTube channels with proven systems and strategies.",
   },
 ];
 

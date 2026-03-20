@@ -152,13 +152,15 @@ export default function DashboardPage() {
                     <span style={{ color: "#22c55e", fontSize: "0.78rem", fontWeight: 600 }}>Enrolled</span>
                   </div>
 
-                  <button
-                    style={{ background: "#F5C400", border: "none", color: "#0A0A0A", padding: "10px 18px", borderRadius: "7px", fontSize: "0.875rem", fontWeight: 700, cursor: "pointer", transition: "opacity 0.2s", marginTop: "auto" }}
-                    onMouseEnter={(e) => ((e.currentTarget as HTMLButtonElement).style.opacity = "0.85")}
-                    onMouseLeave={(e) => ((e.currentTarget as HTMLButtonElement).style.opacity = "1")}
-                  >
-                    Start Learning
-                  </button>
+                  <Link href={`/learn/${enrollment.course_id}`} style={{ textDecoration: "none", marginTop: "auto" }}>
+                    <button
+                      style={{ width: "100%", background: "#F5C400", border: "none", color: "#0A0A0A", padding: "10px 18px", borderRadius: "7px", fontSize: "0.875rem", fontWeight: 700, cursor: "pointer", transition: "opacity 0.2s" }}
+                      onMouseEnter={(e) => ((e.currentTarget as HTMLButtonElement).style.opacity = "0.85")}
+                      onMouseLeave={(e) => ((e.currentTarget as HTMLButtonElement).style.opacity = "1")}
+                    >
+                      Start Learning
+                    </button>
+                  </Link>
                 </div>
               ))}
             </div>

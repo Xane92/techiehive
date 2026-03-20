@@ -1,0 +1,39 @@
+> Build the full student course learning experience. Here is exactly what should happen:
+>
+> **Database:**
+> 1. Create a `lessons` table with fields: `id`, `course_id`, `title`, `youtube_url`, `order_index`
+> 2. Create a `progress` table with fields: `id`, `user_id`, `lesson_id`, `completed`, `completed_at`
+> 3. Insert the following lessons into the database:
+>
+> Course ID 1 (Full Stack Web Development):
+> - Lesson 1: "Introduction to Web Development" — https://youtu.be/nu_pCVPKzTk
+> - Lesson 2: "HTML & CSS Fundamentals" — https://youtu.be/7NaeDBTRY1k
+> - Lesson 3: "JavaScript Basics" — https://youtu.be/dPMk6_HTBq8
+>
+> Course ID 2 (Video Editing):
+> - Lesson 1: "Introduction to Video Editing" — https://youtu.be/954L0eVIdaE
+> - Lesson 2: "Editing Techniques" — https://youtu.be/sNjyOSADDxE
+> - Lesson 3: "Advanced Editing" — https://youtu.be/MCDVcQIA3UM
+>
+> Course ID 3 (Graphics Design):
+> - Lesson 1: "Introduction to Graphics Design" — https://youtu.be/GQS7wPujL2k
+> - Lesson 2: "Design Principles" — https://youtu.be/SnxFkHqN1RA
+> - Lesson 3: "Advanced Design Techniques" — https://youtu.be/wwo6Gdx3x7s
+>
+> **Backend:**
+> 1. Create a GET route `/api/courses/:courseId/lessons` — returns all lessons for a course in order
+> 2. Create a POST route `/api/progress/complete` — accepts `userId` and `lessonId`, marks that lesson as completed for that user
+> 3. Create a GET route `/api/progress/:userId/:courseId` — returns all completed lesson IDs for a user in a specific course
+>
+> **Frontend:**
+> 1. When a user clicks "Start Learning" on an enrolled course in their dashboard, take them to a new page `/learn/:courseId`
+> 2. On the `/learn/:courseId` page:
+>    - Show the course title at the top
+>    - On the left side: a list of all lessons for the course. Each lesson shows its title and a checkmark if completed
+>    - On the right side: an embedded YouTube video player for the currently selected lesson
+>    - When the user clicks a lesson in the list, it loads that video on the right
+>    - Each lesson has a "Mark as Complete" button below the video. When clicked, it calls `/api/progress/complete` and marks that lesson as done, updating the checkmark in the lesson list
+>    - Show a progress bar at the top showing how many lessons are completed out of total (e.g. "2 of 3 completed")
+> 3. This page should only be accessible to logged in users who are enrolled in that course. If not enrolled, redirect to `/courses`
+>
+> Use the same yellow/black color scheme throughout.

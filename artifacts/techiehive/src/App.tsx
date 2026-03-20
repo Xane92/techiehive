@@ -13,6 +13,7 @@ import RegisterPage from "@/pages/RegisterPage";
 import LoginPage from "@/pages/LoginPage";
 import DashboardPage from "@/pages/DashboardPage";
 import PaymentVerifyPage from "@/pages/PaymentVerifyPage";
+import LearnPage from "@/pages/LearnPage";
 
 const queryClient = new QueryClient();
 
@@ -404,6 +405,7 @@ function Router() {
       <Route path="/login" component={LoginPage} />
       <Route path="/dashboard" component={DashboardPage} />
       <Route path="/payment/verify" component={PaymentVerifyPage} />
+      <Route path="/learn/:courseId" component={LearnPage} />
       <Route component={NotFound} />
     </Switch>
   );

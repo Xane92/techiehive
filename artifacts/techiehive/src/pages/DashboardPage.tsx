@@ -3,9 +3,30 @@ import { useLocation, Link } from "wouter";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
+const COURSE_NAMES: Record<number, string> = {
+  1: "Full Stack Web Development",
+  2: "Video Editing",
+  3: "Graphics Design",
+};
+
+interface Enrollment {
+  id: number;
+  course_id: number;
+  paid_at: string;
+  amount: number;
+}
+
+interface StoredUser {
+  id: number;
+  full_name: string;
+  email: string;
+}
+
 export default function DashboardPage() {
   const [, setLocation] = useLocation();
-  const [user, setUser] = useState<{ full_name: string; email: string } | null>(null);
+  const [user, setUser] = useState<StoredUser | null>(null);
+  const [enrollments, setEnrollments] = useState<Enrollment[]>([]);
+  const [enrollmentsLoading, setEnrollmentsLoading] = useState(true);
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -15,7 +36,20 @@ export default function DashboardPage() {
       return;
     }
     try {
-      setUser(JSON.parse(stored));
+      const parsedUser: StoredUser = JSON.parse(stored);
+      setUser(parsedUser);
+
+      fetch(`/api/enrollments/${parsedUser.id}`)
+        .then((res) => res.json())
+        .then((data) => {
+          setEnrollments(data.enrollments ?? []);
+        })
+        .catch(() => {
+          setEnrollments([]);
+        })
+        .finally(() => {
+          setEnrollmentsLoading(false);
+        });
     } catch {
       setLocation("/login");
     }
@@ -55,25 +89,80 @@ export default function DashboardPage() {
           </button>
         </div>
 
-        <div style={{ background: "#111111", border: "1.5px solid rgba(245,196,0,0.2)", borderRadius: "12px", padding: "40px 32px", textAlign: "center" }}>
-          <div style={{ width: "56px", height: "56px", background: "rgba(245,196,0,0.1)", borderRadius: "12px", display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto 20px", fontSize: "1.5rem" }}>
-            🚧
-          </div>
-          <h2 style={{ color: "#FFFFFF", fontSize: "1.3rem", fontWeight: 700, marginBottom: "12px" }}>
-            Welcome to your Dashboard
+        <div style={{ marginBottom: "40px" }}>
+          <h2 style={{ color: "#FFFFFF", fontSize: "1.2rem", fontWeight: 700, marginBottom: "24px" }}>
+            My Courses
           </h2>
-          <p style={{ color: "#888888", fontSize: "0.9rem", lineHeight: 1.6, maxWidth: "400px", margin: "0 auto 24px" }}>
-            Your learning portal is coming soon. In the meantime, browse our available courses and get ready to start learning.
-          </p>
-          <Link href="/courses">
-            <button
-              style={{ background: "#F5C400", border: "none", color: "#0A0A0A", padding: "12px 24px", borderRadius: "8px", fontSize: "0.9rem", fontWeight: 700, cursor: "pointer", transition: "opacity 0.2s" }}
-              onMouseEnter={(e) => ((e.currentTarget as HTMLButtonElement).style.opacity = "0.85")}
-              onMouseLeave={(e) => ((e.currentTarget as HTMLButtonElement).style.opacity = "1")}
-            >
-              Browse Courses
-            </button>
-          </Link>
+
+          {enrollmentsLoading ? (
+            <div style={{ display: "flex", gap: "16px" }}>
+              {[1, 2].map((n) => (
+                <div key={n} style={{ flex: 1, background: "#111111", borderRadius: "12px", height: "120px", border: "1.5px solid #1f1f1f", opacity: 0.5 }} />
+              ))}
+            </div>
+          ) : enrollments.length === 0 ? (
+            <div style={{ background: "#111111", border: "1.5px solid #1f1f1f", borderRadius: "12px", padding: "40px 32px", textAlign: "center" }}>
+              <div style={{ fontSize: "2rem", marginBottom: "16px" }}>📚</div>
+              <p style={{ color: "#888888", fontSize: "0.95rem", lineHeight: 1.6, marginBottom: "24px" }}>
+                You have no enrolled courses yet. Browse our courses to get started.
+              </p>
+              <Link href="/courses">
+                <button
+                  style={{ background: "#F5C400", border: "none", color: "#0A0A0A", padding: "12px 24px", borderRadius: "8px", fontSize: "0.9rem", fontWeight: 700, cursor: "pointer", transition: "opacity 0.2s" }}
+                  onMouseEnter={(e) => ((e.currentTarget as HTMLButtonElement).style.opacity = "0.85")}
+                  onMouseLeave={(e) => ((e.currentTarget as HTMLButtonElement).style.opacity = "1")}
+                >
+                  Browse Courses
+                </button>
+              </Link>
+            </div>
+          ) : (
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(260px, 1fr))", gap: "20px" }}>
+              {enrollments.map((enrollment) => (
+                <div
+                  key={enrollment.id}
+                  style={{
+                    background: "#111111",
+                    border: "1.5px solid rgba(245,196,0,0.25)",
+                    borderRadius: "12px",
+                    padding: "24px 20px",
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: "14px",
+                  }}
+                >
+                  <div style={{ width: "40px", height: "40px", background: "rgba(245,196,0,0.1)", borderRadius: "8px", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#F5C400" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M22 10v6M2 10l10-5 10 5-10 5z"/>
+                      <path d="M6 12v5c3 3 9 3 12 0v-5"/>
+                    </svg>
+                  </div>
+
+                  <div>
+                    <h3 style={{ color: "#FFFFFF", fontSize: "1rem", fontWeight: 700, margin: "0 0 6px" }}>
+                      {COURSE_NAMES[enrollment.course_id] ?? `Course #${enrollment.course_id}`}
+                    </h3>
+                    <p style={{ color: "#555555", fontSize: "0.78rem", margin: 0 }}>
+                      Enrolled {new Date(enrollment.paid_at).toLocaleDateString("en-NG", { day: "numeric", month: "short", year: "numeric" })}
+                    </p>
+                  </div>
+
+                  <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+                    <span style={{ width: "8px", height: "8px", background: "#22c55e", borderRadius: "50%", flexShrink: 0 }} />
+                    <span style={{ color: "#22c55e", fontSize: "0.78rem", fontWeight: 600 }}>Enrolled</span>
+                  </div>
+
+                  <button
+                    style={{ background: "#F5C400", border: "none", color: "#0A0A0A", padding: "10px 18px", borderRadius: "7px", fontSize: "0.875rem", fontWeight: 700, cursor: "pointer", transition: "opacity 0.2s", marginTop: "auto" }}
+                    onMouseEnter={(e) => ((e.currentTarget as HTMLButtonElement).style.opacity = "0.85")}
+                    onMouseLeave={(e) => ((e.currentTarget as HTMLButtonElement).style.opacity = "1")}
+                  >
+                    Start Learning
+                  </button>
+                </div>
+              ))}
+            </div>
+          )}
         </div>
       </div>
 

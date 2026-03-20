@@ -64,7 +64,7 @@ router.get("/payment/verify/:reference", async (req, res) => {
       return res.status(402).json({ error: "Payment was not successful.", status: txData.status });
     }
 
-    const courseId: number = txData.metadata?.courseId ?? 0;
+    const courseId: number = parseInt(String(txData.metadata?.courseId ?? "0"), 10);
     const amountPaid: number = Math.round(txData.amount / 100);
     const email: string = txData.customer?.email ?? "";
 

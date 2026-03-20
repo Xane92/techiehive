@@ -32,8 +32,8 @@ export default function Navbar() {
             {[
               { label: "Home", href: "/" },
               { label: "Courses", href: "/courses" },
-              { label: "About", href: "#" },
-              { label: "Contact", href: "#" },
+              { label: "About", href: "/about" },
+              { label: "Contact", href: "/contact" },
             ].map(({ label, href }) => (
               <Link
                 key={label}

@@ -7,6 +7,8 @@ import NotFound from "@/pages/not-found";
 import NavbarShared from "@/components/Navbar";
 import FooterShared from "@/components/Footer";
 import CoursesPage from "@/pages/CoursesPage";
+import AboutPage from "@/pages/AboutPage";
+import ContactPage from "@/pages/ContactPage";
 
 const queryClient = new QueryClient();
 
@@ -360,6 +362,8 @@ function Router() {
     <Switch>
       <Route path="/" component={Home} />
       <Route path="/courses" component={CoursesPage} />
+      <Route path="/about" component={AboutPage} />
+      <Route path="/contact" component={ContactPage} />
       <Route component={NotFound} />
     </Switch>
   );

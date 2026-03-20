@@ -186,6 +186,7 @@ function Hero() {
             }}
             onMouseEnter={(e) => ((e.currentTarget as HTMLButtonElement).style.background = "rgba(255,255,255,0.07)")}
             onMouseLeave={(e) => ((e.currentTarget as HTMLButtonElement).style.background = "transparent")}
+            onClick={() => document.getElementById("benefits")?.scrollIntoView({ behavior: "smooth" })}
           >
             Learn More
           </button>
@@ -326,7 +327,7 @@ function CourseCard({ course }: { course: { id: number; title: string; descripti
 
 function BenefitsSection() {
   return (
-    <section style={{ background: "#0d0d0d", padding: "96px 24px", borderTop: "1px solid #1a1a1a", borderBottom: "1px solid #1a1a1a" }}>
+    <section id="benefits" style={{ background: "#0d0d0d", padding: "96px 24px", borderTop: "1px solid #1a1a1a", borderBottom: "1px solid #1a1a1a" }}>
       <div style={{ maxWidth: "1200px", margin: "0 auto" }}>
         <div style={{ textAlign: "center", marginBottom: "56px" }}>
           <h2

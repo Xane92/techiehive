@@ -120,6 +120,12 @@ export default function LearnPage() {
   const progressPct = lessons.length > 0 ? Math.round((completedCount / lessons.length) * 100) : 0;
   const isCurrentComplete = selectedLesson ? completedIds.has(selectedLesson.id) : false;
 
+  function isUnlocked(lesson: Lesson): boolean {
+    if (lesson.order_index === 1) return true;
+    const prev = lessons.find((l) => l.order_index === lesson.order_index - 1);
+    return prev ? completedIds.has(prev.id) : false;
+  }
+
   if (loading) {
     return (
       <div style={{ backgroundColor: "#0A0A0A", minHeight: "100vh", color: "#FFFFFF", display: "flex", alignItems: "center", justifyContent: "center" }}>
@@ -169,10 +175,11 @@ export default function LearnPage() {
               {lessons.map((lesson) => {
                 const done = completedIds.has(lesson.id);
                 const active = selectedLesson?.id === lesson.id;
+                const unlocked = isUnlocked(lesson);
                 return (
                   <button
                     key={lesson.id}
-                    onClick={() => setSelectedLesson(lesson)}
+                    onClick={() => { if (unlocked) setSelectedLesson(lesson); }}
                     style={{
                       width: "100%",
                       display: "flex",
@@ -182,37 +189,49 @@ export default function LearnPage() {
                       background: active ? "rgba(245,196,0,0.08)" : "transparent",
                       border: active ? "1px solid rgba(245,196,0,0.2)" : "1px solid transparent",
                       borderRadius: "8px",
-                      cursor: "pointer",
+                      cursor: unlocked ? "pointer" : "not-allowed",
                       textAlign: "left",
                       marginBottom: "4px",
-                      transition: "background 0.15s, border-color 0.15s",
+                      opacity: unlocked ? 1 : 0.38,
+                      transition: "background 0.15s, border-color 0.15s, opacity 0.2s",
                     }}
-                    onMouseEnter={(e) => { if (!active) e.currentTarget.style.background = "rgba(255,255,255,0.04)"; }}
-                    onMouseLeave={(e) => { if (!active) e.currentTarget.style.background = "transparent"; }}
+                    onMouseEnter={(e) => { if (unlocked && !active) e.currentTarget.style.background = "rgba(255,255,255,0.04)"; }}
+                    onMouseLeave={(e) => { if (unlocked && !active) e.currentTarget.style.background = "transparent"; }}
                   >
                     <div style={{
                       width: "24px",
                       height: "24px",
                       borderRadius: "50%",
                       background: done ? "#F5C400" : "transparent",
-                      border: done ? "none" : "1.5px solid #333333",
+                      border: done ? "none" : `1.5px solid ${unlocked ? "#333333" : "#2a2a2a"}`,
                       display: "flex",
                       alignItems: "center",
                       justifyContent: "center",
                       flexShrink: 0,
                       transition: "background 0.2s, border-color 0.2s",
                     }}>
-                      {done && (
+                      {done ? (
                         <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
                           <path d="M2 6l3 3 5-5" stroke="#0A0A0A" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
                         </svg>
-                      )}
+                      ) : !unlocked ? (
+                        <svg width="10" height="11" viewBox="0 0 10 11" fill="none">
+                          <rect x="1" y="5" width="8" height="6" rx="1.5" fill="#444444"/>
+                          <path d="M3 5V3.5a2 2 0 0 1 4 0V5" stroke="#444444" strokeWidth="1.4" strokeLinecap="round"/>
+                        </svg>
+                      ) : null}
                     </div>
                     <div style={{ flex: 1, minWidth: 0 }}>
-                      <p style={{ color: active ? "#F5C400" : done ? "#CCCCCC" : "#FFFFFF", fontSize: "0.84rem", fontWeight: active ? 700 : 500, margin: 0, lineHeight: 1.35 }}>
+                      <p style={{ color: active ? "#F5C400" : done ? "#CCCCCC" : unlocked ? "#FFFFFF" : "#555555", fontSize: "0.84rem", fontWeight: active ? 700 : 500, margin: 0, lineHeight: 1.35 }}>
                         {lesson.order_index}. {lesson.title}
                       </p>
                     </div>
+                    {!unlocked && (
+                      <svg width="11" height="13" viewBox="0 0 11 13" fill="none" style={{ flexShrink: 0 }}>
+                        <rect x="0.5" y="5.5" width="10" height="7" rx="2" fill="none" stroke="#3a3a3a" strokeWidth="1.2"/>
+                        <path d="M2.5 5.5V3.75a3 3 0 0 1 6 0V5.5" stroke="#3a3a3a" strokeWidth="1.2" strokeLinecap="round"/>
+                      </svg>
+                    )}
                   </button>
                 );
               })}
@@ -321,10 +340,12 @@ export default function LearnPage() {
                   )}
                   {lessons[selectedLesson.order_index] && (
                     <button
-                      onClick={() => setSelectedLesson(lessons[selectedLesson.order_index])}
-                      style={{ background: "#F5C400", border: "none", color: "#0A0A0A", padding: "10px 22px", borderRadius: "8px", fontSize: "0.84rem", fontWeight: 700, cursor: "pointer", marginLeft: "auto", transition: "opacity 0.2s" }}
-                      onMouseEnter={(e) => ((e.currentTarget as HTMLButtonElement).style.opacity = "0.85")}
-                      onMouseLeave={(e) => ((e.currentTarget as HTMLButtonElement).style.opacity = "1")}
+                      onClick={() => { if (isCurrentComplete) setSelectedLesson(lessons[selectedLesson.order_index]); }}
+                      disabled={!isCurrentComplete}
+                      title={isCurrentComplete ? undefined : "Complete this lesson to unlock the next one"}
+                      style={{ background: isCurrentComplete ? "#F5C400" : "#1a1a1a", border: isCurrentComplete ? "none" : "1.5px solid #2a2a2a", color: isCurrentComplete ? "#0A0A0A" : "#444444", padding: "10px 22px", borderRadius: "8px", fontSize: "0.84rem", fontWeight: 700, cursor: isCurrentComplete ? "pointer" : "not-allowed", marginLeft: "auto", transition: "opacity 0.2s", opacity: 1 }}
+                      onMouseEnter={(e) => { if (isCurrentComplete) (e.currentTarget as HTMLButtonElement).style.opacity = "0.85"; }}
+                      onMouseLeave={(e) => { (e.currentTarget as HTMLButtonElement).style.opacity = "1"; }}
                     >
                       Next →
                     </button>

@@ -409,3 +409,39 @@
     inset: -1px;
   }
 }
+
+/* ============================================================
+   Techiehive — Course grid layouts
+   ============================================================ */
+.courses-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.courses-detail-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 28px;
+}
+
+/* ============================================================
+   Techiehive — Mobile responsive overrides (< 768px)
+   ============================================================ */
+@media (max-width: 767px) {
+  /* Course grids: single column */
+  .courses-grid,
+  .courses-detail-grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* Course cards on homepage: compact padding */
+  .courses-grid > div {
+    padding: 20px 18px;
+  }
+
+  /* Prevent hero from causing horizontal scroll */
+  body {
+    overflow-x: hidden;
+  }
+}

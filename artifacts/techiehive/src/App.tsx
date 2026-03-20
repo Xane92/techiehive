@@ -207,13 +207,7 @@ function CoursesSection() {
           </p>
         </div>
 
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(3, 1fr)",
-            gap: "24px",
-          }}
-        >
+        <div className="courses-grid">
           {courses.map((course) => (
             <CourseCard key={course.title} course={course} />
           ))}

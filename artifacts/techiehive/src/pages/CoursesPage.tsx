@@ -166,13 +166,7 @@ export default function CoursesPage() {
       </section>
 
       <section style={{ padding: "72px 24px 96px", maxWidth: "1200px", margin: "0 auto" }}>
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fill, minmax(320px, 1fr))",
-            gap: "28px",
-          }}
-        >
+        <div className="courses-detail-grid">
           {courses.map((course) => (
             <CourseDetailCard key={course.title} course={course} />
           ))}

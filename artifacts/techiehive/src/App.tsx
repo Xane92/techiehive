@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Switch, Route, Router as WouterRouter, Link } from "wouter";
+import { Switch, Route, Router as WouterRouter, Link, useLocation } from "wouter";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -12,19 +12,25 @@ import ContactPage from "@/pages/ContactPage";
 import RegisterPage from "@/pages/RegisterPage";
 import LoginPage from "@/pages/LoginPage";
 import DashboardPage from "@/pages/DashboardPage";
+import PaymentVerifyPage from "@/pages/PaymentVerifyPage";
 
 const queryClient = new QueryClient();
 
+const COURSE_AMOUNT = 15000;
+
 const courses = [
   {
+    id: 1,
     title: "Full Stack Web Development",
     description: "Build complete web applications from front to back using modern frameworks and tools.",
   },
   {
+    id: 2,
     title: "Video Editing",
     description: "Learn professional video editing techniques for content creation and production.",
   },
   {
+    id: 3,
     title: "Graphics Design",
     description: "Create compelling visuals, logos, and brand identities using industry tools.",
   },
@@ -217,8 +223,35 @@ function CoursesSection() {
   );
 }
 
-function CourseCard({ course }: { course: { title: string; description: string } }) {
+function CourseCard({ course }: { course: { id: number; title: string; description: string } }) {
   const [hovered, setHovered] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [, setLocation] = useLocation();
+
+  async function handleEnroll() {
+    const token = localStorage.getItem("token");
+    const userRaw = localStorage.getItem("user");
+    if (!token || !userRaw) {
+      setLocation("/login");
+      return;
+    }
+    const user = JSON.parse(userRaw) as { email: string };
+    setLoading(true);
+    try {
+      const callbackUrl = `${window.location.origin}/payment/verify`;
+      const res = await fetch("/api/payment/initialize", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: user.email, amount: COURSE_AMOUNT, courseId: course.id, callbackUrl }),
+      });
+      const data = await res.json();
+      if (res.ok) window.location.href = data.authorization_url;
+    } catch {
+      /* silently fail on network errors */
+    } finally {
+      setLoading(false);
+    }
+  }
 
   return (
     <div
@@ -258,10 +291,15 @@ function CourseCard({ course }: { course: { title: string; description: string }
       <h3 style={{ color: "#FFFFFF", fontSize: "1.05rem", fontWeight: 700, margin: 0 }}>
         {course.title}
       </h3>
+      <p style={{ color: "#F5C400", fontSize: "0.8rem", fontWeight: 700, margin: 0 }}>
+        ₦{COURSE_AMOUNT.toLocaleString()}
+      </p>
       <p style={{ color: "#888888", fontSize: "0.875rem", lineHeight: 1.6, margin: 0, flexGrow: 1 }}>
         {course.description}
       </p>
       <button
+        onClick={handleEnroll}
+        disabled={loading}
         style={{
           marginTop: "8px",
           background: hovered ? "#F5C400" : "transparent",
@@ -271,12 +309,13 @@ function CourseCard({ course }: { course: { title: string; description: string }
           borderRadius: "6px",
           fontSize: "0.875rem",
           fontWeight: 700,
-          cursor: "pointer",
+          cursor: loading ? "not-allowed" : "pointer",
+          opacity: loading ? 0.7 : 1,
           transition: "background 0.2s, color 0.2s",
           alignSelf: "flex-start",
         }}
       >
-        Enroll Now
+        {loading ? "Processing…" : "Enroll Now"}
       </button>
     </div>
   );
@@ -364,6 +403,7 @@ function Router() {
       <Route path="/register" component={RegisterPage} />
       <Route path="/login" component={LoginPage} />
       <Route path="/dashboard" component={DashboardPage} />
+      <Route path="/payment/verify" component={PaymentVerifyPage} />
       <Route component={NotFound} />
     </Switch>
   );

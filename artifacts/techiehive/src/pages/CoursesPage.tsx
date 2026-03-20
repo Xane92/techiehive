@@ -1,8 +1,13 @@
+import { useState } from "react";
+import { useLocation } from "wouter";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
+const COURSE_AMOUNT = 15000;
+
 const courses = [
   {
+    id: 1,
     title: "Full Stack Web Development",
     description: "Build complete web apps from front to back. Learn HTML, CSS, JavaScript, React, Node.js, and databases.",
     bullets: [
@@ -13,6 +18,7 @@ const courses = [
     ],
   },
   {
+    id: 2,
     title: "Video Editing",
     description: "Learn professional editing techniques for content creation, YouTube, and brand videos.",
     bullets: [
@@ -23,6 +29,7 @@ const courses = [
     ],
   },
   {
+    id: 3,
     title: "Graphics Design",
     description: "Create logos, brand identities, social media graphics, and digital visuals using industry tools.",
     bullets: [
@@ -35,6 +42,49 @@ const courses = [
 ];
 
 function CourseDetailCard({ course }: { course: typeof courses[0] }) {
+  const [, setLocation] = useLocation();
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+
+  async function handleEnroll() {
+    const token = localStorage.getItem("token");
+    const userRaw = localStorage.getItem("user");
+
+    if (!token || !userRaw) {
+      setLocation("/login");
+      return;
+    }
+
+    const user = JSON.parse(userRaw) as { email: string };
+    setLoading(true);
+    setError("");
+
+    try {
+      const callbackUrl = `${window.location.origin}/payment/verify`;
+      const res = await fetch("/api/payment/initialize", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          email: user.email,
+          amount: COURSE_AMOUNT,
+          courseId: course.id,
+          callbackUrl,
+        }),
+      });
+
+      const data = await res.json();
+      if (!res.ok) {
+        setError(data.error ?? "Payment initialization failed.");
+      } else {
+        window.location.href = data.authorization_url;
+      }
+    } catch {
+      setError("Network error. Please try again.");
+    } finally {
+      setLoading(false);
+    }
+  }
+
   return (
     <div
       style={{
@@ -77,9 +127,12 @@ function CourseDetailCard({ course }: { course: typeof courses[0] }) {
       </div>
 
       <div>
-        <h3 style={{ color: "#FFFFFF", fontSize: "1.15rem", fontWeight: 700, margin: "0 0 10px" }}>
+        <h3 style={{ color: "#FFFFFF", fontSize: "1.15rem", fontWeight: 700, margin: "0 0 4px" }}>
           {course.title}
         </h3>
+        <p style={{ color: "#F5C400", fontSize: "0.85rem", fontWeight: 700, margin: "0 0 10px" }}>
+          ₦{COURSE_AMOUNT.toLocaleString()}
+        </p>
         <p style={{ color: "#888888", fontSize: "0.9rem", lineHeight: 1.65, margin: 0 }}>
           {course.description}
         </p>
@@ -99,7 +152,13 @@ function CourseDetailCard({ course }: { course: typeof courses[0] }) {
         </ul>
       </div>
 
+      {error && (
+        <p style={{ color: "#ff6b6b", fontSize: "0.8rem", margin: 0 }}>{error}</p>
+      )}
+
       <button
+        onClick={handleEnroll}
+        disabled={loading}
         style={{
           marginTop: "auto",
           background: "#F5C400",
@@ -109,14 +168,15 @@ function CourseDetailCard({ course }: { course: typeof courses[0] }) {
           borderRadius: "7px",
           fontSize: "0.875rem",
           fontWeight: 700,
-          cursor: "pointer",
+          cursor: loading ? "not-allowed" : "pointer",
           alignSelf: "flex-start",
+          opacity: loading ? 0.7 : 1,
           transition: "opacity 0.2s",
         }}
-        onMouseEnter={(e) => ((e.currentTarget as HTMLButtonElement).style.opacity = "0.85")}
-        onMouseLeave={(e) => ((e.currentTarget as HTMLButtonElement).style.opacity = "1")}
+        onMouseEnter={(e) => { if (!loading) (e.currentTarget as HTMLButtonElement).style.opacity = "0.85"; }}
+        onMouseLeave={(e) => { if (!loading) (e.currentTarget as HTMLButtonElement).style.opacity = "1"; }}
       >
-        Enroll Now
+        {loading ? "Processing…" : "Enroll Now — ₦15,000"}
       </button>
     </div>
   );

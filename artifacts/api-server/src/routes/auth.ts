@@ -34,14 +34,14 @@ router.post("/auth/register", async (req, res) => {
     const password_hash = await bcrypt.hash(password, SALT_ROUNDS);
 
     const result = await pool.query(
-      "INSERT INTO users (full_name, email, password_hash) VALUES ($1, $2, $3) RETURNING id, full_name, email, created_at",
+      "INSERT INTO users (full_name, email, password_hash, role) VALUES ($1, $2, $3, 'student') RETURNING id, full_name, email, role, created_at",
       [full_name.trim(), email.toLowerCase().trim(), password_hash]
     );
 
     const user = result.rows[0];
-    const token = jwt.sign({ userId: user.id, email: user.email }, JWT_SECRET, { expiresIn: "7d" });
+    const token = jwt.sign({ userId: user.id, email: user.email, role: user.role }, JWT_SECRET, { expiresIn: "7d" });
 
-    return res.status(201).json({ token, user: { id: user.id, full_name: user.full_name, email: user.email } });
+    return res.status(201).json({ token, user: { id: user.id, full_name: user.full_name, email: user.email, role: user.role } });
   } catch (err) {
     console.error("Register error:", err);
     return res.status(500).json({ error: "Internal server error." });
@@ -57,7 +57,7 @@ router.post("/auth/login", async (req, res) => {
 
   try {
     const result = await pool.query(
-      "SELECT id, full_name, email, password_hash FROM users WHERE email = $1",
+      "SELECT id, full_name, email, password_hash, role FROM users WHERE email = $1",
       [email.toLowerCase().trim()]
     );
 
@@ -72,9 +72,9 @@ router.post("/auth/login", async (req, res) => {
       return res.status(401).json({ error: "Invalid email or password." });
     }
 
-    const token = jwt.sign({ userId: user.id, email: user.email }, JWT_SECRET, { expiresIn: "7d" });
+    const token = jwt.sign({ userId: user.id, email: user.email, role: user.role }, JWT_SECRET, { expiresIn: "7d" });
 
-    return res.json({ token, user: { id: user.id, full_name: user.full_name, email: user.email } });
+    return res.json({ token, user: { id: user.id, full_name: user.full_name, email: user.email, role: user.role } });
   } catch (err) {
     console.error("Login error:", err);
     return res.status(500).json({ error: "Internal server error." });

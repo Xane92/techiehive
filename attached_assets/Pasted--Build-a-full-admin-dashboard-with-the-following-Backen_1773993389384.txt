@@ -1,0 +1,36 @@
+> Build a full admin dashboard with the following:
+>
+> **Backend:**
+> 1. Add a `role` field to the `users` table — values are either `student` or `admin`
+> 2. Create a middleware that checks if the logged in user has role `admin` before allowing access to any admin routes
+> 3. Create these admin API routes (all protected by admin middleware):
+>    - GET `/api/admin/users` — returns all registered users with their name, email, enrolled courses count, and join date
+>    - GET `/api/admin/enrollments` — returns all enrollments with user name, course name, and payment date
+>    - POST `/api/admin/lessons` — adds a new lesson to a course (accepts course_id, title, youtube_url, order_index)
+>    - PUT `/api/admin/lessons/:id` — edits an existing lesson
+>    - DELETE `/api/admin/lessons/:id` — removes a lesson
+>    - GET `/api/admin/completions` — returns all users who have completed a course and received a certificate
+>
+> **Frontend:**
+> 1. Create an admin login page at `/admin/login` — separate from the student login. Same style as the student login page.
+> 2. After admin logs in, redirect to `/admin/dashboard`
+> 3. The admin dashboard should have a sidebar with these sections:
+>    - Overview
+>    - Users
+>    - Enrollments
+>    - Manage Lessons
+>    - Completions
+> 4. Overview section: show total number of students, total enrollments, and total certificates issued as stat cards
+> 5. Users section: a table showing all registered users — name, email, courses enrolled, join date
+> 6. Enrollments section: a table showing all enrollments — student name, course name, amount paid, date
+> 7. Manage Lessons section: for each course, show its lessons in a list. Admin can add a new lesson (title + YouTube URL), edit an existing lesson, or delete a lesson
+> 8. Completions section: a table showing students who completed a course and earned a certificate — student name, course name, date completed
+>
+> **Admin account setup:**
+> Directly insert one admin user into the database with these details:
+> - Full name: Admin
+> - Email: admin@techiehive.com
+> - Password: Admin1234 (hashed with bcrypt)
+> - Role: admin
+>
+> Use the same yellow/black color scheme throughout.

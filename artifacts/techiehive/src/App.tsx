@@ -14,6 +14,8 @@ import LoginPage from "@/pages/LoginPage";
 import DashboardPage from "@/pages/DashboardPage";
 import PaymentVerifyPage from "@/pages/PaymentVerifyPage";
 import LearnPage from "@/pages/LearnPage";
+import TestPage from "@/pages/TestPage";
+import CertificatePage from "@/pages/CertificatePage";
 
 const queryClient = new QueryClient();
 
@@ -406,6 +408,8 @@ function Router() {
       <Route path="/dashboard" component={DashboardPage} />
       <Route path="/payment/verify" component={PaymentVerifyPage} />
       <Route path="/learn/:courseId" component={LearnPage} />
+      <Route path="/test/:courseId" component={TestPage} />
+      <Route path="/certificate/:courseId" component={CertificatePage} />
       <Route component={NotFound} />
     </Switch>
   );

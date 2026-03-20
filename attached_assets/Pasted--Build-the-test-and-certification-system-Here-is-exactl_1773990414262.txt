@@ -1,0 +1,53 @@
+> Build the test and certification system. Here is exactly what should happen:
+>
+> **Database:**
+> 1. Create a `questions` table with fields: `id`, `course_id`, `question`, `option_a`, `option_b`, `option_c`, `option_d`, `correct_answer`
+> 2. Create a `test_results` table with fields: `id`, `user_id`, `course_id`, `score`, `passed`, `taken_at`
+> 3. Create a `certificates` table with fields: `id`, `user_id`, `course_id`, `issued_at`
+> 4. Insert all the following questions into the database:
+>
+> Course ID 1 (Full Stack Web Development):
+> - Q1: "What does HTML stand for?" | A: Hyper Text Markup Language | B: High Tech Modern Language | C: Hyper Transfer Markup Logic | D: Home Tool Markup Language | Correct: A
+> - Q2: "Which language is used to style web pages?" | A: JavaScript | B: Python | C: CSS | D: PHP | Correct: C
+> - Q3: "What does API stand for?" | A: Applied Programming Interface | B: Application Programming Interface | C: Automated Process Integration | D: Application Process Index | Correct: B
+> - Q4: "Which of these is a JavaScript framework?" | A: Django | B: Laravel | C: React | D: Flask | Correct: C
+> - Q5: "What is a database used for?" | A: Styling web pages | B: Storing and managing data | C: Running animations | D: Connecting to the internet | Correct: B
+>
+> Course ID 2 (Video Editing):
+> - Q1: "What is a timeline in video editing?" | A: A clock showing rendering time | B: A visual arrangement of clips in sequence | C: A list of video effects | D: A progress bar for exports | Correct: B
+> - Q2: "What does FPS stand for?" | A: File Processing Speed | B: Frames Per Second | C: Final Production Stage | D: Format Processing System | Correct: B
+> - Q3: "What is color grading?" | A: Rating the quality of a video | B: Adjusting the colors and tone of footage | C: Adding text to a video | D: Compressing a video file | Correct: B
+> - Q4: "Which of these is a popular video editing software?" | A: Photoshop | B: Illustrator | C: Adobe Premiere Pro | D: AutoCAD | Correct: C
+> - Q5: "What is a cut in video editing?" | A: Deleting an entire video | B: Adding a transition effect | C: An instant switch from one clip to another | D: Slowing down footage | Correct: C
+>
+> Course ID 3 (Graphics Design):
+> - Q1: "What does RGB stand for?" | A: Red, Green, Blue | B: Red, Grey, Black | C: Round, Gradient, Bold | D: Render, Grade, Blend | Correct: A
+> - Q2: "What is typography?" | A: The study of maps | B: The art of arranging text in a visually appealing way | C: A type of photo filter | D: A printing machine | Correct: B
+> - Q3: "Which software is commonly used for graphics design?" | A: Microsoft Word | B: Adobe Illustrator | C: VLC Media Player | D: Google Sheets | Correct: B
+> - Q4: "What is a vector graphic?" | A: An image made of pixels | B: A scanned photograph | C: An image made of mathematical paths that scale without losing quality | D: A video file format | Correct: C
+> - Q5: "What is white space in design?" | A: A white background color | B: Empty or blank space used to improve readability and layout | C: A design error | D: A type of font color | Correct: B
+>
+> **Backend:**
+> 1. Create a GET route `/api/questions/:courseId` — returns all questions for a course
+> 2. Create a POST route `/api/test/submit` — accepts `userId`, `courseId`, and `answers` (array of selected answers). Calculate the score, determine if passed (3 out of 5 or more is a pass), save the result to `test_results`, and if passed create a certificate record in `certificates`. Return the score and pass/fail result.
+> 3. Create a GET route `/api/certificates/:userId` — returns all certificates for a user
+>
+> **Frontend:**
+> 1. On the `/learn/:courseId` page, once ALL lessons are marked as complete, show a "Take Final Test" button below the lesson list. This button should NOT appear until all lessons are completed.
+> 2. Clicking "Take Final Test" takes the user to `/test/:courseId`
+> 3. On the `/test/:courseId` page:
+>    - Show the course name and instructions: "Answer all 5 questions. You need 3 or more correct to pass."
+>    - Display all 5 questions one by one or all at once with 4 radio button options each
+>    - A "Submit Test" button at the bottom
+>    - On submit, call `/api/test/submit` with their answers
+>    - If passed: show a success message "Congratulations! You passed. Your certificate is ready." with a "View Certificate" button
+>    - If failed: show "You didn't pass this time. You scored X/5. Please review the lessons and try again." with a "Retake Test" button
+> 4. The certificate page `/certificate/:courseId` should display a styled certificate showing:
+>    - Techiehive logo/name in yellow
+>    - "Certificate of Completion"
+>    - Student's full name
+>    - Course name
+>    - Date issued
+>    - A "Download Certificate" button that saves it as a PDF
+>
+> Use the same yellow/black color scheme throughout.

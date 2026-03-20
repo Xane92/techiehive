@@ -217,6 +217,38 @@ export default function LearnPage() {
                 );
               })}
             </div>
+
+            {lessons.length > 0 && completedCount === lessons.length && (
+              <div style={{ padding: "12px 8px 8px" }}>
+                <Link href={`/test/${courseId}`} style={{ textDecoration: "none", display: "block" }}>
+                  <button
+                    style={{
+                      width: "100%",
+                      background: "#F5C400",
+                      border: "none",
+                      color: "#0A0A0A",
+                      padding: "12px 16px",
+                      borderRadius: "8px",
+                      fontSize: "0.875rem",
+                      fontWeight: 700,
+                      cursor: "pointer",
+                      transition: "opacity 0.2s",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      gap: "8px",
+                    }}
+                    onMouseEnter={(e) => ((e.currentTarget as HTMLButtonElement).style.opacity = "0.85")}
+                    onMouseLeave={(e) => ((e.currentTarget as HTMLButtonElement).style.opacity = "1")}
+                  >
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/>
+                    </svg>
+                    Take Final Test
+                  </button>
+                </Link>
+              </div>
+            )}
           </div>
 
           <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>

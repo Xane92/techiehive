@@ -32,3 +32,6 @@ channel = "stable-25_05"
 
 [userenv.shared]
 JWT_SECRET = "848955ca8e3f108bea2c711941e92b80fddd6cb36ec68b63aa4d10f5c86f0210968b6f3e6c617462ac2dd669deb7a15a"
+
+[userenv.production]
+SUPABASE_DATABASE_URL = "postgresql://postgres:Supabase6Pack***@db.rpavgyqpbaacsyxmzudm.supabase.co:5432/postgres"

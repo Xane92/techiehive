@@ -1,10 +1,8 @@
 import { Router } from "express";
 import axios from "axios";
-import pkg from "pg";
+import { pool } from "../db";
 
-const { Pool } = pkg;
 const router = Router();
-const pool = new Pool({ connectionString: process.env["DATABASE_URL"] });
 const PAYSTACK_SECRET = process.env["PAYSTACK_SECRET_KEY"] ?? "";
 
 router.post("/payment/initialize", async (req, res) => {

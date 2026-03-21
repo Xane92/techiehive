@@ -1,12 +1,10 @@
 import { Router } from "express";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-import pkg from "pg";
+import { pool } from "../db";
 
-const { Pool } = pkg;
 
 const router = Router();
-const pool = new Pool({ connectionString: process.env["DATABASE_URL"] });
 const JWT_SECRET = process.env["JWT_SECRET"] ?? "fallback-secret-change-me";
 const SALT_ROUNDS = 10;
 

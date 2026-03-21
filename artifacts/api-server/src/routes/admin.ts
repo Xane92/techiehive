@@ -1,10 +1,8 @@
 import { Router } from "express";
-import pkg from "pg";
+import { pool } from "../db";
 import { adminAuth } from "../middleware/adminAuth";
 
-const { Pool } = pkg;
 const router = Router();
-const pool = new Pool({ connectionString: process.env["DATABASE_URL"] });
 
 const COURSE_NAMES: Record<number, string> = {
   1: "Full Stack Web Development",

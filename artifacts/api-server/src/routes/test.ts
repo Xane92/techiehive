@@ -1,9 +1,7 @@
 import { Router } from "express";
-import pkg from "pg";
+import { pool } from "../db";
 
-const { Pool } = pkg;
 const router = Router();
-const pool = new Pool({ connectionString: process.env["DATABASE_URL"] });
 
 router.get("/questions/:courseId", async (req, res) => {
   const courseId = parseInt(req.params.courseId, 10);

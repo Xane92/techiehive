@@ -1,18 +1,10 @@
 const { Router } = require("express");
-const nodemailer = require("nodemailer");
+const { Resend } = require("resend");
 
 const router = Router();
 
-const EMAIL_USER = process.env.EMAIL_USER || "techiehive001@gmail.com";
-const EMAIL_PASS = process.env.EMAIL_PASS || "";
-
-const transporter = nodemailer.createTransport({
-  service: "gmail",
-  auth: {
-    user: EMAIL_USER,
-    pass: EMAIL_PASS,
-  },
-});
+const resend = new Resend(process.env.RESEND_API_KEY);
+const TO_EMAIL = "techiehive001@gmail.com";
 
 router.post("/contact", async (req, res) => {
   const { name, email, message } = req.body;
@@ -22,10 +14,10 @@ router.post("/contact", async (req, res) => {
   }
 
   try {
-    await transporter.sendMail({
-      from: `"Techiehive Contact Form" <${EMAIL_USER}>`,
-      to: EMAIL_USER,
-      replyTo: email.trim(),
+    await resend.emails.send({
+      from: "Techiehive <onboarding@resend.dev>",
+      to: TO_EMAIL,
+      reply_to: email.trim(),
       subject: `New Contact Form Message from ${name.trim()}`,
       text: `Name: ${name.trim()}\nEmail: ${email.trim()}\n\nMessage:\n${message.trim()}`,
       html: `

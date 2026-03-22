@@ -2,21 +2,15 @@ const { Router } = require("express");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const crypto = require("crypto");
-const nodemailer = require("nodemailer");
+const { Resend } = require("resend");
 const { pool } = require("../db");
 
 const router = Router();
 const JWT_SECRET = process.env.JWT_SECRET || "fallback-secret-change-me";
 const SALT_ROUNDS = 10;
-
-const EMAIL_USER = process.env.EMAIL_USER || "";
-const EMAIL_PASS = process.env.EMAIL_PASS || "";
 const FRONTEND_URL = "https://techiehive-techiehive.vercel.app";
 
-const transporter = nodemailer.createTransport({
-  service: "gmail",
-  auth: { user: EMAIL_USER, pass: EMAIL_PASS },
-});
+const resend = new Resend(process.env.RESEND_API_KEY);
 
 router.post("/auth/register", async (req, res) => {
   const { full_name, email, password } = req.body;
@@ -96,13 +90,14 @@ router.post("/auth/forgot-password", async (req, res) => {
       [email.toLowerCase().trim()]
     );
 
+    // Always return success to prevent email enumeration
     if (userResult.rows.length === 0) {
       return res.json({ success: true });
     }
 
     const user = userResult.rows[0];
     const token = crypto.randomBytes(32).toString("hex");
-    const expiresAt = new Date(Date.now() + 60 * 60 * 1000);
+    const expiresAt = new Date(Date.now() + 60 * 60 * 1000); // 1 hour
 
     await pool.query(
       "INSERT INTO reset_tokens (user_id, token, expires_at) VALUES ($1, $2, $3)",
@@ -111,8 +106,8 @@ router.post("/auth/forgot-password", async (req, res) => {
 
     const resetLink = `${FRONTEND_URL}/reset-password?token=${token}`;
 
-    await transporter.sendMail({
-      from: `"Techiehive" <${EMAIL_USER}>`,
+    await resend.emails.send({
+      from: "Techiehive <onboarding@resend.dev>",
       to: email.trim(),
       subject: "Reset Your Techiehive Password",
       text: `Hi ${user.full_name},\n\nClick the link below to reset your password. This link expires in 1 hour.\n\n${resetLink}\n\nIf you did not request this, you can safely ignore this email.\n\n— Techiehive Team`,

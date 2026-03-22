@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useLocation } from "wouter";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import { API_BASE } from '@/lib/api';
 
 const COURSE_AMOUNT = 15000;
 
@@ -53,7 +54,7 @@ function CourseDetailCard({ course }: { course: typeof courses[0] }) {
     if (!userRaw || !token) return;
     try {
       const user = JSON.parse(userRaw) as { id: number };
-      fetch(`/api/enrollments/${user.id}`)
+      fetch(`${API_BASE}/api/enrollments/${user.id}`)
         .then((r) => r.json())
         .then((data) => {
           const ids: number[] = (data.enrollments ?? []).map((e: { course_id: number }) => e.course_id);
@@ -73,7 +74,7 @@ function CourseDetailCard({ course }: { course: typeof courses[0] }) {
     setError("");
     try {
       const callbackUrl = `${window.location.origin}/payment/verify`;
-      const res = await fetch("/api/payment/initialize", {
+      const res = await fetch(`${API_BASE}/api/payment/initialize`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email: user.email, amount: COURSE_AMOUNT, courseId: course.id, callbackUrl }),

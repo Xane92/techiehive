@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useLocation, Link } from "wouter";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import { API_BASE } from '@/lib/api';
 
 const COURSE_NAMES: Record<number, string> = {
   1: "Full Stack Web Development",
@@ -39,7 +40,7 @@ export default function DashboardPage() {
       const parsedUser: StoredUser = JSON.parse(stored);
       setUser(parsedUser);
 
-      fetch(`/api/enrollments/${parsedUser.id}`)
+      fetch(`${API_BASE}/api/enrollments/${parsedUser.id}`)
         .then((res) => res.json())
         .then((data) => {
           setEnrollments(data.enrollments ?? []);

@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useLocation, useParams, Link } from "wouter";
 import Navbar from "@/components/Navbar";
+import { API_BASE } from '@/lib/api';
 
 const COURSE_NAMES: Record<number, string> = {
   1: "Full Stack Web Development",
@@ -37,7 +38,7 @@ export default function CertificatePage() {
     try { parsedUser = JSON.parse(stored); setUser(parsedUser); }
     catch { setLocation("/login"); return; }
 
-    fetch(`/api/certificates/${parsedUser.id}`)
+    fetch(`${API_BASE}/api/certificates/${parsedUser.id}`)
       .then((r) => r.json())
       .then((data) => {
         const found = (data.certificates ?? []).find(

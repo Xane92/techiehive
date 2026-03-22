@@ -2,6 +2,7 @@ import { useEffect, useState, useCallback } from "react";
 import { useLocation, useParams, Link } from "wouter";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import { API_BASE } from '@/lib/api';
 
 const COURSE_NAMES: Record<number, string> = {
   1: "Full Stack Web Development",
@@ -45,7 +46,7 @@ export default function LearnPage() {
 
   const fetchProgress = useCallback(async (userId: number) => {
     try {
-      const res = await fetch(`/api/progress/${userId}/${courseId}`);
+      const res = await fetch(`${API_BASE}/api/progress/${userId}/${courseId}`);
       const data = await res.json();
       setCompletedIds(new Set<number>(data.completedLessonIds ?? []));
     } catch {
@@ -73,8 +74,8 @@ export default function LearnPage() {
     async function init() {
       try {
         const [enrollRes, lessonsRes] = await Promise.all([
-          fetch(`/api/enrollments/${parsedUser.id}`),
-          fetch(`/api/courses/${courseId}/lessons`),
+          fetch(`${API_BASE}/api/enrollments/${parsedUser.id}`),
+          fetch(`${API_BASE}/api/courses/${courseId}/lessons`),
         ]);
 
         const enrollData = await enrollRes.json();
@@ -105,7 +106,7 @@ export default function LearnPage() {
     if (!user || !selectedLesson) return;
     setMarkingComplete(true);
     try {
-      await fetch("/api/progress/complete", {
+      await fetch(`${API_BASE}/api/progress/complete`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ userId: user.id, lessonId: selectedLesson.id }),

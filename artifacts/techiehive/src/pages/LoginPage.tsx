@@ -3,7 +3,7 @@ import { useLocation, Link } from "wouter";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
-const API_BASE = "/api";
+import { API_BASE } from "@/lib/api";
 
 export default function LoginPage() {
   const [, setLocation] = useLocation();
@@ -20,7 +20,7 @@ export default function LoginPage() {
     e.preventDefault();
     setLoading(true);
     try {
-      const res = await fetch(`${API_BASE}/auth/login`, {
+      const res = await fetch(`${API_BASE}/api/auth/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email: form.email, password: form.password }),

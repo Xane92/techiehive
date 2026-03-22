@@ -1,5 +1,6 @@
 import { useEffect, useState, useCallback } from "react";
 import { useLocation } from "wouter";
+import { API_BASE } from '@/lib/api';
 
 const COURSE_NAMES: Record<number, string> = {
   1: "Full Stack Web Development",
@@ -114,22 +115,22 @@ export default function AdminDashboard() {
 
   const fetchLessons = useCallback(async (tok: string) => {
     const results = await Promise.all([1, 2, 3].map((cid) =>
-      fetch(`/api/courses/${cid}/lessons`, { headers: authHeaders(tok) }).then((r) => r.json())
+      fetch(`${API_BASE}/api/courses/${cid}/lessons`, { headers: authHeaders(tok) }).then((r) => r.json())
     ));
     setLessons(results.flatMap((r) => r.lessons ?? []));
   }, []);
 
   const fetchTestsAndCerts = useCallback(async (tok: string) => {
     const [testRes, certRes] = await Promise.all([
-      fetch("/api/admin/tests", { headers: authHeaders(tok) }).then((r) => r.json()),
-      fetch("/api/admin/certificates-all", { headers: authHeaders(tok) }).then((r) => r.json()),
+      fetch(`${API_BASE}/api/admin/tests`, { headers: authHeaders(tok) }).then((r) => r.json()),
+      fetch(`${API_BASE}/api/admin/certificates-all`, { headers: authHeaders(tok) }).then((r) => r.json()),
     ]);
     setTests(testRes.tests ?? []);
     setAllCerts(certRes.certificates ?? []);
   }, []);
 
   const fetchCompletionsDetail = useCallback(async (tok: string) => {
-    const res = await fetch("/api/admin/completions-detail", { headers: authHeaders(tok) }).then((r) => r.json());
+    const res = await fetch(`${API_BASE}/api/admin/completions-detail`, { headers: authHeaders(tok) }).then((r) => r.json());
     setCourseSummaries(res.courseSummaries ?? []);
     setStudentProgress(res.studentProgress ?? []);
   }, []);
@@ -149,13 +150,13 @@ export default function AdminDashboard() {
       setLoading(true);
       try {
         const [statsRes, usersRes, enrollRes, lessonResults, compDetailRes, testRes, certAllRes] = await Promise.all([
-          fetch("/api/admin/stats", { headers: authHeaders(tok) }).then((r) => r.json()),
-          fetch("/api/admin/users", { headers: authHeaders(tok) }).then((r) => r.json()),
-          fetch("/api/admin/enrollments", { headers: authHeaders(tok) }).then((r) => r.json()),
-          Promise.all([1, 2, 3].map((cid) => fetch(`/api/courses/${cid}/lessons`).then((r) => r.json()))),
-          fetch("/api/admin/completions-detail", { headers: authHeaders(tok) }).then((r) => r.json()),
-          fetch("/api/admin/tests", { headers: authHeaders(tok) }).then((r) => r.json()),
-          fetch("/api/admin/certificates-all", { headers: authHeaders(tok) }).then((r) => r.json()),
+          fetch(`${API_BASE}/api/admin/stats`, { headers: authHeaders(tok) }).then((r) => r.json()),
+          fetch(`${API_BASE}/api/admin/users`, { headers: authHeaders(tok) }).then((r) => r.json()),
+          fetch(`${API_BASE}/api/admin/enrollments`, { headers: authHeaders(tok) }).then((r) => r.json()),
+          Promise.all([1, 2, 3].map((cid) => fetch(`${API_BASE}/api/courses/${cid}/lessons`).then((r) => r.json()))),
+          fetch(`${API_BASE}/api/admin/completions-detail`, { headers: authHeaders(tok) }).then((r) => r.json()),
+          fetch(`${API_BASE}/api/admin/tests`, { headers: authHeaders(tok) }).then((r) => r.json()),
+          fetch(`${API_BASE}/api/admin/certificates-all`, { headers: authHeaders(tok) }).then((r) => r.json()),
         ]);
         setStats(statsRes);
         setUsers(usersRes.users ?? []);
@@ -180,7 +181,7 @@ export default function AdminDashboard() {
 
   async function handleDeleteLesson(id: number) {
     if (!confirm("Delete this lesson?")) return;
-    await fetch(`/api/admin/lessons/${id}`, { method: "DELETE", headers: authHeaders(token) });
+    await fetch(`${API_BASE}/api/admin/lessons/${id}`, { method: "DELETE", headers: authHeaders(token) });
     setLessonMsg("Lesson deleted.");
     await fetchLessons(token);
     setTimeout(() => setLessonMsg(""), 2500);
@@ -188,7 +189,7 @@ export default function AdminDashboard() {
 
   async function handleUpdateLesson() {
     if (!editingLesson) return;
-    await fetch(`/api/admin/lessons/${editingLesson.id}`, {
+    await fetch(`${API_BASE}/api/admin/lessons/${editingLesson.id}`, {
       method: "PUT", headers: authHeaders(token),
       body: JSON.stringify({ title: editingLesson.title, youtube_url: editingLesson.youtube_url, order_index: editingLesson.order_index }),
     });
@@ -200,7 +201,7 @@ export default function AdminDashboard() {
 
   async function handleAddLesson(courseId: number) {
     if (!newLesson.title || !newLesson.youtube_url) { setLessonMsg("Title and YouTube URL are required."); return; }
-    await fetch("/api/admin/lessons", {
+    await fetch(`${API_BASE}/api/admin/lessons`, {
       method: "POST", headers: authHeaders(token),
       body: JSON.stringify({ ...newLesson, course_id: courseId }),
     });
@@ -213,7 +214,7 @@ export default function AdminDashboard() {
 
   async function handleResetTest(userId: number, courseId: number, studentName: string) {
     if (!confirm(`Reset all test attempts for ${studentName} in ${COURSE_NAMES[courseId]}?`)) return;
-    await fetch(`/api/admin/tests/${userId}/${courseId}`, { method: "DELETE", headers: authHeaders(token) });
+    await fetch(`${API_BASE}/api/admin/tests/${userId}/${courseId}`, { method: "DELETE", headers: authHeaders(token) });
     setTestsMsg(`Test reset for ${studentName}.`);
     await fetchTestsAndCerts(token);
     await fetchCompletionsDetail(token);
@@ -222,10 +223,10 @@ export default function AdminDashboard() {
 
   async function handleRevokeCert(userId: number, courseId: number, studentName: string) {
     if (!confirm(`Revoke certificate for ${studentName} in ${COURSE_NAMES[courseId]}?`)) return;
-    await fetch(`/api/admin/certificates/${userId}/${courseId}`, { method: "DELETE", headers: authHeaders(token) });
+    await fetch(`${API_BASE}/api/admin/certificates/${userId}/${courseId}`, { method: "DELETE", headers: authHeaders(token) });
     setTestsMsg(`Certificate revoked for ${studentName}.`);
     const [statsRes] = await Promise.all([
-      fetch("/api/admin/stats", { headers: authHeaders(token) }).then((r) => r.json()),
+      fetch(`${API_BASE}/api/admin/stats`, { headers: authHeaders(token) }).then((r) => r.json()),
     ]);
     setStats(statsRes);
     await fetchTestsAndCerts(token);
@@ -235,14 +236,14 @@ export default function AdminDashboard() {
 
   async function handleIssueCert() {
     if (!issueCertForm) return;
-    await fetch("/api/admin/certificates", {
+    await fetch(`${API_BASE}/api/admin/certificates`, {
       method: "POST", headers: authHeaders(token),
       body: JSON.stringify({ userId: issueCertForm.userId, courseId: issueCertForm.courseId }),
     });
     setIssueCertForm(null);
     setTestsMsg("Certificate issued successfully.");
     const [statsRes] = await Promise.all([
-      fetch("/api/admin/stats", { headers: authHeaders(token) }).then((r) => r.json()),
+      fetch(`${API_BASE}/api/admin/stats`, { headers: authHeaders(token) }).then((r) => r.json()),
     ]);
     setStats(statsRes);
     await fetchTestsAndCerts(token);

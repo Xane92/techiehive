@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useLocation } from "wouter";
 import Navbar from "@/components/Navbar";
+import { API_BASE } from '@/lib/api';
 
 export default function PaymentVerifyPage() {
   const [, setLocation] = useLocation();
@@ -17,7 +18,7 @@ export default function PaymentVerifyPage() {
       return;
     }
 
-    fetch(`/api/payment/verify/${encodeURIComponent(reference)}`)
+    fetch(`${API_BASE}/api/payment/verify/${encodeURIComponent(reference)}`)
       .then((res) => res.json())
       .then((data) => {
         if (data.success) {

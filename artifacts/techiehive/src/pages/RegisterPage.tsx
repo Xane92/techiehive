@@ -4,7 +4,7 @@ import { Link } from "wouter";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
-const API_BASE = "/api";
+import { API_BASE } from "@/lib/api";
 
 export default function RegisterPage() {
   const [, setLocation] = useLocation();
@@ -29,7 +29,7 @@ export default function RegisterPage() {
     }
     setLoading(true);
     try {
-      const res = await fetch(`${API_BASE}/auth/register`, {
+      const res = await fetch(`${API_BASE}/api/auth/register`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ full_name: form.full_name, email: form.email, password: form.password }),

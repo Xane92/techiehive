@@ -18,6 +18,7 @@ import TestPage from "@/pages/TestPage";
 import CertificatePage from "@/pages/CertificatePage";
 import AdminLoginPage from "@/pages/AdminLoginPage";
 import AdminDashboard from "@/pages/AdminDashboard";
+import { API_BASE } from '@/lib/api';
 
 const queryClient = new QueryClient();
 
@@ -242,7 +243,7 @@ function CourseCard({ course }: { course: { id: number; title: string; descripti
     if (!userRaw || !token) return;
     try {
       const user = JSON.parse(userRaw) as { id: number };
-      fetch(`/api/enrollments/${user.id}`)
+      fetch(`${API_BASE}/api/enrollments/${user.id}`)
         .then((r) => r.json())
         .then((data) => {
           const ids: number[] = (data.enrollments ?? []).map((e: { course_id: number }) => e.course_id);
@@ -262,7 +263,7 @@ function CourseCard({ course }: { course: { id: number; title: string; descripti
     setError("");
     try {
       const callbackUrl = `${window.location.origin}/payment/verify`;
-      const res = await fetch("/api/payment/initialize", {
+      const res = await fetch(`${API_BASE}/api/payment/initialize`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email: user.email, amount: COURSE_AMOUNT, courseId: course.id, callbackUrl }),

@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useLocation, useParams, Link } from "wouter";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import { API_BASE } from '@/lib/api';
 
 const COURSE_NAMES: Record<number, string> = {
   1: "Full Stack Web Development",
@@ -50,8 +51,8 @@ export default function TestPage() {
 
     async function init() {
       const [enrollRes, qRes] = await Promise.all([
-        fetch(`/api/enrollments/${parsedUser.id}`),
-        fetch(`/api/questions/${courseId}`),
+        fetch(`${API_BASE}/api/enrollments/${parsedUser.id}`),
+        fetch(`${API_BASE}/api/questions/${courseId}`),
       ]);
       const enrollData = await enrollRes.json();
       const isEnrolled = (enrollData.enrollments ?? []).some(
@@ -76,7 +77,7 @@ export default function TestPage() {
     }
     setTestState("submitting");
     try {
-      const res = await fetch("/api/test/submit", {
+      const res = await fetch(`${API_BASE}/api/test/submit`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ userId: user.id, courseId, answers }),

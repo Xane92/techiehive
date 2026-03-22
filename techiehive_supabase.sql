@@ -151,6 +151,17 @@ INSERT INTO certificates (id,user_id,course_id,issued_at) VALUES (3,2,3,'2026-03
 INSERT INTO certificates (id,user_id,course_id,issued_at) VALUES (4,6,1,'2026-03-20T09:50:13.884143+00:00');
 INSERT INTO certificates (id,user_id,course_id,issued_at) VALUES (5,7,1,'2026-03-20T20:47:26.335343+00:00');
 
+-- Reset tokens table (for Forgot Password flow)
+CREATE TABLE IF NOT EXISTS reset_tokens (
+  id SERIAL PRIMARY KEY,
+  user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+  token TEXT NOT NULL UNIQUE,
+  expires_at TIMESTAMPTZ NOT NULL,
+  used BOOLEAN NOT NULL DEFAULT FALSE,
+  created_at TIMESTAMPTZ DEFAULT NOW()
+);
+CREATE INDEX IF NOT EXISTS reset_tokens_token_idx ON reset_tokens(token);
+
 -- Reset sequences
 SELECT setval('users_id_seq', COALESCE((SELECT MAX(id) FROM users),1));
 SELECT setval('lessons_id_seq', COALESCE((SELECT MAX(id) FROM lessons),1));

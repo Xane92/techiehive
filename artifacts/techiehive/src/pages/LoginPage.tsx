@@ -83,7 +83,15 @@ export default function LoginPage() {
             </div>
 
             <div>
-              <label style={{ display: "block", color: "#CCCCCC", fontSize: "0.85rem", fontWeight: 600, marginBottom: "8px" }}>Password</label>
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "8px" }}>
+                <label style={{ color: "#CCCCCC", fontSize: "0.85rem", fontWeight: 600 }}>Password</label>
+                <Link href="/forgot-password" style={{ color: "#F5C400", fontSize: "0.8rem", fontWeight: 600, textDecoration: "none" }}
+                  onMouseEnter={(e) => ((e.currentTarget as HTMLAnchorElement).style.opacity = "0.75")}
+                  onMouseLeave={(e) => ((e.currentTarget as HTMLAnchorElement).style.opacity = "1")}
+                >
+                  Forgot Password?
+                </Link>
+              </div>
               <input name="password" type="password" placeholder="Your password" required value={form.password} onChange={handleChange} style={inputStyle}
                 onFocus={(e) => (e.currentTarget.style.borderColor = "#F5C400")}
                 onBlur={(e) => (e.currentTarget.style.borderColor = "#1f1f1f")} />

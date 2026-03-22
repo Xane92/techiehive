@@ -18,6 +18,8 @@ import TestPage from "@/pages/TestPage";
 import CertificatePage from "@/pages/CertificatePage";
 import AdminLoginPage from "@/pages/AdminLoginPage";
 import AdminDashboard from "@/pages/AdminDashboard";
+import ForgotPasswordPage from "@/pages/ForgotPasswordPage";
+import ResetPasswordPage from "@/pages/ResetPasswordPage";
 import { API_BASE } from '@/lib/api';
 
 const queryClient = new QueryClient();
@@ -436,6 +438,8 @@ function Router() {
       <Route path="/certificate/:courseId" component={CertificatePage} />
       <Route path="/admin/login" component={AdminLoginPage} />
       <Route path="/admin/dashboard" component={AdminDashboard} />
+      <Route path="/forgot-password" component={ForgotPasswordPage} />
+      <Route path="/reset-password" component={ResetPasswordPage} />
       <Route component={NotFound} />
     </Switch>
   );

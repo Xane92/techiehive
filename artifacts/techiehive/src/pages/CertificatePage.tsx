@@ -56,7 +56,7 @@ export default function CertificatePage() {
     const { default: html2canvas } = await import("html2canvas");
     const { jsPDF } = await import("jspdf");
     const canvas = await html2canvas(certRef.current, {
-      backgroundColor: "#0A0A0A",
+      backgroundColor: "var(--th-bg)",
       scale: 2,
       useCORS: true,
     });
@@ -68,8 +68,8 @@ export default function CertificatePage() {
 
   if (loading) {
     return (
-      <div style={{ backgroundColor: "#0A0A0A", minHeight: "100vh", display: "flex", alignItems: "center", justifyContent: "center" }}>
-        <div style={{ width: "40px", height: "40px", border: "3px solid #1f1f1f", borderTopColor: "#F5C400", borderRadius: "50%", animation: "spin 0.8s linear infinite" }} />
+      <div style={{ backgroundColor: "var(--th-bg)", minHeight: "100vh", display: "flex", alignItems: "center", justifyContent: "center" }}>
+        <div style={{ width: "40px", height: "40px", border: "3px solid var(--th-border)", borderTopColor: "#F5C400", borderRadius: "50%", animation: "spin 0.8s linear infinite" }} />
         <style>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
       </div>
     );
@@ -82,15 +82,15 @@ export default function CertificatePage() {
   });
 
   return (
-    <div style={{ backgroundColor: "#0A0A0A", minHeight: "100vh", color: "#FFFFFF", display: "flex", flexDirection: "column" }}>
+    <div style={{ backgroundColor: "var(--th-bg)", minHeight: "100vh", color: "var(--th-text)", display: "flex", flexDirection: "column" }}>
       <Navbar />
 
       <div style={{ maxWidth: "860px", margin: "0 auto", padding: "48px 24px 80px", width: "100%" }}>
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: "16px", marginBottom: "32px" }}>
           <Link href="/dashboard"
-            style={{ color: "#888888", fontSize: "0.8rem", textDecoration: "none", display: "inline-flex", alignItems: "center", gap: "6px" }}
+            style={{ color: "var(--th-muted)", fontSize: "0.8rem", textDecoration: "none", display: "inline-flex", alignItems: "center", gap: "6px" }}
             onMouseEnter={(e) => ((e.currentTarget as HTMLAnchorElement).style.color = "#F5C400")}
-            onMouseLeave={(e) => ((e.currentTarget as HTMLAnchorElement).style.color = "#888888")}
+            onMouseLeave={(e) => ((e.currentTarget as HTMLAnchorElement).style.color = "var(--th-muted)")}
           >
             ← Back to Dashboard
           </Link>
@@ -112,7 +112,7 @@ export default function CertificatePage() {
         <div
           ref={certRef}
           style={{
-            background: "#0A0A0A",
+            background: "var(--th-bg)",
             border: "2px solid #F5C400",
             borderRadius: "16px",
             padding: "64px 56px",
@@ -129,7 +129,7 @@ export default function CertificatePage() {
             <div style={{ fontSize: "1.5rem", fontWeight: 800, color: "#F5C400", letterSpacing: "-0.02em", marginBottom: "4px" }}>
               Techiehive
             </div>
-            <p style={{ color: "#555555", fontSize: "0.75rem", letterSpacing: "0.15em", textTransform: "uppercase", marginBottom: "36px" }}>
+            <p style={{ color: "var(--th-muted)", fontSize: "0.75rem", letterSpacing: "0.15em", textTransform: "uppercase", marginBottom: "36px" }}>
               Africa's Premium EdTech Platform
             </p>
 
@@ -138,7 +138,7 @@ export default function CertificatePage() {
             <h1 style={{ fontSize: "clamp(1.6rem, 4vw, 2.4rem)", fontWeight: 800, letterSpacing: "-0.02em", marginBottom: "8px", lineHeight: 1.2 }}>
               Certificate of Completion
             </h1>
-            <p style={{ color: "#888888", fontSize: "0.88rem", marginBottom: "40px" }}>
+            <p style={{ color: "var(--th-muted)", fontSize: "0.88rem", marginBottom: "40px" }}>
               This certifies that
             </p>
 
@@ -149,22 +149,22 @@ export default function CertificatePage() {
               <div style={{ width: "200px", height: "1px", background: "rgba(245,196,0,0.3)", margin: "0 auto" }} />
             </div>
 
-            <p style={{ color: "#888888", fontSize: "0.9rem", marginBottom: "12px" }}>
+            <p style={{ color: "var(--th-muted)", fontSize: "0.9rem", marginBottom: "12px" }}>
               has successfully completed
             </p>
-            <p style={{ fontSize: "clamp(1.1rem, 2.5vw, 1.5rem)", fontWeight: 700, color: "#FFFFFF", marginBottom: "48px", lineHeight: 1.3 }}>
+            <p style={{ fontSize: "clamp(1.1rem, 2.5vw, 1.5rem)", fontWeight: 700, color: "var(--th-text)", marginBottom: "48px", lineHeight: 1.3 }}>
               {COURSE_NAMES[courseId]}
             </p>
 
             <div style={{ display: "flex", justifyContent: "center", gap: "64px", flexWrap: "wrap" }}>
               <div style={{ textAlign: "center" }}>
                 <div style={{ width: "120px", height: "1px", background: "#333333", marginBottom: "8px" }} />
-                <p style={{ color: "#555555", fontSize: "0.75rem", letterSpacing: "0.08em", textTransform: "uppercase" }}>Date Issued</p>
-                <p style={{ color: "#CCCCCC", fontSize: "0.85rem", fontWeight: 600, marginTop: "4px" }}>{issuedDate}</p>
+                <p style={{ color: "var(--th-muted)", fontSize: "0.75rem", letterSpacing: "0.08em", textTransform: "uppercase" }}>Date Issued</p>
+                <p style={{ color: "var(--th-text-sec)", fontSize: "0.85rem", fontWeight: 600, marginTop: "4px" }}>{issuedDate}</p>
               </div>
               <div style={{ textAlign: "center" }}>
                 <div style={{ width: "120px", height: "1px", background: "#333333", marginBottom: "8px" }} />
-                <p style={{ color: "#555555", fontSize: "0.75rem", letterSpacing: "0.08em", textTransform: "uppercase" }}>Issued By</p>
+                <p style={{ color: "var(--th-muted)", fontSize: "0.75rem", letterSpacing: "0.08em", textTransform: "uppercase" }}>Issued By</p>
                 <p style={{ color: "#F5C400", fontSize: "0.85rem", fontWeight: 700, marginTop: "4px" }}>Techiehive</p>
               </div>
             </div>

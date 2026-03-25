@@ -25,10 +25,10 @@ function authHeaders(token: string) {
 
 function StatCard({ label, value, icon }: { label: string; value: number; icon: string }) {
   return (
-    <div style={{ background: "#111111", border: "1.5px solid #1f1f1f", borderRadius: "12px", padding: "28px 24px" }}>
+    <div style={{ background: "var(--th-surface)", border: "1.5px solid var(--th-border)", borderRadius: "12px", padding: "28px 24px" }}>
       <div style={{ fontSize: "1.8rem", marginBottom: "12px" }}>{icon}</div>
       <div style={{ fontSize: "2rem", fontWeight: 800, color: "#F5C400", lineHeight: 1 }}>{value}</div>
-      <div style={{ color: "#555555", fontSize: "0.82rem", marginTop: "6px", textTransform: "uppercase", letterSpacing: "0.06em" }}>{label}</div>
+      <div style={{ color: "var(--th-muted)", fontSize: "0.82rem", marginTop: "6px", textTransform: "uppercase", letterSpacing: "0.06em" }}>{label}</div>
     </div>
   );
 }
@@ -40,7 +40,7 @@ function Table({ headers, rows }: { headers: string[]; rows: (string | number | 
         <thead>
           <tr>
             {headers.map((h) => (
-              <th key={h} style={{ textAlign: "left", padding: "12px 16px", color: "#555555", fontWeight: 600, fontSize: "0.75rem", textTransform: "uppercase", letterSpacing: "0.06em", borderBottom: "1px solid #1f1f1f", whiteSpace: "nowrap" }}>
+              <th key={h} style={{ textAlign: "left", padding: "12px 16px", color: "var(--th-muted)", fontWeight: 600, fontSize: "0.75rem", textTransform: "uppercase", letterSpacing: "0.06em", borderBottom: "1px solid var(--th-border)", whiteSpace: "nowrap" }}>
                 {h}
               </th>
             ))}
@@ -52,7 +52,7 @@ function Table({ headers, rows }: { headers: string[]; rows: (string | number | 
           ) : rows.map((row, i) => (
             <tr key={i} style={{ borderBottom: "1px solid #141414" }}>
               {row.map((cell, j) => (
-                <td key={j} style={{ padding: "12px 16px", color: "#CCCCCC" }}>{cell}</td>
+                <td key={j} style={{ padding: "12px 16px", color: "var(--th-text-sec)" }}>{cell}</td>
               ))}
             </tr>
           ))}
@@ -80,7 +80,7 @@ function ActionBtn({ label, onClick, variant = "default" }: { label: string; onC
   const styles = {
     danger: { border: "1px solid rgba(239,68,68,0.25)", color: "#ef4444" },
     success: { border: "1px solid rgba(34,197,94,0.25)", color: "#22c55e" },
-    default: { border: "1px solid #2a2a2a", color: "#888888" },
+    default: { border: "1px solid var(--th-border)", color: "var(--th-muted)" },
   }[variant];
   return (
     <button onClick={onClick} style={{ ...styles, background: "transparent", padding: "5px 12px", borderRadius: "6px", fontSize: "0.75rem", fontWeight: 600, cursor: "pointer", whiteSpace: "nowrap" }}>
@@ -252,7 +252,7 @@ export default function AdminDashboard() {
   }
 
   const inputStyle: React.CSSProperties = {
-    background: "#0A0A0A", border: "1.5px solid #1f1f1f", color: "#FFFFFF",
+    background: "var(--th-bg)", border: "1.5px solid var(--th-border)", color: "var(--th-text)",
     padding: "9px 12px", borderRadius: "7px", fontSize: "0.85rem", outline: "none", width: "100%", boxSizing: "border-box",
   };
 
@@ -267,7 +267,7 @@ export default function AdminDashboard() {
 
   const SidebarContent = () => (
     <>
-      <div style={{ padding: "20px 20px 16px", borderBottom: "1px solid #1a1a1a" }}>
+      <div style={{ padding: "20px 20px 16px", borderBottom: "1px solid var(--th-border)" }}>
         <div style={{ color: "#F5C400", fontWeight: 800, fontSize: "1rem", letterSpacing: "-0.01em" }}>Techiehive</div>
         <div style={{ color: "#444444", fontSize: "0.72rem", marginTop: "2px", textTransform: "uppercase", letterSpacing: "0.06em" }}>Admin Panel</div>
       </div>
@@ -287,15 +287,15 @@ export default function AdminDashboard() {
           </button>
         ))}
       </nav>
-      <div style={{ padding: "12px 10px", borderTop: "1px solid #1a1a1a" }}>
+      <div style={{ padding: "12px 10px", borderTop: "1px solid var(--th-border)" }}>
         <div style={{ padding: "10px 12px", marginBottom: "8px" }}>
-          <div style={{ color: "#FFFFFF", fontSize: "0.82rem", fontWeight: 600 }}>{adminName}</div>
+          <div style={{ color: "var(--th-text)", fontSize: "0.82rem", fontWeight: 600 }}>{adminName}</div>
           <div style={{ color: "#444444", fontSize: "0.74rem" }}>Administrator</div>
         </div>
         <button onClick={handleLogout}
-          style={{ width: "100%", background: "transparent", border: "1px solid #1f1f1f", color: "#666666", padding: "9px 12px", borderRadius: "7px", fontSize: "0.82rem", fontWeight: 600, cursor: "pointer", transition: "color 0.2s, border-color 0.2s" }}
+          style={{ width: "100%", background: "transparent", border: "1px solid var(--th-border)", color: "#666666", padding: "9px 12px", borderRadius: "7px", fontSize: "0.82rem", fontWeight: 600, cursor: "pointer", transition: "color 0.2s, border-color 0.2s" }}
           onMouseEnter={(e) => { e.currentTarget.style.color = "#ef4444"; e.currentTarget.style.borderColor = "rgba(239,68,68,0.3)"; }}
-          onMouseLeave={(e) => { e.currentTarget.style.color = "#666666"; e.currentTarget.style.borderColor = "#1f1f1f"; }}
+          onMouseLeave={(e) => { e.currentTarget.style.color = "#666666"; e.currentTarget.style.borderColor = "var(--th-border)"; }}
         >
           Log Out
         </button>
@@ -305,22 +305,22 @@ export default function AdminDashboard() {
 
   if (loading) {
     return (
-      <div style={{ backgroundColor: "#0A0A0A", minHeight: "100vh", display: "flex", alignItems: "center", justifyContent: "center" }}>
-        <div style={{ width: "40px", height: "40px", border: "3px solid #1f1f1f", borderTopColor: "#F5C400", borderRadius: "50%", animation: "spin 0.8s linear infinite" }} />
+      <div style={{ backgroundColor: "var(--th-bg)", minHeight: "100vh", display: "flex", alignItems: "center", justifyContent: "center" }}>
+        <div style={{ width: "40px", height: "40px", border: "3px solid var(--th-border)", borderTopColor: "#F5C400", borderRadius: "50%", animation: "spin 0.8s linear infinite" }} />
         <style>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
       </div>
     );
   }
 
   return (
-    <div style={{ display: "flex", minHeight: "100vh", backgroundColor: "#0A0A0A", color: "#FFFFFF" }}>
-      <aside style={{ width: "220px", background: "#0d0d0d", borderRight: "1px solid #1a1a1a", display: "flex", flexDirection: "column", flexShrink: 0 }} className="admin-sidebar-desktop">
+    <div style={{ display: "flex", minHeight: "100vh", backgroundColor: "var(--th-bg)", color: "var(--th-text)" }}>
+      <aside style={{ width: "220px", background: "var(--th-surface-alt)", borderRight: "1px solid var(--th-border)", display: "flex", flexDirection: "column", flexShrink: 0 }} className="admin-sidebar-desktop">
         <SidebarContent />
       </aside>
 
       {sidebarOpen && (
         <div style={{ position: "fixed", inset: 0, zIndex: 200, display: "flex" }}>
-          <div style={{ width: "220px", background: "#0d0d0d", borderRight: "1px solid #1a1a1a", display: "flex", flexDirection: "column", zIndex: 201 }}>
+          <div style={{ width: "220px", background: "var(--th-surface-alt)", borderRight: "1px solid var(--th-border)", display: "flex", flexDirection: "column", zIndex: 201 }}>
             <SidebarContent />
           </div>
           <div style={{ flex: 1, background: "rgba(0,0,0,0.6)" }} onClick={() => setSidebarOpen(false)} />
@@ -331,7 +331,7 @@ export default function AdminDashboard() {
         <div style={{ padding: "32px 28px", maxWidth: "1100px", margin: "0 auto" }}>
           <div style={{ display: "flex", alignItems: "center", gap: "12px", marginBottom: "32px" }}>
             <button onClick={() => setSidebarOpen(true)} className="admin-menu-btn"
-              style={{ background: "transparent", border: "1.5px solid #1f1f1f", color: "#888888", padding: "7px 10px", borderRadius: "7px", cursor: "pointer", display: "none" }}>
+              style={{ background: "transparent", border: "1.5px solid var(--th-border)", color: "var(--th-muted)", padding: "7px 10px", borderRadius: "7px", cursor: "pointer", display: "none" }}>
               ☰
             </button>
             <div>
@@ -351,8 +351,8 @@ export default function AdminDashboard() {
                 <StatCard label="Total Enrollments" value={stats.enrollments} icon="📋" />
                 <StatCard label="Certificates Issued" value={stats.certificates} icon="🏆" />
               </div>
-              <div style={{ background: "#111111", border: "1.5px solid #1f1f1f", borderRadius: "12px", padding: "24px" }}>
-                <h2 style={{ fontSize: "1rem", fontWeight: 700, marginBottom: "16px", color: "#888888" }}>Recent Enrollments</h2>
+              <div style={{ background: "var(--th-surface)", border: "1.5px solid var(--th-border)", borderRadius: "12px", padding: "24px" }}>
+                <h2 style={{ fontSize: "1rem", fontWeight: 700, marginBottom: "16px", color: "var(--th-muted)" }}>Recent Enrollments</h2>
                 <Table headers={["Student", "Course", "Amount", "Date"]}
                   rows={enrollments.slice(0, 5).map((e) => [
                     e.student_name, e.course_name, `₦${e.amount.toLocaleString()}`,
@@ -365,7 +365,7 @@ export default function AdminDashboard() {
 
           {/* USERS */}
           {activeSection === "users" && (
-            <div style={{ background: "#111111", border: "1.5px solid #1f1f1f", borderRadius: "12px", padding: "24px" }}>
+            <div style={{ background: "var(--th-surface)", border: "1.5px solid var(--th-border)", borderRadius: "12px", padding: "24px" }}>
               <h2 style={{ fontSize: "1rem", fontWeight: 700, marginBottom: "20px" }}>All Students ({users.length})</h2>
               <Table headers={["Name", "Email", "Courses Enrolled", "Joined"]}
                 rows={users.map((u) => [
@@ -378,7 +378,7 @@ export default function AdminDashboard() {
 
           {/* ENROLLMENTS */}
           {activeSection === "enrollments" && (
-            <div style={{ background: "#111111", border: "1.5px solid #1f1f1f", borderRadius: "12px", padding: "24px" }}>
+            <div style={{ background: "var(--th-surface)", border: "1.5px solid var(--th-border)", borderRadius: "12px", padding: "24px" }}>
               <h2 style={{ fontSize: "1rem", fontWeight: 700, marginBottom: "20px" }}>All Enrollments ({enrollments.length})</h2>
               <Table headers={["Student", "Course", "Amount Paid", "Date"]}
                 rows={enrollments.map((e) => [
@@ -400,7 +400,7 @@ export default function AdminDashboard() {
               {[1, 2, 3].map((cid) => {
                 const courseLessons = lessons.filter((l) => l.course_id === cid).sort((a, b) => a.order_index - b.order_index);
                 return (
-                  <div key={cid} style={{ background: "#111111", border: "1.5px solid #1f1f1f", borderRadius: "12px", padding: "24px" }}>
+                  <div key={cid} style={{ background: "var(--th-surface)", border: "1.5px solid var(--th-border)", borderRadius: "12px", padding: "24px" }}>
                     <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "20px", flexWrap: "wrap", gap: "10px" }}>
                       <h2 style={{ fontSize: "1rem", fontWeight: 700, margin: 0 }}>{COURSE_NAMES[cid]}</h2>
                       <button onClick={() => { setAddingFor(addingFor === cid ? null : cid); setNewLesson({ course_id: cid, title: "", youtube_url: "", order_index: courseLessons.length + 1 }); }}
@@ -409,7 +409,7 @@ export default function AdminDashboard() {
                       </button>
                     </div>
                     {addingFor === cid && (
-                      <div style={{ background: "#0d0d0d", border: "1px solid rgba(245,196,0,0.2)", borderRadius: "9px", padding: "16px", marginBottom: "16px", display: "flex", flexDirection: "column", gap: "10px" }}>
+                      <div style={{ background: "var(--th-surface-alt)", border: "1px solid rgba(245,196,0,0.2)", borderRadius: "9px", padding: "16px", marginBottom: "16px", display: "flex", flexDirection: "column", gap: "10px" }}>
                         <p style={{ color: "#F5C400", fontSize: "0.78rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.06em", margin: 0 }}>New Lesson</p>
                         <input style={inputStyle} placeholder="Title" value={newLesson.title} onChange={(e) => setNewLesson((p) => ({ ...p, title: e.target.value }))} />
                         <input style={inputStyle} placeholder="YouTube URL" value={newLesson.youtube_url} onChange={(e) => setNewLesson((p) => ({ ...p, youtube_url: e.target.value }))} />
@@ -425,7 +425,7 @@ export default function AdminDashboard() {
                       {courseLessons.map((l) => (
                         <div key={l.id}>
                           {editingLesson?.id === l.id ? (
-                            <div style={{ background: "#0d0d0d", border: "1px solid rgba(245,196,0,0.2)", borderRadius: "9px", padding: "14px", display: "flex", flexDirection: "column", gap: "10px" }}>
+                            <div style={{ background: "var(--th-surface-alt)", border: "1px solid rgba(245,196,0,0.2)", borderRadius: "9px", padding: "14px", display: "flex", flexDirection: "column", gap: "10px" }}>
                               <input style={inputStyle} value={editingLesson.title} onChange={(e) => setEditingLesson((p) => p ? { ...p, title: e.target.value } : p)} />
                               <input style={inputStyle} value={editingLesson.youtube_url} onChange={(e) => setEditingLesson((p) => p ? { ...p, youtube_url: e.target.value } : p)} />
                               <input style={{ ...inputStyle, width: "100px" }} type="number" value={editingLesson.order_index} onChange={(e) => setEditingLesson((p) => p ? { ...p, order_index: parseInt(e.target.value) || 1 } : p)} />
@@ -435,14 +435,14 @@ export default function AdminDashboard() {
                               </div>
                             </div>
                           ) : (
-                            <div style={{ display: "flex", alignItems: "center", gap: "12px", padding: "12px 14px", background: "#0d0d0d", borderRadius: "9px", border: "1px solid #141414" }}>
+                            <div style={{ display: "flex", alignItems: "center", gap: "12px", padding: "12px 14px", background: "var(--th-surface-alt)", borderRadius: "9px", border: "1px solid #141414" }}>
                               <span style={{ color: "#F5C400", fontSize: "0.75rem", fontWeight: 700, width: "20px", flexShrink: 0 }}>{l.order_index}</span>
                               <div style={{ flex: 1, minWidth: 0 }}>
-                                <p style={{ color: "#FFFFFF", fontSize: "0.875rem", fontWeight: 600, margin: 0, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{l.title}</p>
+                                <p style={{ color: "var(--th-text)", fontSize: "0.875rem", fontWeight: 600, margin: 0, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{l.title}</p>
                                 <p style={{ color: "#444444", fontSize: "0.74rem", margin: "2px 0 0", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{l.youtube_url}</p>
                               </div>
                               <div style={{ display: "flex", gap: "6px", flexShrink: 0 }}>
-                                <button onClick={() => setEditingLesson(l)} style={{ background: "transparent", border: "1px solid #333333", color: "#888888", padding: "6px 12px", borderRadius: "6px", fontSize: "0.78rem", cursor: "pointer" }}>Edit</button>
+                                <button onClick={() => setEditingLesson(l)} style={{ background: "transparent", border: "1px solid #333333", color: "var(--th-muted)", padding: "6px 12px", borderRadius: "6px", fontSize: "0.78rem", cursor: "pointer" }}>Edit</button>
                                 <button onClick={() => handleDeleteLesson(l.id)} style={{ background: "transparent", border: "1px solid rgba(239,68,68,0.2)", color: "#ef4444", padding: "6px 12px", borderRadius: "6px", fontSize: "0.78rem", cursor: "pointer" }}>Delete</button>
                               </div>
                             </div>
@@ -461,18 +461,18 @@ export default function AdminDashboard() {
             <div style={{ display: "flex", flexDirection: "column", gap: "24px" }}>
               <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "16px" }}>
                 {courseSummaries.map((cs) => (
-                  <div key={cs.course_id} style={{ background: "#111111", border: "1.5px solid #1f1f1f", borderRadius: "12px", padding: "20px 22px" }}>
+                  <div key={cs.course_id} style={{ background: "var(--th-surface)", border: "1.5px solid var(--th-border)", borderRadius: "12px", padding: "20px 22px" }}>
                     <h3 style={{ color: "#F5C400", fontSize: "0.85rem", fontWeight: 700, marginBottom: "16px", lineHeight: 1.3 }}>{cs.course_name}</h3>
                     <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "12px" }}>
                       {[
-                        { label: "Enrolled", value: cs.total_enrolled, color: "#FFFFFF" },
+                        { label: "Enrolled", value: cs.total_enrolled, color: "var(--th-text)" },
                         { label: "Lessons Done", value: cs.completed_all_lessons, color: "#F5C400" },
                         { label: "Test Passed", value: cs.passed_test, color: "#22c55e" },
                         { label: "Certificates", value: cs.certificates_issued, color: "#a78bfa" },
                       ].map(({ label, value, color }) => (
-                        <div key={label} style={{ background: "#0d0d0d", borderRadius: "8px", padding: "12px" }}>
+                        <div key={label} style={{ background: "var(--th-surface-alt)", borderRadius: "8px", padding: "12px" }}>
                           <div style={{ fontSize: "1.4rem", fontWeight: 800, color, lineHeight: 1 }}>{value}</div>
-                          <div style={{ color: "#555555", fontSize: "0.72rem", marginTop: "4px", textTransform: "uppercase", letterSpacing: "0.05em" }}>{label}</div>
+                          <div style={{ color: "var(--th-muted)", fontSize: "0.72rem", marginTop: "4px", textTransform: "uppercase", letterSpacing: "0.05em" }}>{label}</div>
                         </div>
                       ))}
                     </div>
@@ -480,7 +480,7 @@ export default function AdminDashboard() {
                 ))}
               </div>
 
-              <div style={{ background: "#111111", border: "1.5px solid #1f1f1f", borderRadius: "12px", padding: "24px" }}>
+              <div style={{ background: "var(--th-surface)", border: "1.5px solid var(--th-border)", borderRadius: "12px", padding: "24px" }}>
                 <h2 style={{ fontSize: "1rem", fontWeight: 700, marginBottom: "20px" }}>Student Progress Detail</h2>
                 <Table
                   headers={["Student", "Course", "Lessons", "Test Status", "Certificate"]}
@@ -510,7 +510,7 @@ export default function AdminDashboard() {
                 </div>
               )}
 
-              <div style={{ background: "#111111", border: "1.5px solid #1f1f1f", borderRadius: "12px", padding: "24px" }}>
+              <div style={{ background: "var(--th-surface)", border: "1.5px solid var(--th-border)", borderRadius: "12px", padding: "24px" }}>
                 <h2 style={{ fontSize: "1rem", fontWeight: 700, marginBottom: "20px" }}>All Test Attempts ({tests.length})</h2>
                 <Table
                   headers={["Student", "Course", "Score", "Result", "Date", "Action"]}
@@ -525,7 +525,7 @@ export default function AdminDashboard() {
                 />
               </div>
 
-              <div style={{ background: "#111111", border: "1.5px solid #1f1f1f", borderRadius: "12px", padding: "24px" }}>
+              <div style={{ background: "var(--th-surface)", border: "1.5px solid var(--th-border)", borderRadius: "12px", padding: "24px" }}>
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: "12px", marginBottom: "20px" }}>
                   <h2 style={{ fontSize: "1rem", fontWeight: 700, margin: 0 }}>Issued Certificates ({allCerts.length})</h2>
                   <button
@@ -537,7 +537,7 @@ export default function AdminDashboard() {
                 </div>
 
                 {issueCertForm && (
-                  <div style={{ background: "#0d0d0d", border: "1px solid rgba(245,196,0,0.2)", borderRadius: "9px", padding: "16px", marginBottom: "20px", display: "flex", flexDirection: "column", gap: "12px" }}>
+                  <div style={{ background: "var(--th-surface-alt)", border: "1px solid rgba(245,196,0,0.2)", borderRadius: "9px", padding: "16px", marginBottom: "20px", display: "flex", flexDirection: "column", gap: "12px" }}>
                     <p style={{ color: "#F5C400", fontSize: "0.78rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.06em", margin: 0 }}>Manual Certificate Issuance</p>
                     <div>
                       <label style={{ color: "#666666", fontSize: "0.75rem", display: "block", marginBottom: "6px" }}>Student</label>

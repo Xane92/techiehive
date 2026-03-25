@@ -38,11 +38,11 @@ export default function ContactPage() {
 
   const inputStyle: React.CSSProperties = {
     width: "100%",
-    background: "#111111",
-    border: "1.5px solid #1f1f1f",
+    background: "var(--th-surface)",
+    border: "1.5px solid var(--th-border)",
     borderRadius: "8px",
     padding: "12px 16px",
-    color: "#FFFFFF",
+    color: "var(--th-text)",
     fontSize: "0.9rem",
     outline: "none",
     boxSizing: "border-box",
@@ -51,24 +51,24 @@ export default function ContactPage() {
 
   const labelStyle: React.CSSProperties = {
     display: "block",
-    color: "#CCCCCC",
+    color: "var(--th-text-sec)",
     fontSize: "0.875rem",
     fontWeight: 600,
     marginBottom: "8px",
   };
 
   return (
-    <div style={{ backgroundColor: "#0A0A0A", minHeight: "100vh", color: "#FFFFFF" }}>
+    <div style={{ backgroundColor: "var(--th-bg)", minHeight: "100vh", color: "var(--th-text)" }}>
       <Navbar />
 
       <section
         style={{
-          background: "#0A0A0A",
+          background: "var(--th-bg)",
           backgroundImage: "radial-gradient(circle, #1f1f1f 1px, transparent 1px)",
           backgroundSize: "30px 30px",
           padding: "80px 24px 72px",
           textAlign: "center",
-          borderBottom: "1px solid #1a1a1a",
+          borderBottom: "1px solid var(--th-border)",
           position: "relative",
         }}
       >
@@ -83,7 +83,7 @@ export default function ContactPage() {
         <div style={{ position: "relative", zIndex: 1, maxWidth: "640px", margin: "0 auto" }}>
           <h1
             style={{
-              color: "#FFFFFF",
+              color: "var(--th-text)",
               fontSize: "clamp(2rem, 5vw, 3rem)",
               fontWeight: 800,
               letterSpacing: "-0.03em",
@@ -93,7 +93,7 @@ export default function ContactPage() {
           >
             Contact <span style={{ color: "#F5C400" }}>Us</span>
           </h1>
-          <p style={{ color: "#888888", fontSize: "1rem", lineHeight: 1.7, margin: 0 }}>
+          <p style={{ color: "var(--th-muted)", fontSize: "1rem", lineHeight: 1.7, margin: 0 }}>
             Have a question? We're here to help.
           </p>
         </div>
@@ -103,7 +103,7 @@ export default function ContactPage() {
         {submitted ? (
           <div
             style={{
-              background: "#111111",
+              background: "var(--th-surface)",
               border: "1.5px solid rgba(245,196,0,0.4)",
               borderRadius: "12px",
               padding: "40px 32px",
@@ -114,7 +114,7 @@ export default function ContactPage() {
             <h3 style={{ color: "#F5C400", fontWeight: 700, fontSize: "1.1rem", marginBottom: "10px" }}>
               Message Sent!
             </h3>
-            <p style={{ color: "#888888", fontSize: "0.9rem", margin: 0 }}>
+            <p style={{ color: "var(--th-muted)", fontSize: "0.9rem", margin: 0 }}>
               Thanks for reaching out, {form.name}! We'll get back to you at {form.email} as soon as possible.
             </p>
           </div>
@@ -131,7 +131,7 @@ export default function ContactPage() {
                 onChange={handleChange}
                 style={inputStyle}
                 onFocus={(e) => (e.currentTarget.style.borderColor = "#F5C400")}
-                onBlur={(e) => (e.currentTarget.style.borderColor = "#1f1f1f")}
+                onBlur={(e) => (e.currentTarget.style.borderColor = "var(--th-border)")}
               />
             </div>
 
@@ -146,7 +146,7 @@ export default function ContactPage() {
                 onChange={handleChange}
                 style={inputStyle}
                 onFocus={(e) => (e.currentTarget.style.borderColor = "#F5C400")}
-                onBlur={(e) => (e.currentTarget.style.borderColor = "#1f1f1f")}
+                onBlur={(e) => (e.currentTarget.style.borderColor = "var(--th-border)")}
               />
             </div>
 
@@ -161,7 +161,7 @@ export default function ContactPage() {
                 onChange={handleChange}
                 style={{ ...inputStyle, resize: "vertical", fontFamily: "inherit" }}
                 onFocus={(e) => (e.currentTarget.style.borderColor = "#F5C400")}
-                onBlur={(e) => (e.currentTarget.style.borderColor = "#1f1f1f")}
+                onBlur={(e) => (e.currentTarget.style.borderColor = "var(--th-border)")}
               />
             </div>
 
@@ -195,8 +195,8 @@ export default function ContactPage() {
           </form>
         )}
 
-        <div style={{ marginTop: "48px", paddingTop: "32px", borderTop: "1px solid #1a1a1a" }}>
-          <p style={{ color: "#555555", fontSize: "0.8rem", textTransform: "uppercase", letterSpacing: "0.06em", marginBottom: "8px" }}>
+        <div style={{ marginTop: "48px", paddingTop: "32px", borderTop: "1px solid var(--th-border)" }}>
+          <p style={{ color: "var(--th-muted)", fontSize: "0.8rem", textTransform: "uppercase", letterSpacing: "0.06em", marginBottom: "8px" }}>
             Email
           </p>
           <a

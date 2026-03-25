@@ -106,10 +106,10 @@ export default function TestPage() {
 
   if (testState === "loading") {
     return (
-      <div style={{ backgroundColor: "#0A0A0A", minHeight: "100vh", color: "#FFFFFF", display: "flex", alignItems: "center", justifyContent: "center" }}>
+      <div style={{ backgroundColor: "var(--th-bg)", minHeight: "100vh", color: "var(--th-text)", display: "flex", alignItems: "center", justifyContent: "center" }}>
         <div style={{ textAlign: "center" }}>
-          <div style={{ width: "40px", height: "40px", border: "3px solid #1f1f1f", borderTopColor: "#F5C400", borderRadius: "50%", animation: "spin 0.8s linear infinite", margin: "0 auto 16px" }} />
-          <p style={{ color: "#888888", fontSize: "0.9rem" }}>Loading test…</p>
+          <div style={{ width: "40px", height: "40px", border: "3px solid var(--th-border)", borderTopColor: "#F5C400", borderRadius: "50%", animation: "spin 0.8s linear infinite", margin: "0 auto 16px" }} />
+          <p style={{ color: "var(--th-muted)", fontSize: "0.9rem" }}>Loading test…</p>
           <style>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
         </div>
       </div>
@@ -118,7 +118,7 @@ export default function TestPage() {
 
   if (testState === "passed") {
     return (
-      <div style={{ backgroundColor: "#0A0A0A", minHeight: "100vh", color: "#FFFFFF", display: "flex", flexDirection: "column" }}>
+      <div style={{ backgroundColor: "var(--th-bg)", minHeight: "100vh", color: "var(--th-text)", display: "flex", flexDirection: "column" }}>
         <Navbar />
         <div style={{ flex: 1, display: "flex", alignItems: "center", justifyContent: "center", padding: "48px 24px" }}>
           <div style={{ maxWidth: "520px", width: "100%", textAlign: "center" }}>
@@ -131,7 +131,7 @@ export default function TestPage() {
             <p style={{ color: "#22c55e", fontSize: "1.1rem", fontWeight: 700, marginBottom: "8px" }}>
               You scored {score}/{total}
             </p>
-            <p style={{ color: "#888888", fontSize: "0.95rem", lineHeight: 1.6, marginBottom: "36px" }}>
+            <p style={{ color: "var(--th-muted)", fontSize: "0.95rem", lineHeight: 1.6, marginBottom: "36px" }}>
               You passed! Your certificate is ready. Well done on completing{" "}
               <span style={{ color: "#F5C400", fontWeight: 600 }}>{COURSE_NAMES[courseId]}</span>.
             </p>
@@ -147,7 +147,7 @@ export default function TestPage() {
               </Link>
               <Link href="/dashboard">
                 <button
-                  style={{ background: "transparent", border: "1.5px solid #333333", color: "#888888", padding: "13px 24px", borderRadius: "8px", fontSize: "0.95rem", fontWeight: 600, cursor: "pointer" }}
+                  style={{ background: "transparent", border: "1.5px solid #333333", color: "var(--th-muted)", padding: "13px 24px", borderRadius: "8px", fontSize: "0.95rem", fontWeight: 600, cursor: "pointer" }}
                 >
                   Back to Dashboard
                 </button>
@@ -162,7 +162,7 @@ export default function TestPage() {
 
   if (testState === "failed") {
     return (
-      <div style={{ backgroundColor: "#0A0A0A", minHeight: "100vh", color: "#FFFFFF", display: "flex", flexDirection: "column" }}>
+      <div style={{ backgroundColor: "var(--th-bg)", minHeight: "100vh", color: "var(--th-text)", display: "flex", flexDirection: "column" }}>
         <Navbar />
         <div style={{ flex: 1, display: "flex", alignItems: "center", justifyContent: "center", padding: "48px 24px" }}>
           <div style={{ maxWidth: "520px", width: "100%", textAlign: "center" }}>
@@ -175,7 +175,7 @@ export default function TestPage() {
             <p style={{ color: "#ef4444", fontSize: "1.1rem", fontWeight: 700, marginBottom: "8px" }}>
               You scored {score}/{total}
             </p>
-            <p style={{ color: "#888888", fontSize: "0.95rem", lineHeight: 1.6, marginBottom: "36px" }}>
+            <p style={{ color: "var(--th-muted)", fontSize: "0.95rem", lineHeight: 1.6, marginBottom: "36px" }}>
               You didn't pass this time. You need at least 3 correct answers. Please review the lessons and try again.
             </p>
             <div style={{ display: "flex", gap: "12px", justifyContent: "center", flexWrap: "wrap" }}>
@@ -189,7 +189,7 @@ export default function TestPage() {
               </button>
               <Link href={`/learn/${courseId}`}>
                 <button
-                  style={{ background: "transparent", border: "1.5px solid #333333", color: "#888888", padding: "13px 24px", borderRadius: "8px", fontSize: "0.95rem", fontWeight: 600, cursor: "pointer" }}
+                  style={{ background: "transparent", border: "1.5px solid #333333", color: "var(--th-muted)", padding: "13px 24px", borderRadius: "8px", fontSize: "0.95rem", fontWeight: 600, cursor: "pointer" }}
                 >
                   Review Lessons
                 </button>
@@ -203,14 +203,14 @@ export default function TestPage() {
   }
 
   return (
-    <div style={{ backgroundColor: "#0A0A0A", minHeight: "100vh", color: "#FFFFFF", display: "flex", flexDirection: "column" }}>
+    <div style={{ backgroundColor: "var(--th-bg)", minHeight: "100vh", color: "var(--th-text)", display: "flex", flexDirection: "column" }}>
       <Navbar />
 
       <div style={{ maxWidth: "720px", margin: "0 auto", padding: "48px 24px 96px", width: "100%" }}>
         <Link href={`/learn/${courseId}`}
-          style={{ color: "#888888", fontSize: "0.8rem", textDecoration: "none", display: "inline-flex", alignItems: "center", gap: "6px", marginBottom: "28px" }}
+          style={{ color: "var(--th-muted)", fontSize: "0.8rem", textDecoration: "none", display: "inline-flex", alignItems: "center", gap: "6px", marginBottom: "28px" }}
           onMouseEnter={(e) => ((e.currentTarget as HTMLAnchorElement).style.color = "#F5C400")}
-          onMouseLeave={(e) => ((e.currentTarget as HTMLAnchorElement).style.color = "#888888")}
+          onMouseLeave={(e) => ((e.currentTarget as HTMLAnchorElement).style.color = "var(--th-muted)")}
         >
           ← Back to Course
         </Link>
@@ -222,7 +222,7 @@ export default function TestPage() {
           <h1 style={{ fontSize: "clamp(1.5rem, 3vw, 2rem)", fontWeight: 800, letterSpacing: "-0.02em", margin: "0 0 12px" }}>
             {COURSE_NAMES[courseId]}
           </h1>
-          <p style={{ color: "#888888", fontSize: "0.9rem", lineHeight: 1.6, margin: 0 }}>
+          <p style={{ color: "var(--th-muted)", fontSize: "0.9rem", lineHeight: 1.6, margin: 0 }}>
             Answer all {total} questions. You need <span style={{ color: "#F5C400", fontWeight: 700 }}>3 or more correct</span> to pass and earn your certificate.
           </p>
         </div>
@@ -231,9 +231,9 @@ export default function TestPage() {
           {questions.map((q, idx) => (
             <div
               key={q.id}
-              style={{ background: "#111111", border: `1.5px solid ${answers[q.id] ? "rgba(245,196,0,0.2)" : "#1f1f1f"}`, borderRadius: "12px", padding: "24px", transition: "border-color 0.2s" }}
+              style={{ background: "var(--th-surface)", border: `1.5px solid ${answers[q.id] ? "rgba(245,196,0,0.2)" : "#1f1f1f"}`, borderRadius: "12px", padding: "24px", transition: "border-color 0.2s" }}
             >
-              <p style={{ color: "#FFFFFF", fontSize: "0.95rem", fontWeight: 700, marginBottom: "20px", lineHeight: 1.5 }}>
+              <p style={{ color: "var(--th-text)", fontSize: "0.95rem", fontWeight: 700, marginBottom: "20px", lineHeight: 1.5 }}>
                 <span style={{ color: "#F5C400" }}>Q{idx + 1}.</span> {q.question}
               </p>
               <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
@@ -274,7 +274,7 @@ export default function TestPage() {
         </div>
 
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: "16px" }}>
-          <p style={{ color: "#555555", fontSize: "0.82rem", margin: 0 }}>
+          <p style={{ color: "var(--th-muted)", fontSize: "0.82rem", margin: 0 }}>
             {Object.keys(answers).length} of {total} answered
           </p>
           <button

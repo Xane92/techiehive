@@ -93,8 +93,8 @@ function CourseDetailCard({ course }: { course: typeof courses[0] }) {
   return (
     <div
       style={{
-        background: "#111111",
-        border: "1.5px solid #1f1f1f",
+        background: "var(--th-surface)",
+        border: "1.5px solid var(--th-border)",
         borderRadius: "14px",
         padding: "32px 28px",
         display: "flex",
@@ -109,7 +109,7 @@ function CourseDetailCard({ course }: { course: typeof courses[0] }) {
       }}
       onMouseLeave={(e) => {
         const el = e.currentTarget as HTMLDivElement;
-        el.style.borderColor = "#1f1f1f";
+        el.style.borderColor = "var(--th-border)";
         el.style.boxShadow = "none";
       }}
     >
@@ -132,13 +132,13 @@ function CourseDetailCard({ course }: { course: typeof courses[0] }) {
       </div>
 
       <div>
-        <h3 style={{ color: "#FFFFFF", fontSize: "1.15rem", fontWeight: 700, margin: "0 0 4px" }}>
+        <h3 style={{ color: "var(--th-text)", fontSize: "1.15rem", fontWeight: 700, margin: "0 0 4px" }}>
           {course.title}
         </h3>
         <p style={{ color: "#F5C400", fontSize: "0.85rem", fontWeight: 700, margin: "0 0 10px" }}>
           ₦{COURSE_AMOUNT.toLocaleString()}
         </p>
-        <p style={{ color: "#888888", fontSize: "0.9rem", lineHeight: 1.65, margin: 0 }}>
+        <p style={{ color: "var(--th-muted)", fontSize: "0.9rem", lineHeight: 1.65, margin: 0 }}>
           {course.description}
         </p>
       </div>
@@ -151,7 +151,7 @@ function CourseDetailCard({ course }: { course: typeof courses[0] }) {
           {course.bullets.map((point) => (
             <li key={point} style={{ display: "flex", alignItems: "flex-start", gap: "10px" }}>
               <span style={{ color: "#F5C400", fontSize: "0.85rem", marginTop: "2px", flexShrink: 0 }}>✓</span>
-              <span style={{ color: "#CCCCCC", fontSize: "0.875rem", lineHeight: 1.5 }}>{point}</span>
+              <span style={{ color: "var(--th-text-sec)", fontSize: "0.875rem", lineHeight: 1.5 }}>{point}</span>
             </li>
           ))}
         </ul>
@@ -189,17 +189,17 @@ function CourseDetailCard({ course }: { course: typeof courses[0] }) {
 
 export default function CoursesPage() {
   return (
-    <div style={{ backgroundColor: "#0A0A0A", minHeight: "100vh", color: "#FFFFFF" }}>
+    <div style={{ backgroundColor: "var(--th-bg)", minHeight: "100vh", color: "var(--th-text)" }}>
       <Navbar />
 
       <section
         style={{
-          background: "#0A0A0A",
+          background: "var(--th-bg)",
           backgroundImage: "radial-gradient(circle, #1f1f1f 1px, transparent 1px)",
           backgroundSize: "30px 30px",
           padding: "80px 24px 72px",
           textAlign: "center",
-          borderBottom: "1px solid #1a1a1a",
+          borderBottom: "1px solid var(--th-border)",
           position: "relative",
         }}
       >
@@ -214,7 +214,7 @@ export default function CoursesPage() {
         <div style={{ position: "relative", zIndex: 1, maxWidth: "640px", margin: "0 auto" }}>
           <h1
             style={{
-              color: "#FFFFFF",
+              color: "var(--th-text)",
               fontSize: "clamp(2rem, 5vw, 3rem)",
               fontWeight: 800,
               letterSpacing: "-0.03em",
@@ -224,7 +224,7 @@ export default function CoursesPage() {
           >
             Our <span style={{ color: "#F5C400" }}>Courses</span>
           </h1>
-          <p style={{ color: "#888888", fontSize: "1rem", lineHeight: 1.7, margin: 0 }}>
+          <p style={{ color: "var(--th-muted)", fontSize: "1rem", lineHeight: 1.7, margin: 0 }}>
             Choose a skill. Follow the curriculum. Get certified.
           </p>
         </div>

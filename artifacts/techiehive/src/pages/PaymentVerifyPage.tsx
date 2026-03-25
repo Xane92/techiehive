@@ -36,7 +36,7 @@ export default function PaymentVerifyPage() {
   }, [setLocation]);
 
   return (
-    <div style={{ backgroundColor: "#0A0A0A", minHeight: "100vh", color: "#FFFFFF" }}>
+    <div style={{ backgroundColor: "var(--th-bg)", minHeight: "100vh", color: "var(--th-text)" }}>
       <Navbar />
       <div
         style={{
@@ -52,7 +52,7 @@ export default function PaymentVerifyPage() {
               style={{
                 width: "52px",
                 height: "52px",
-                border: "3px solid #1f1f1f",
+                border: "3px solid var(--th-border)",
                 borderTop: "3px solid #F5C400",
                 borderRadius: "50%",
                 margin: "0 auto 28px",
@@ -60,10 +60,10 @@ export default function PaymentVerifyPage() {
               }}
             />
             <style>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
-            <h2 style={{ color: "#FFFFFF", fontWeight: 700, fontSize: "1.3rem", marginBottom: "10px" }}>
+            <h2 style={{ color: "var(--th-text)", fontWeight: 700, fontSize: "1.3rem", marginBottom: "10px" }}>
               Verifying your payment…
             </h2>
-            <p style={{ color: "#888888", fontSize: "0.9rem" }}>
+            <p style={{ color: "var(--th-muted)", fontSize: "0.9rem" }}>
               Please wait while we confirm your transaction.
             </p>
           </>
@@ -89,7 +89,7 @@ export default function PaymentVerifyPage() {
             <h2 style={{ color: "#F5C400", fontWeight: 800, fontSize: "1.4rem", marginBottom: "10px" }}>
               Payment Successful!
             </h2>
-            <p style={{ color: "#888888", fontSize: "0.9rem" }}>
+            <p style={{ color: "var(--th-muted)", fontSize: "0.9rem" }}>
               You're now enrolled. Redirecting to your dashboard…
             </p>
           </>
@@ -115,7 +115,7 @@ export default function PaymentVerifyPage() {
             <h2 style={{ color: "#ff6b6b", fontWeight: 800, fontSize: "1.4rem", marginBottom: "10px" }}>
               Verification Failed
             </h2>
-            <p style={{ color: "#888888", fontSize: "0.9rem", marginBottom: "28px" }}>{message}</p>
+            <p style={{ color: "var(--th-muted)", fontSize: "0.9rem", marginBottom: "28px" }}>{message}</p>
             <button
               onClick={() => setLocation("/courses")}
               style={{

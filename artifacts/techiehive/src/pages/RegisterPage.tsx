@@ -51,11 +51,11 @@ export default function RegisterPage() {
 
   const inputStyle: React.CSSProperties = {
     width: "100%",
-    background: "#111111",
-    border: "1.5px solid #1f1f1f",
+    background: "var(--th-surface)",
+    border: "1.5px solid var(--th-border)",
     borderRadius: "8px",
     padding: "12px 16px",
-    color: "#FFFFFF",
+    color: "var(--th-text)",
     fontSize: "0.9rem",
     outline: "none",
     boxSizing: "border-box",
@@ -63,20 +63,20 @@ export default function RegisterPage() {
   };
 
   return (
-    <div style={{ backgroundColor: "#0A0A0A", minHeight: "100vh", color: "#FFFFFF" }}>
+    <div style={{ backgroundColor: "var(--th-bg)", minHeight: "100vh", color: "var(--th-text)" }}>
       <Navbar />
       <div style={{ maxWidth: "480px", margin: "0 auto", padding: "80px 24px 96px" }}>
         <div style={{ textAlign: "center", marginBottom: "40px" }}>
           <h1 style={{ fontSize: "clamp(1.6rem, 4vw, 2.2rem)", fontWeight: 800, letterSpacing: "-0.02em", marginBottom: "10px" }}>
             Create your <span style={{ color: "#F5C400" }}>account</span>
           </h1>
-          <p style={{ color: "#888888", fontSize: "0.9rem" }}>
+          <p style={{ color: "var(--th-muted)", fontSize: "0.9rem" }}>
             Already have an account?{" "}
             <Link href="/login" style={{ color: "#F5C400", textDecoration: "none", fontWeight: 600 }}>Sign in</Link>
           </p>
         </div>
 
-        <div style={{ background: "#111111", border: "1.5px solid #1f1f1f", borderRadius: "12px", padding: "32px 28px" }}>
+        <div style={{ background: "var(--th-surface)", border: "1.5px solid var(--th-border)", borderRadius: "12px", padding: "32px 28px" }}>
           {error && (
             <div style={{ background: "rgba(220,50,50,0.1)", border: "1px solid rgba(220,50,50,0.3)", borderRadius: "8px", padding: "12px 16px", marginBottom: "20px", color: "#ff6b6b", fontSize: "0.875rem" }}>
               {error}
@@ -85,31 +85,31 @@ export default function RegisterPage() {
 
           <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
             <div>
-              <label style={{ display: "block", color: "#CCCCCC", fontSize: "0.85rem", fontWeight: 600, marginBottom: "8px" }}>Full Name</label>
+              <label style={{ display: "block", color: "var(--th-text-sec)", fontSize: "0.85rem", fontWeight: 600, marginBottom: "8px" }}>Full Name</label>
               <input name="full_name" type="text" placeholder="Your full name" required value={form.full_name} onChange={handleChange} style={inputStyle}
                 onFocus={(e) => (e.currentTarget.style.borderColor = "#F5C400")}
-                onBlur={(e) => (e.currentTarget.style.borderColor = "#1f1f1f")} />
+                onBlur={(e) => (e.currentTarget.style.borderColor = "var(--th-border)")} />
             </div>
 
             <div>
-              <label style={{ display: "block", color: "#CCCCCC", fontSize: "0.85rem", fontWeight: 600, marginBottom: "8px" }}>Email Address</label>
+              <label style={{ display: "block", color: "var(--th-text-sec)", fontSize: "0.85rem", fontWeight: 600, marginBottom: "8px" }}>Email Address</label>
               <input name="email" type="email" placeholder="you@example.com" required value={form.email} onChange={handleChange} style={inputStyle}
                 onFocus={(e) => (e.currentTarget.style.borderColor = "#F5C400")}
-                onBlur={(e) => (e.currentTarget.style.borderColor = "#1f1f1f")} />
+                onBlur={(e) => (e.currentTarget.style.borderColor = "var(--th-border)")} />
             </div>
 
             <div>
-              <label style={{ display: "block", color: "#CCCCCC", fontSize: "0.85rem", fontWeight: 600, marginBottom: "8px" }}>Password</label>
+              <label style={{ display: "block", color: "var(--th-text-sec)", fontSize: "0.85rem", fontWeight: 600, marginBottom: "8px" }}>Password</label>
               <input name="password" type="password" placeholder="At least 6 characters" required value={form.password} onChange={handleChange} style={inputStyle}
                 onFocus={(e) => (e.currentTarget.style.borderColor = "#F5C400")}
-                onBlur={(e) => (e.currentTarget.style.borderColor = "#1f1f1f")} />
+                onBlur={(e) => (e.currentTarget.style.borderColor = "var(--th-border)")} />
             </div>
 
             <div>
-              <label style={{ display: "block", color: "#CCCCCC", fontSize: "0.85rem", fontWeight: 600, marginBottom: "8px" }}>Confirm Password</label>
+              <label style={{ display: "block", color: "var(--th-text-sec)", fontSize: "0.85rem", fontWeight: 600, marginBottom: "8px" }}>Confirm Password</label>
               <input name="confirm_password" type="password" placeholder="Repeat your password" required value={form.confirm_password} onChange={handleChange} style={inputStyle}
                 onFocus={(e) => (e.currentTarget.style.borderColor = "#F5C400")}
-                onBlur={(e) => (e.currentTarget.style.borderColor = "#1f1f1f")} />
+                onBlur={(e) => (e.currentTarget.style.borderColor = "var(--th-border)")} />
             </div>
 
             <button

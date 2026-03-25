@@ -293,8 +293,8 @@
 
   body {
     @apply font-sans antialiased;
-    background-color: #0A0A0A;
-    color: #FFFFFF;
+    background-color: var(--th-bg);
+    color: var(--th-text);
   }
 }
 
@@ -444,4 +444,42 @@
   body {
     overflow-x: hidden;
   }
+}
+/* ============================================================
+   Techiehive — Theme CSS variables
+   ============================================================ */
+
+/* Dark mode (default) */
+:root {
+  --th-bg: #0A0A0A;
+  --th-surface: #111111;
+  --th-surface-alt: #0d0d0d;
+  --th-text: #FFFFFF;
+  --th-text-sec: #CCCCCC;
+  --th-muted: #888888;
+  --th-border: #1f1f1f;
+  --th-nav-bg: rgba(10, 10, 10, 0.97);
+  --th-dot: #222222;
+}
+
+/* Light mode */
+[data-theme="light"] {
+  --th-bg: #FFFFFF;
+  --th-surface: #F5F5F5;
+  --th-surface-alt: #EBEBEB;
+  --th-text: #1a1a1a;
+  --th-text-sec: #444444;
+  --th-muted: #555555;
+  --th-border: #e0e0e0;
+  --th-nav-bg: rgba(255, 255, 255, 0.97);
+  --th-dot: #d8d8d8;
+}
+
+/* Smooth theme transition — only during the switch */
+.theme-transitioning,
+.theme-transitioning *,
+.theme-transitioning *::before,
+.theme-transitioning *::after {
+  transition: background-color 0.35s ease, color 0.35s ease,
+              border-color 0.35s ease, fill 0.35s ease !important;
 }

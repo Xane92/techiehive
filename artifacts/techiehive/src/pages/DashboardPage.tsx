@@ -65,46 +65,46 @@ export default function DashboardPage() {
   if (!user) return null;
 
   return (
-    <div style={{ backgroundColor: "#0A0A0A", minHeight: "100vh", color: "#FFFFFF" }}>
+    <div style={{ backgroundColor: "var(--th-bg)", minHeight: "100vh", color: "var(--th-text)" }}>
       <Navbar />
 
       <div style={{ maxWidth: "900px", margin: "0 auto", padding: "64px 24px 96px" }}>
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", flexWrap: "wrap", gap: "16px", marginBottom: "48px" }}>
           <div>
-            <p style={{ color: "#888888", fontSize: "0.85rem", textTransform: "uppercase", letterSpacing: "0.06em", marginBottom: "8px" }}>
+            <p style={{ color: "var(--th-muted)", fontSize: "0.85rem", textTransform: "uppercase", letterSpacing: "0.06em", marginBottom: "8px" }}>
               Welcome back
             </p>
             <h1 style={{ fontSize: "clamp(1.6rem, 4vw, 2.4rem)", fontWeight: 800, letterSpacing: "-0.02em", margin: 0 }}>
               {user.full_name} 👋
             </h1>
-            <p style={{ color: "#555555", fontSize: "0.875rem", marginTop: "6px" }}>{user.email}</p>
+            <p style={{ color: "var(--th-muted)", fontSize: "0.875rem", marginTop: "6px" }}>{user.email}</p>
           </div>
 
           <button
             onClick={handleLogout}
-            style={{ background: "transparent", border: "1.5px solid #333333", color: "#888888", padding: "8px 18px", borderRadius: "8px", fontSize: "0.875rem", fontWeight: 600, cursor: "pointer", transition: "border-color 0.2s, color 0.2s" }}
+            style={{ background: "transparent", border: "1.5px solid #333333", color: "var(--th-muted)", padding: "8px 18px", borderRadius: "8px", fontSize: "0.875rem", fontWeight: 600, cursor: "pointer", transition: "border-color 0.2s, color 0.2s" }}
             onMouseEnter={(e) => { e.currentTarget.style.borderColor = "#ff6b6b"; e.currentTarget.style.color = "#ff6b6b"; }}
-            onMouseLeave={(e) => { e.currentTarget.style.borderColor = "#333333"; e.currentTarget.style.color = "#888888"; }}
+            onMouseLeave={(e) => { e.currentTarget.style.borderColor = "#333333"; e.currentTarget.style.color = "var(--th-muted)"; }}
           >
             Log Out
           </button>
         </div>
 
         <div style={{ marginBottom: "40px" }}>
-          <h2 style={{ color: "#FFFFFF", fontSize: "1.2rem", fontWeight: 700, marginBottom: "24px" }}>
+          <h2 style={{ color: "var(--th-text)", fontSize: "1.2rem", fontWeight: 700, marginBottom: "24px" }}>
             My Courses
           </h2>
 
           {enrollmentsLoading ? (
             <div style={{ display: "flex", gap: "16px" }}>
               {[1, 2].map((n) => (
-                <div key={n} style={{ flex: 1, background: "#111111", borderRadius: "12px", height: "120px", border: "1.5px solid #1f1f1f", opacity: 0.5 }} />
+                <div key={n} style={{ flex: 1, background: "var(--th-surface)", borderRadius: "12px", height: "120px", border: "1.5px solid var(--th-border)", opacity: 0.5 }} />
               ))}
             </div>
           ) : enrollments.length === 0 ? (
-            <div style={{ background: "#111111", border: "1.5px solid #1f1f1f", borderRadius: "12px", padding: "40px 32px", textAlign: "center" }}>
+            <div style={{ background: "var(--th-surface)", border: "1.5px solid var(--th-border)", borderRadius: "12px", padding: "40px 32px", textAlign: "center" }}>
               <div style={{ fontSize: "2rem", marginBottom: "16px" }}>📚</div>
-              <p style={{ color: "#888888", fontSize: "0.95rem", lineHeight: 1.6, marginBottom: "24px" }}>
+              <p style={{ color: "var(--th-muted)", fontSize: "0.95rem", lineHeight: 1.6, marginBottom: "24px" }}>
                 You have no enrolled courses yet. Browse our courses to get started.
               </p>
               <Link href="/courses">
@@ -123,7 +123,7 @@ export default function DashboardPage() {
                 <div
                   key={enrollment.id}
                   style={{
-                    background: "#111111",
+                    background: "var(--th-surface)",
                     border: "1.5px solid rgba(245,196,0,0.25)",
                     borderRadius: "12px",
                     padding: "24px 20px",
@@ -140,10 +140,10 @@ export default function DashboardPage() {
                   </div>
 
                   <div>
-                    <h3 style={{ color: "#FFFFFF", fontSize: "1rem", fontWeight: 700, margin: "0 0 6px" }}>
+                    <h3 style={{ color: "var(--th-text)", fontSize: "1rem", fontWeight: 700, margin: "0 0 6px" }}>
                       {COURSE_NAMES[enrollment.course_id] ?? `Course #${enrollment.course_id}`}
                     </h3>
-                    <p style={{ color: "#555555", fontSize: "0.78rem", margin: 0 }}>
+                    <p style={{ color: "var(--th-muted)", fontSize: "0.78rem", margin: 0 }}>
                       Enrolled {new Date(enrollment.paid_at).toLocaleDateString("en-NG", { day: "numeric", month: "short", year: "numeric" })}
                     </p>
                   </div>

@@ -20,6 +20,7 @@ import AdminLoginPage from "@/pages/AdminLoginPage";
 import AdminDashboard from "@/pages/AdminDashboard";
 import ForgotPasswordPage from "@/pages/ForgotPasswordPage";
 import ResetPasswordPage from "@/pages/ResetPasswordPage";
+import { ThemeProvider } from "@/context/ThemeContext";
 import { API_BASE } from '@/lib/api';
 
 const queryClient = new QueryClient();
@@ -92,8 +93,8 @@ function Hero() {
   return (
     <section
       style={{
-        background: "#0A0A0A",
-        backgroundImage: `radial-gradient(circle, #1f1f1f 1px, transparent 1px)`,
+        background: "var(--th-bg)",
+        backgroundImage: "radial-gradient(circle, var(--th-dot) 1px, transparent 1px)",
         backgroundSize: "30px 30px",
         minHeight: "90vh",
         display: "flex",
@@ -130,7 +131,7 @@ function Hero() {
         >Africa's Premium EdTech Platform</div>
         <h1
           style={{
-            color: "#FFFFFF",
+            color: "var(--th-text)",
             fontSize: "clamp(2.2rem, 6vw, 3.8rem)",
             fontWeight: 800,
             lineHeight: 1.15,
@@ -143,7 +144,7 @@ function Hero() {
         </h1>
         <p
           style={{
-            color: "#888888",
+            color: "var(--th-muted)",
             fontSize: "clamp(1rem, 2vw, 1.15rem)",
             lineHeight: 1.7,
             marginBottom: "40px",
@@ -178,8 +179,8 @@ function Hero() {
           <button
             style={{
               background: "transparent",
-              border: "1.5px solid #FFFFFF",
-              color: "#FFFFFF",
+              border: "1.5px solid var(--th-text)",
+              color: "var(--th-text)",
               padding: "12px 24px",
               borderRadius: "8px",
               fontSize: "0.9375rem",
@@ -203,12 +204,12 @@ function Hero() {
 
 function CoursesSection() {
   return (
-    <section style={{ background: "#0A0A0A", padding: "96px 24px" }}>
+    <section style={{ background: "var(--th-bg)", padding: "96px 24px" }}>
       <div style={{ maxWidth: "1200px", margin: "0 auto" }}>
         <div style={{ textAlign: "center", marginBottom: "56px" }}>
           <h2
             style={{
-              color: "#FFFFFF",
+              color: "var(--th-text)",
               fontSize: "clamp(1.8rem, 4vw, 2.6rem)",
               fontWeight: 800,
               marginBottom: "12px",
@@ -217,7 +218,7 @@ function CoursesSection() {
           >
             What You Can <span style={{ color: "#F5C400" }}>Learn</span>
           </h2>
-          <p style={{ color: "#888888", fontSize: "1rem", maxWidth: "480px", margin: "0 auto" }}>
+          <p style={{ color: "var(--th-muted)", fontSize: "1rem", maxWidth: "480px", margin: "0 auto" }}>
             Choose from our growing library of practical, career-ready courses.
           </p>
         </div>
@@ -286,8 +287,8 @@ function CourseCard({ course }: { course: { id: number; title: string; descripti
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       style={{
-        background: "#111111",
-        border: hovered ? "1.5px solid #F5C400" : "1.5px solid #1f1f1f",
+        background: "var(--th-surface)",
+        border: hovered ? "1.5px solid #F5C400" : "1.5px solid var(--th-border)",
         borderRadius: "12px",
         padding: "28px 24px",
         display: "flex",
@@ -316,13 +317,13 @@ function CourseCard({ course }: { course: { id: number; title: string; descripti
           <path d="M6 12v5c3 3 9 3 12 0v-5"/>
         </svg>
       </div>
-      <h3 style={{ color: "#FFFFFF", fontSize: "1.05rem", fontWeight: 700, margin: 0 }}>
+      <h3 style={{ color: "var(--th-text)", fontSize: "1.05rem", fontWeight: 700, margin: 0 }}>
         {course.title}
       </h3>
       <p style={{ color: "#F5C400", fontSize: "0.8rem", fontWeight: 700, margin: 0 }}>
         ₦{COURSE_AMOUNT.toLocaleString()}
       </p>
-      <p style={{ color: "#888888", fontSize: "0.875rem", lineHeight: 1.6, margin: 0, flexGrow: 1 }}>
+      <p style={{ color: "var(--th-muted)", fontSize: "0.875rem", lineHeight: 1.6, margin: 0, flexGrow: 1 }}>
         {course.description}
       </p>
       {error && <p style={{ color: "#ff6b6b", fontSize: "0.78rem", margin: 0 }}>{error}</p>}
@@ -352,12 +353,12 @@ function CourseCard({ course }: { course: { id: number; title: string; descripti
 
 function BenefitsSection() {
   return (
-    <section id="benefits" style={{ background: "#0d0d0d", padding: "96px 24px", borderTop: "1px solid #1a1a1a", borderBottom: "1px solid #1a1a1a" }}>
+    <section id="benefits" style={{ background: "var(--th-surface-alt)", padding: "96px 24px", borderTop: "1px solid var(--th-border)", borderBottom: "1px solid var(--th-border)" }}>
       <div style={{ maxWidth: "1200px", margin: "0 auto" }}>
         <div style={{ textAlign: "center", marginBottom: "56px" }}>
           <h2
             style={{
-              color: "#FFFFFF",
+              color: "var(--th-text)",
               fontSize: "clamp(1.8rem, 4vw, 2.6rem)",
               fontWeight: 800,
               marginBottom: "12px",
@@ -366,7 +367,7 @@ function BenefitsSection() {
           >
             Why Learn With <span style={{ color: "#F5C400" }}>Techiehive</span>
           </h2>
-          <p style={{ color: "#888888", fontSize: "1rem", maxWidth: "480px", margin: "0 auto" }}>
+          <p style={{ color: "var(--th-muted)", fontSize: "1rem", maxWidth: "480px", margin: "0 auto" }}>
             We're committed to making quality tech education accessible and effective.
           </p>
         </div>
@@ -395,10 +396,10 @@ function BenefitsSection() {
                 {benefit.icon}
               </div>
               <div>
-                <h3 style={{ color: "#FFFFFF", fontSize: "1.05rem", fontWeight: 700, marginBottom: "8px" }}>
+                <h3 style={{ color: "var(--th-text)", fontSize: "1.05rem", fontWeight: 700, marginBottom: "8px" }}>
                   {benefit.title}
                 </h3>
-                <p style={{ color: "#888888", fontSize: "0.875rem", lineHeight: 1.6, margin: 0 }}>
+                <p style={{ color: "var(--th-muted)", fontSize: "0.875rem", lineHeight: 1.6, margin: 0 }}>
                   {benefit.description}
                 </p>
               </div>
@@ -412,7 +413,7 @@ function BenefitsSection() {
 
 function Home() {
   return (
-    <div style={{ backgroundColor: "#0A0A0A", minHeight: "100vh", color: "#FFFFFF" }}>
+    <div style={{ backgroundColor: "var(--th-bg)", minHeight: "100vh", color: "var(--th-text)" }}>
       <NavbarShared />
       <Hero />
       <CoursesSection />
@@ -447,14 +448,16 @@ function Router() {
 
 function App() {
   return (
-    <QueryClientProvider client={queryClient}>
-      <TooltipProvider>
-        <WouterRouter base={import.meta.env.BASE_URL.replace(/\/$/, "")}>
-          <Router />
-        </WouterRouter>
-        <Toaster />
-      </TooltipProvider>
-    </QueryClientProvider>
+    <ThemeProvider>
+      <QueryClientProvider client={queryClient}>
+        <TooltipProvider>
+          <WouterRouter base={import.meta.env.BASE_URL.replace(/\/$/, "")}>
+            <Router />
+          </WouterRouter>
+          <Toaster />
+        </TooltipProvider>
+      </QueryClientProvider>
+    </ThemeProvider>
   );
 }
 

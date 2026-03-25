@@ -37,7 +37,7 @@ export default function AdminLoginPage() {
   }
 
   return (
-    <div style={{ backgroundColor: "#0A0A0A", minHeight: "100vh", color: "#FFFFFF", display: "flex", flexDirection: "column" }}>
+    <div style={{ backgroundColor: "var(--th-bg)", minHeight: "100vh", color: "var(--th-text)", display: "flex", flexDirection: "column" }}>
       <Navbar />
       <div style={{ flex: 1, display: "flex", alignItems: "center", justifyContent: "center", padding: "48px 24px" }}>
         <div style={{ width: "100%", maxWidth: "420px" }}>
@@ -50,12 +50,12 @@ export default function AdminLoginPage() {
             <h1 style={{ fontSize: "1.6rem", fontWeight: 800, letterSpacing: "-0.02em", marginBottom: "6px" }}>
               Admin Login
             </h1>
-            <p style={{ color: "#555555", fontSize: "0.875rem" }}>
+            <p style={{ color: "var(--th-muted)", fontSize: "0.875rem" }}>
               Techiehive Admin Panel
             </p>
           </div>
 
-          <form onSubmit={handleSubmit} style={{ background: "#111111", border: "1.5px solid #1f1f1f", borderRadius: "14px", padding: "32px" }}>
+          <form onSubmit={handleSubmit} style={{ background: "var(--th-surface)", border: "1.5px solid var(--th-border)", borderRadius: "14px", padding: "32px" }}>
             {error && (
               <div style={{ background: "rgba(239,68,68,0.08)", border: "1px solid rgba(239,68,68,0.2)", borderRadius: "8px", padding: "12px 14px", marginBottom: "20px", color: "#ef4444", fontSize: "0.875rem" }}>
                 {error}
@@ -63,7 +63,7 @@ export default function AdminLoginPage() {
             )}
 
             <div style={{ marginBottom: "18px" }}>
-              <label style={{ display: "block", color: "#888888", fontSize: "0.8rem", fontWeight: 600, textTransform: "uppercase", letterSpacing: "0.06em", marginBottom: "8px" }}>
+              <label style={{ display: "block", color: "var(--th-muted)", fontSize: "0.8rem", fontWeight: 600, textTransform: "uppercase", letterSpacing: "0.06em", marginBottom: "8px" }}>
                 Email Address
               </label>
               <input
@@ -72,14 +72,14 @@ export default function AdminLoginPage() {
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="admin@techiehive.com"
                 required
-                style={{ width: "100%", background: "#0A0A0A", border: "1.5px solid #1f1f1f", color: "#FFFFFF", padding: "12px 14px", borderRadius: "8px", fontSize: "0.9rem", outline: "none", boxSizing: "border-box", transition: "border-color 0.2s" }}
+                style={{ width: "100%", background: "var(--th-bg)", border: "1.5px solid var(--th-border)", color: "var(--th-text)", padding: "12px 14px", borderRadius: "8px", fontSize: "0.9rem", outline: "none", boxSizing: "border-box", transition: "border-color 0.2s" }}
                 onFocus={(e) => (e.target.style.borderColor = "#F5C400")}
-                onBlur={(e) => (e.target.style.borderColor = "#1f1f1f")}
+                onBlur={(e) => (e.target.style.borderColor = "var(--th-border)")}
               />
             </div>
 
             <div style={{ marginBottom: "24px" }}>
-              <label style={{ display: "block", color: "#888888", fontSize: "0.8rem", fontWeight: 600, textTransform: "uppercase", letterSpacing: "0.06em", marginBottom: "8px" }}>
+              <label style={{ display: "block", color: "var(--th-muted)", fontSize: "0.8rem", fontWeight: 600, textTransform: "uppercase", letterSpacing: "0.06em", marginBottom: "8px" }}>
                 Password
               </label>
               <input
@@ -88,9 +88,9 @@ export default function AdminLoginPage() {
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="Your password"
                 required
-                style={{ width: "100%", background: "#0A0A0A", border: "1.5px solid #1f1f1f", color: "#FFFFFF", padding: "12px 14px", borderRadius: "8px", fontSize: "0.9rem", outline: "none", boxSizing: "border-box", transition: "border-color 0.2s" }}
+                style={{ width: "100%", background: "var(--th-bg)", border: "1.5px solid var(--th-border)", color: "var(--th-text)", padding: "12px 14px", borderRadius: "8px", fontSize: "0.9rem", outline: "none", boxSizing: "border-box", transition: "border-color 0.2s" }}
                 onFocus={(e) => (e.target.style.borderColor = "#F5C400")}
-                onBlur={(e) => (e.target.style.borderColor = "#1f1f1f")}
+                onBlur={(e) => (e.target.style.borderColor = "var(--th-border)")}
               />
             </div>
 

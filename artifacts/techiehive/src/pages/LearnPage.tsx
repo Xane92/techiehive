@@ -129,10 +129,10 @@ export default function LearnPage() {
 
   if (loading) {
     return (
-      <div style={{ backgroundColor: "#0A0A0A", minHeight: "100vh", color: "#FFFFFF", display: "flex", alignItems: "center", justifyContent: "center" }}>
+      <div style={{ backgroundColor: "var(--th-bg)", minHeight: "100vh", color: "var(--th-text)", display: "flex", alignItems: "center", justifyContent: "center" }}>
         <div style={{ textAlign: "center" }}>
-          <div style={{ width: "40px", height: "40px", border: "3px solid #1f1f1f", borderTopColor: "#F5C400", borderRadius: "50%", animation: "spin 0.8s linear infinite", margin: "0 auto 16px" }} />
-          <p style={{ color: "#888888", fontSize: "0.9rem" }}>Loading course…</p>
+          <div style={{ width: "40px", height: "40px", border: "3px solid var(--th-border)", borderTopColor: "#F5C400", borderRadius: "50%", animation: "spin 0.8s linear infinite", margin: "0 auto 16px" }} />
+          <p style={{ color: "var(--th-muted)", fontSize: "0.9rem" }}>Loading course…</p>
           <style>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
         </div>
       </div>
@@ -140,14 +140,14 @@ export default function LearnPage() {
   }
 
   return (
-    <div style={{ backgroundColor: "#0A0A0A", minHeight: "100vh", color: "#FFFFFF", display: "flex", flexDirection: "column" }}>
+    <div style={{ backgroundColor: "var(--th-bg)", minHeight: "100vh", color: "var(--th-text)", display: "flex", flexDirection: "column" }}>
       <Navbar />
 
       <div style={{ maxWidth: "1200px", margin: "0 auto", padding: "40px 24px", width: "100%", flex: 1 }}>
         <div style={{ marginBottom: "28px" }}>
-          <Link href="/dashboard" style={{ color: "#888888", fontSize: "0.8rem", textDecoration: "none", display: "inline-flex", alignItems: "center", gap: "6px", marginBottom: "16px" }}
+          <Link href="/dashboard" style={{ color: "var(--th-muted)", fontSize: "0.8rem", textDecoration: "none", display: "inline-flex", alignItems: "center", gap: "6px", marginBottom: "16px" }}
             onMouseEnter={(e) => ((e.currentTarget as HTMLAnchorElement).style.color = "#F5C400")}
-            onMouseLeave={(e) => ((e.currentTarget as HTMLAnchorElement).style.color = "#888888")}
+            onMouseLeave={(e) => ((e.currentTarget as HTMLAnchorElement).style.color = "var(--th-muted)")}
           >
             ← Back to Dashboard
           </Link>
@@ -159,16 +159,16 @@ export default function LearnPage() {
             <div style={{ flex: 1, minWidth: "180px", background: "#1a1a1a", borderRadius: "100px", height: "8px", overflow: "hidden" }}>
               <div style={{ width: `${progressPct}%`, height: "100%", background: "#F5C400", borderRadius: "100px", transition: "width 0.4s ease" }} />
             </div>
-            <span style={{ color: "#888888", fontSize: "0.82rem", whiteSpace: "nowrap", flexShrink: 0 }}>
+            <span style={{ color: "var(--th-muted)", fontSize: "0.82rem", whiteSpace: "nowrap", flexShrink: 0 }}>
               <span style={{ color: "#F5C400", fontWeight: 700 }}>{completedCount}</span> of {lessons.length} completed
             </span>
           </div>
         </div>
 
         <div style={{ display: "grid", gridTemplateColumns: "300px 1fr", gap: "24px", alignItems: "start" }} className="learn-grid">
-          <div style={{ background: "#111111", border: "1.5px solid #1f1f1f", borderRadius: "12px", overflow: "hidden" }}>
-            <div style={{ padding: "16px 20px", borderBottom: "1px solid #1f1f1f" }}>
-              <p style={{ color: "#888888", fontSize: "0.75rem", textTransform: "uppercase", letterSpacing: "0.07em", margin: 0, fontWeight: 600 }}>
+          <div style={{ background: "var(--th-surface)", border: "1.5px solid var(--th-border)", borderRadius: "12px", overflow: "hidden" }}>
+            <div style={{ padding: "16px 20px", borderBottom: "1px solid var(--th-border)" }}>
+              <p style={{ color: "var(--th-muted)", fontSize: "0.75rem", textTransform: "uppercase", letterSpacing: "0.07em", margin: 0, fontWeight: 600 }}>
                 Lessons
               </p>
             </div>
@@ -274,7 +274,7 @@ export default function LearnPage() {
           <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
             {selectedLesson ? (
               <>
-                <div style={{ background: "#111111", border: "1.5px solid #1f1f1f", borderRadius: "12px", overflow: "hidden" }}>
+                <div style={{ background: "var(--th-surface)", border: "1.5px solid var(--th-border)", borderRadius: "12px", overflow: "hidden" }}>
                   <div style={{ position: "relative", paddingTop: "56.25%" }}>
                     <iframe
                       key={selectedLesson.id}
@@ -287,12 +287,12 @@ export default function LearnPage() {
                   </div>
                 </div>
 
-                <div style={{ background: "#111111", border: "1.5px solid #1f1f1f", borderRadius: "12px", padding: "20px 24px", display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: "16px" }}>
+                <div style={{ background: "var(--th-surface)", border: "1.5px solid var(--th-border)", borderRadius: "12px", padding: "20px 24px", display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: "16px" }}>
                   <div>
-                    <h2 style={{ color: "#FFFFFF", fontSize: "1rem", fontWeight: 700, margin: "0 0 4px" }}>
+                    <h2 style={{ color: "var(--th-text)", fontSize: "1rem", fontWeight: 700, margin: "0 0 4px" }}>
                       {selectedLesson.order_index}. {selectedLesson.title}
                     </h2>
-                    <p style={{ color: "#555555", fontSize: "0.8rem", margin: 0 }}>
+                    <p style={{ color: "var(--th-muted)", fontSize: "0.8rem", margin: 0 }}>
                       Lesson {selectedLesson.order_index} of {lessons.length}
                     </p>
                   </div>
@@ -332,9 +332,9 @@ export default function LearnPage() {
                   {lessons[selectedLesson.order_index - 2] && (
                     <button
                       onClick={() => setSelectedLesson(lessons[selectedLesson.order_index - 2])}
-                      style={{ background: "transparent", border: "1.5px solid #1f1f1f", color: "#888888", padding: "10px 18px", borderRadius: "8px", fontSize: "0.84rem", fontWeight: 600, cursor: "pointer", transition: "border-color 0.2s, color 0.2s" }}
+                      style={{ background: "transparent", border: "1.5px solid var(--th-border)", color: "var(--th-muted)", padding: "10px 18px", borderRadius: "8px", fontSize: "0.84rem", fontWeight: 600, cursor: "pointer", transition: "border-color 0.2s, color 0.2s" }}
                       onMouseEnter={(e) => { e.currentTarget.style.borderColor = "#F5C400"; e.currentTarget.style.color = "#F5C400"; }}
-                      onMouseLeave={(e) => { e.currentTarget.style.borderColor = "#1f1f1f"; e.currentTarget.style.color = "#888888"; }}
+                      onMouseLeave={(e) => { e.currentTarget.style.borderColor = "var(--th-border)"; e.currentTarget.style.color = "var(--th-muted)"; }}
                     >
                       ← Previous
                     </button>
@@ -344,7 +344,7 @@ export default function LearnPage() {
                       onClick={() => { if (isCurrentComplete) setSelectedLesson(lessons[selectedLesson.order_index]); }}
                       disabled={!isCurrentComplete}
                       title={isCurrentComplete ? undefined : "Complete this lesson to unlock the next one"}
-                      style={{ background: isCurrentComplete ? "#F5C400" : "#1a1a1a", border: isCurrentComplete ? "none" : "1.5px solid #2a2a2a", color: isCurrentComplete ? "#0A0A0A" : "#444444", padding: "10px 22px", borderRadius: "8px", fontSize: "0.84rem", fontWeight: 700, cursor: isCurrentComplete ? "pointer" : "not-allowed", marginLeft: "auto", transition: "opacity 0.2s", opacity: 1 }}
+                      style={{ background: isCurrentComplete ? "#F5C400" : "#1a1a1a", border: isCurrentComplete ? "none" : "1.5px solid var(--th-border)", color: isCurrentComplete ? "#0A0A0A" : "#444444", padding: "10px 22px", borderRadius: "8px", fontSize: "0.84rem", fontWeight: 700, cursor: isCurrentComplete ? "pointer" : "not-allowed", marginLeft: "auto", transition: "opacity 0.2s", opacity: 1 }}
                       onMouseEnter={(e) => { if (isCurrentComplete) (e.currentTarget as HTMLButtonElement).style.opacity = "0.85"; }}
                       onMouseLeave={(e) => { (e.currentTarget as HTMLButtonElement).style.opacity = "1"; }}
                     >
@@ -354,8 +354,8 @@ export default function LearnPage() {
                 </div>
               </>
             ) : (
-              <div style={{ background: "#111111", border: "1.5px solid #1f1f1f", borderRadius: "12px", padding: "60px 40px", textAlign: "center" }}>
-                <p style={{ color: "#888888" }}>Select a lesson to begin.</p>
+              <div style={{ background: "var(--th-surface)", border: "1.5px solid var(--th-border)", borderRadius: "12px", padding: "60px 40px", textAlign: "center" }}>
+                <p style={{ color: "var(--th-muted)" }}>Select a lesson to begin.</p>
               </div>
             )}
           </div>

@@ -4,7 +4,7 @@ const { Resend } = require("resend");
 const router = Router();
 
 const resend = new Resend(process.env.RESEND_API_KEY);
-const TO_EMAIL = "techiehive001@gmail.com";
+const TO_EMAIL = "johnjumbolesley@gmail.com";
 
 router.post("/contact", async (req, res) => {
   const { name, email, message } = req.body;

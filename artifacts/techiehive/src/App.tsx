@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Switch, Route, Router as WouterRouter, Link, useLocation } from "wouter";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
@@ -24,25 +24,12 @@ import { ThemeProvider } from "@/context/ThemeContext";
 import { API_BASE } from '@/lib/api';
 
 const queryClient = new QueryClient();
-
 const COURSE_AMOUNT = 15000;
 
 const courses = [
-  {
-    id: 1,
-    title: "Full Stack Web Development",
-    description: "Build complete web applications from front to back using modern frameworks and tools.",
-  },
-  {
-    id: 2,
-    title: "Video Editing",
-    description: "Learn professional video editing techniques for content creation and production.",
-  },
-  {
-    id: 3,
-    title: "Graphics Design",
-    description: "Create compelling visuals, logos, and brand identities using industry tools.",
-  },
+  { id: 1, title: "Full Stack Web Development", description: "Build complete web applications from front to back using modern frameworks and tools." },
+  { id: 2, title: "Video Editing", description: "Learn professional video editing techniques for content creation and production." },
+  { id: 3, title: "Graphics Design", description: "Create compelling visuals, logos, and brand identities using industry tools." },
 ];
 
 const benefits = [
@@ -89,13 +76,59 @@ const benefits = [
   },
 ];
 
+const coreValues = [
+  { title: "Trustworthy", description: "Whatever you see, you get. We do not believe in being deceitful to members of our community or academy alike." },
+  { title: "Earnest", description: "We are very intentional and sincere about the growth of members of our community and academy alike." },
+  { title: "Capable", description: "We make sure to deliver our very best, and are never caught wanting." },
+  { title: "Hardworking", description: "We believe solely in hard work. We encourage our students and members of the community alike to put in the work to see results." },
+  { title: "Innovative", description: "We are constantly evolving, setting the pace and trying out new trends and skill sets." },
+  { title: "Efficient", description: "We do not just execute, we make sure you see results for yourselves." },
+];
+
+function useScrollFade(threshold = 0.15) {
+  const ref = useRef<HTMLElement>(null);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          el.classList.add("th-in");
+          observer.unobserve(el);
+        }
+      },
+      { threshold }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [threshold]);
+  return ref;
+}
+
 function Hero() {
+  const heroRef = useRef<HTMLElement>(null);
+  const [dotPos, setDotPos] = useState({ x: 0, y: 0 });
+
+  useEffect(() => {
+    const el = heroRef.current;
+    if (!el) return;
+    function onMouseMove(e: MouseEvent) {
+      const rect = el!.getBoundingClientRect();
+      const cx = rect.width / 2;
+      const cy = rect.height / 2;
+      const dx = ((e.clientX - rect.left - cx) / cx) * 10;
+      const dy = ((e.clientY - rect.top - cy) / cy) * 10;
+      setDotPos({ x: dx, y: dy });
+    }
+    el.addEventListener("mousemove", onMouseMove);
+    return () => el.removeEventListener("mousemove", onMouseMove);
+  }, []);
+
   return (
     <section
+      ref={heroRef}
       style={{
         background: "var(--th-bg)",
-        backgroundImage: "radial-gradient(circle, var(--th-dot) 1px, transparent 1px)",
-        backgroundSize: "30px 30px",
         minHeight: "90vh",
         display: "flex",
         alignItems: "center",
@@ -103,8 +136,22 @@ function Hero() {
         textAlign: "center",
         padding: "80px 24px",
         position: "relative",
+        overflow: "hidden",
       }}
     >
+      {/* Parallax dot layer */}
+      <div
+        style={{
+          position: "absolute",
+          inset: "-20px",
+          backgroundImage: "radial-gradient(circle, var(--th-dot) 1px, transparent 1px)",
+          backgroundSize: "30px 30px",
+          backgroundPosition: `${dotPos.x}px ${dotPos.y}px`,
+          transition: "background-position 0.12s ease-out",
+          pointerEvents: "none",
+        }}
+      />
+      {/* Yellow radial glow */}
       <div
         style={{
           position: "absolute",
@@ -113,8 +160,11 @@ function Hero() {
           pointerEvents: "none",
         }}
       />
+
       <div style={{ maxWidth: "780px", position: "relative", zIndex: 1 }}>
+        {/* Badge */}
         <div
+          className="th-anim th-anim-d0"
           style={{
             display: "inline-block",
             background: "rgba(245,196,0,0.1)",
@@ -128,8 +178,13 @@ function Hero() {
             letterSpacing: "0.06em",
             textTransform: "uppercase",
           }}
-        >Africa's Premium EdTech Platform</div>
+        >
+          Africa's Premium EdTech Platform
+        </div>
+
+        {/* Headline */}
         <h1
+          className="th-anim th-anim-d1"
           style={{
             color: "var(--th-text)",
             fontSize: "clamp(2.2rem, 6vw, 3.8rem)",
@@ -142,36 +197,39 @@ function Hero() {
           Learn In-Demand Tech Skills.{" "}
           <span style={{ color: "#F5C400" }}>Get Certified.</span>
         </h1>
+
+        {/* Subtext */}
         <p
+          className="th-anim th-anim-d2"
           style={{
             color: "var(--th-muted)",
             fontSize: "clamp(1rem, 2vw, 1.15rem)",
             lineHeight: 1.7,
-            marginBottom: "40px",
             maxWidth: "620px",
             margin: "0 auto 40px",
           }}
         >
           Techiehive offers structured video courses in web development, design, and digital skills — built for beginners who want real results.
         </p>
-        <div style={{ display: "flex", gap: "16px", justifyContent: "center", flexWrap: "wrap" }}>
+
+        {/* Buttons */}
+        <div className="th-anim th-anim-d3" style={{ display: "flex", gap: "16px", justifyContent: "center", flexWrap: "wrap" }}>
           <Link href="/courses" style={{ textDecoration: "none" }}>
             <button
               style={{
                 background: "#F5C400",
                 border: "none",
                 color: "#0A0A0A",
-                padding: "12px 24px",
+                padding: "13px 28px",
                 borderRadius: "8px",
                 fontSize: "0.9375rem",
                 fontWeight: 700,
                 cursor: "pointer",
-                maxHeight: "48px",
                 lineHeight: 1,
-                transition: "opacity 0.2s",
+                transition: "opacity 0.2s, transform 0.2s",
               }}
-              onMouseEnter={(e) => ((e.currentTarget as HTMLButtonElement).style.opacity = "0.85")}
-              onMouseLeave={(e) => ((e.currentTarget as HTMLButtonElement).style.opacity = "1")}
+              onMouseEnter={(e) => { const b = e.currentTarget as HTMLButtonElement; b.style.opacity = "0.85"; b.style.transform = "translateY(-2px)"; }}
+              onMouseLeave={(e) => { const b = e.currentTarget as HTMLButtonElement; b.style.opacity = "1"; b.style.transform = "translateY(0)"; }}
             >
               View Courses
             </button>
@@ -181,18 +239,17 @@ function Hero() {
               background: "transparent",
               border: "1.5px solid var(--th-text)",
               color: "var(--th-text)",
-              padding: "12px 24px",
+              padding: "13px 28px",
               borderRadius: "8px",
               fontSize: "0.9375rem",
               fontWeight: 600,
               cursor: "pointer",
-              maxHeight: "48px",
               lineHeight: 1,
-              transition: "background 0.2s",
+              transition: "background 0.2s, transform 0.2s",
             }}
-            onMouseEnter={(e) => ((e.currentTarget as HTMLButtonElement).style.background = "rgba(255,255,255,0.07)")}
-            onMouseLeave={(e) => ((e.currentTarget as HTMLButtonElement).style.background = "transparent")}
-            onClick={() => document.getElementById("benefits")?.scrollIntoView({ behavior: "smooth" })}
+            onMouseEnter={(e) => { const b = e.currentTarget as HTMLButtonElement; b.style.background = "rgba(255,255,255,0.07)"; b.style.transform = "translateY(-2px)"; }}
+            onMouseLeave={(e) => { const b = e.currentTarget as HTMLButtonElement; b.style.background = "transparent"; b.style.transform = "translateY(0)"; }}
+            onClick={() => document.getElementById("courses-section")?.scrollIntoView({ behavior: "smooth" })}
           >
             Learn More
           </button>
@@ -203,8 +260,14 @@ function Hero() {
 }
 
 function CoursesSection() {
+  const ref = useScrollFade() as React.RefObject<HTMLElement>;
   return (
-    <section style={{ background: "var(--th-bg)", padding: "96px 24px" }}>
+    <section
+      id="courses-section"
+      ref={ref as React.RefObject<HTMLElement>}
+      className="th-scroll"
+      style={{ background: "var(--th-bg)", padding: "96px 24px" }}
+    >
       <div style={{ maxWidth: "1200px", margin: "0 auto" }}>
         <div style={{ textAlign: "center", marginBottom: "56px" }}>
           <h2
@@ -294,9 +357,11 @@ function CourseCard({ course }: { course: { id: number; title: string; descripti
         display: "flex",
         flexDirection: "column",
         gap: "12px",
-        transition: "border-color 0.2s, transform 0.2s, box-shadow 0.2s",
-        transform: hovered ? "translateY(-4px)" : "translateY(0)",
-        boxShadow: hovered ? "0 12px 40px rgba(245,196,0,0.08)" : "none",
+        transition: "border-color 0.25s, transform 0.3s cubic-bezier(.22,.68,0,1.2), box-shadow 0.3s",
+        transform: hovered ? "translateY(-8px) scale(1.01)" : "translateY(0) scale(1)",
+        boxShadow: hovered
+          ? "0 20px 60px rgba(245,196,0,0.18), 0 0 0 1px rgba(245,196,0,0.08), 0 8px 24px rgba(0,0,0,0.2)"
+          : "none",
         cursor: "default",
       }}
     >
@@ -304,12 +369,13 @@ function CourseCard({ course }: { course: { id: number; title: string; descripti
         style={{
           width: "40px",
           height: "40px",
-          background: "rgba(245,196,0,0.1)",
+          background: hovered ? "rgba(245,196,0,0.18)" : "rgba(245,196,0,0.1)",
           borderRadius: "8px",
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
           marginBottom: "4px",
+          transition: "background 0.25s",
         }}
       >
         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#F5C400" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -341,8 +407,9 @@ function CourseCard({ course }: { course: { id: number; title: string; descripti
           fontWeight: 700,
           cursor: loading ? "not-allowed" : "pointer",
           opacity: loading ? 0.7 : 1,
-          transition: "background 0.2s, color 0.2s",
+          transition: "background 0.2s, color 0.2s, transform 0.2s",
           alignSelf: "flex-start",
+          transform: hovered ? "translateY(-1px)" : "translateY(0)",
         }}
       >
         {loading ? "Processing…" : enrolled ? "Continue Learning →" : "Enroll Now"}
@@ -352,8 +419,14 @@ function CourseCard({ course }: { course: { id: number; title: string; descripti
 }
 
 function BenefitsSection() {
+  const ref = useScrollFade() as React.RefObject<HTMLElement>;
   return (
-    <section id="benefits" style={{ background: "var(--th-surface-alt)", padding: "96px 24px", borderTop: "1px solid var(--th-border)", borderBottom: "1px solid var(--th-border)" }}>
+    <section
+      id="benefits"
+      ref={ref as React.RefObject<HTMLElement>}
+      className="th-scroll"
+      style={{ background: "var(--th-surface-alt)", padding: "96px 24px", borderTop: "1px solid var(--th-border)", borderBottom: "1px solid var(--th-border)" }}
+    >
       <div style={{ maxWidth: "1200px", margin: "0 auto" }}>
         <div style={{ textAlign: "center", marginBottom: "56px" }}>
           <h2
@@ -361,14 +434,14 @@ function BenefitsSection() {
               color: "var(--th-text)",
               fontSize: "clamp(1.8rem, 4vw, 2.6rem)",
               fontWeight: 800,
-              marginBottom: "12px",
+              marginBottom: "20px",
               letterSpacing: "-0.02em",
             }}
           >
-            Why Learn With <span style={{ color: "#F5C400" }}>Techiehive</span>
+            Why <span style={{ color: "#F5C400" }}>Techiehive Academy?</span>
           </h2>
-          <p style={{ color: "var(--th-muted)", fontSize: "1rem", maxWidth: "480px", margin: "0 auto" }}>
-            We're committed to making quality tech education accessible and effective.
+          <p style={{ color: "var(--th-muted)", fontSize: "1rem", maxWidth: "680px", margin: "0 auto", lineHeight: 1.8 }}>
+            Techiehive Academy doesn't just teach — we shape. We craft job-ready digital warriors. Open to all: community members, outsiders, anyone hungry. We hone your skills, certify you, and blast you into local and global markets. Online or on-site classes. Ready to level up?
           </p>
         </div>
 
@@ -379,8 +452,8 @@ function BenefitsSection() {
             gap: "32px",
           }}
         >
-          {benefits.map((benefit) => (
-            <div key={benefit.title} style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
+          {benefits.map((benefit, i) => (
+            <div key={benefit.title} className={`th-scroll th-scroll-d${i + 1}`} style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
               <div
                 style={{
                   width: "56px",
@@ -411,6 +484,94 @@ function BenefitsSection() {
   );
 }
 
+function CoreValuesSection() {
+  const ref = useScrollFade() as React.RefObject<HTMLElement>;
+  return (
+    <section
+      ref={ref as React.RefObject<HTMLElement>}
+      className="th-scroll"
+      style={{ background: "var(--th-bg)", padding: "96px 24px", borderBottom: "1px solid var(--th-border)" }}
+    >
+      <div style={{ maxWidth: "1200px", margin: "0 auto" }}>
+        <div style={{ textAlign: "center", marginBottom: "56px" }}>
+          <h2
+            style={{
+              color: "var(--th-text)",
+              fontSize: "clamp(1.8rem, 4vw, 2.6rem)",
+              fontWeight: 800,
+              marginBottom: "12px",
+              letterSpacing: "-0.02em",
+            }}
+          >
+            Our Core <span style={{ color: "#F5C400" }}>Values</span>
+          </h2>
+          <p style={{ color: "var(--th-muted)", fontSize: "1rem", maxWidth: "480px", margin: "0 auto" }}>
+            The principles that guide everything we do at Techiehive.
+          </p>
+        </div>
+
+        <div className="core-values-grid">
+          {coreValues.map((value, i) => (
+            <CoreValueCard key={value.title} value={value} delay={i} />
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function CoreValueCard({ value, delay }: { value: { title: string; description: string }; delay: number }) {
+  const [hovered, setHovered] = useState(false);
+  const ref = useScrollFade(0.1) as React.RefObject<HTMLElement>;
+
+  return (
+    <div
+      ref={ref as React.RefObject<HTMLDivElement>}
+      className={`th-scroll th-scroll-d${Math.min(delay + 1, 5)}`}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+      style={{
+        background: "var(--th-surface)",
+        border: hovered ? "1.5px solid #F5C400" : "1.5px solid var(--th-border)",
+        borderRadius: "12px",
+        padding: "28px 24px",
+        display: "flex",
+        flexDirection: "column",
+        gap: "12px",
+        transition: "border-color 0.25s, transform 0.3s cubic-bezier(.22,.68,0,1.2), box-shadow 0.3s",
+        transform: hovered ? "translateY(-4px)" : "translateY(0)",
+        boxShadow: hovered ? "0 12px 40px rgba(245,196,0,0.12)" : "none",
+      }}
+    >
+      <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
+        <div
+          style={{
+            width: "36px",
+            height: "36px",
+            background: "rgba(245,196,0,0.12)",
+            border: "1px solid rgba(245,196,0,0.25)",
+            borderRadius: "8px",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            flexShrink: 0,
+          }}
+        >
+          <span style={{ color: "#F5C400", fontWeight: 800, fontSize: "1rem" }}>
+            {value.title[0]}
+          </span>
+        </div>
+        <h3 style={{ color: "var(--th-text)", fontSize: "1rem", fontWeight: 700, margin: 0 }}>
+          {value.title}
+        </h3>
+      </div>
+      <p style={{ color: "var(--th-muted)", fontSize: "0.875rem", lineHeight: 1.7, margin: 0 }}>
+        {value.description}
+      </p>
+    </div>
+  );
+}
+
 function Home() {
   return (
     <div style={{ backgroundColor: "var(--th-bg)", minHeight: "100vh", color: "var(--th-text)" }}>
@@ -418,6 +579,7 @@ function Home() {
       <Hero />
       <CoursesSection />
       <BenefitsSection />
+      <CoreValuesSection />
       <FooterShared />
     </div>
   );

@@ -205,8 +205,9 @@ export default function Navbar() {
         top: 0,
         zIndex: 100,
         backgroundColor: "var(--th-nav-bg)",
-        backdropFilter: "blur(8px)",
-        borderBottom: "1px solid var(--th-border)",
+        backdropFilter: "blur(24px) saturate(180%)",
+        WebkitBackdropFilter: "blur(24px) saturate(180%)",
+        borderBottom: "1px solid rgba(245,196,0,0.07)",
       }}
     >
       <div

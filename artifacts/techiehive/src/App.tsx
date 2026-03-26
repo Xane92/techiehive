@@ -86,6 +86,29 @@ const coreValues = [
   { title: "Efficient", description: "We do not just execute, we make sure you see results for yourselves." },
 ];
 
+function WordReveal({ text, delay = 0, color }: { text: string; delay?: number; color?: string }) {
+  const words = text.split(" ");
+  return (
+    <>
+      {words.map((word, i) => (
+        <span
+          key={i}
+          style={{
+            display: "inline-block",
+            opacity: 0,
+            animation: "th-word-in 0.52s cubic-bezier(.22,.68,0,1.2) forwards",
+            animationDelay: `${(delay + i * 0.1).toFixed(2)}s`,
+            color: color ?? "inherit",
+            marginRight: i < words.length - 1 ? "0.28em" : 0,
+          }}
+        >
+          {word}
+        </span>
+      ))}
+    </>
+  );
+}
+
 function useScrollFade(threshold = 0.15) {
   const ref = useRef<HTMLElement>(null);
   useEffect(() => {
@@ -152,12 +175,16 @@ function Hero() {
           pointerEvents: "none",
         }}
       />
-      {/* Yellow radial glow */}
+      {/* Animated mesh orbs */}
+      <div style={{ position: "absolute", width: "700px", height: "700px", top: "5%", left: "15%", borderRadius: "50%", background: "radial-gradient(circle, rgba(245,196,0,0.07) 0%, transparent 65%)", animation: "th-orb-1 14s ease-in-out infinite", pointerEvents: "none" }} />
+      <div style={{ position: "absolute", width: "550px", height: "550px", top: "25%", right: "10%", borderRadius: "50%", background: "radial-gradient(circle, rgba(160,100,0,0.09) 0%, transparent 65%)", animation: "th-orb-2 18s ease-in-out infinite", pointerEvents: "none" }} />
+      <div style={{ position: "absolute", width: "420px", height: "420px", bottom: "8%", left: "28%", borderRadius: "50%", background: "radial-gradient(circle, rgba(245,196,0,0.05) 0%, transparent 65%)", animation: "th-orb-3 22s ease-in-out infinite", pointerEvents: "none" }} />
+      {/* Static yellow radial glow */}
       <div
         style={{
           position: "absolute",
           inset: 0,
-          background: "radial-gradient(ellipse 70% 60% at 50% 50%, rgba(245,196,0,0.06) 0%, transparent 70%)",
+          background: "radial-gradient(ellipse 70% 60% at 50% 50%, rgba(245,196,0,0.05) 0%, transparent 70%)",
           pointerEvents: "none",
         }}
       />
@@ -183,9 +210,8 @@ function Hero() {
           Africa's Premium EdTech Platform
         </div>
 
-        {/* Headline */}
+        {/* Headline — word-by-word reveal */}
         <h1
-          className="th-anim th-anim-d1"
           style={{
             color: "var(--th-text)",
             fontSize: "clamp(2.2rem, 6vw, 3.8rem)",
@@ -195,8 +221,9 @@ function Hero() {
             letterSpacing: "-0.03em",
           }}
         >
-          Learn In-Demand Tech Skills.{" "}
-          <span style={{ color: "#F5C400" }}>Get Certified.</span>
+          <WordReveal text="Learn In-Demand Tech Skills." delay={0.2} />
+          {" "}
+          <WordReveal text="Get Certified." delay={0.72} color="#F5C400" />
         </h1>
 
         {/* Subtext */}
@@ -217,6 +244,7 @@ function Hero() {
         <div className="th-anim th-anim-d3" style={{ display: "flex", gap: "16px", justifyContent: "center", flexWrap: "wrap" }}>
           <Link href="/courses" style={{ textDecoration: "none" }}>
             <button
+              className="th-btn-pulse"
               style={{
                 background: "#F5C400",
                 border: "none",
@@ -288,8 +316,8 @@ function CoursesSection() {
         </div>
 
         <div className="courses-grid">
-          {courses.map((course) => (
-            <CourseCard key={course.title} course={course} />
+          {courses.map((course, i) => (
+            <CourseCard key={course.title} course={course} index={i} />
           ))}
         </div>
       </div>
@@ -297,12 +325,30 @@ function CoursesSection() {
   );
 }
 
-function CourseCard({ course }: { course: { id: number; title: string; description: string } }) {
+function CourseCard({ course, index = 0 }: { course: { id: number; title: string; description: string }; index?: number }) {
   const [hovered, setHovered] = useState(false);
   const [loading, setLoading] = useState(false);
   const [enrolled, setEnrolled] = useState(false);
   const [error, setError] = useState("");
   const [, setLocation] = useLocation();
+  const cardRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const el = cardRef.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          const delay = index * 130;
+          setTimeout(() => el.classList.add("th-in"), delay);
+          observer.unobserve(el);
+        }
+      },
+      { threshold: 0.1 }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [index]);
 
   useEffect(() => {
     const userRaw = localStorage.getItem("user");
@@ -348,6 +394,8 @@ function CourseCard({ course }: { course: { id: number; title: string; descripti
 
   return (
     <div
+      ref={cardRef}
+      className="th-card-bounce"
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       style={{
@@ -523,12 +571,28 @@ function CoreValuesSection() {
 
 function CoreValueCard({ value, delay }: { value: { title: string; description: string }; delay: number }) {
   const [hovered, setHovered] = useState(false);
-  const ref = useScrollFade(0.1) as React.RefObject<HTMLElement>;
+  const cardRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const el = cardRef.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => el.classList.add("th-in"), delay * 100);
+          observer.unobserve(el);
+        }
+      },
+      { threshold: 0.08 }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [delay]);
 
   return (
     <div
-      ref={ref as React.RefObject<HTMLDivElement>}
-      className={`th-scroll th-scroll-d${Math.min(delay + 1, 5)}`}
+      ref={cardRef}
+      className="th-card-bounce"
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       style={{

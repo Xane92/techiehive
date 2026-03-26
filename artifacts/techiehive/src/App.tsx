@@ -20,6 +20,7 @@ import AdminLoginPage from "@/pages/AdminLoginPage";
 import AdminDashboard from "@/pages/AdminDashboard";
 import ForgotPasswordPage from "@/pages/ForgotPasswordPage";
 import ResetPasswordPage from "@/pages/ResetPasswordPage";
+import CommunityPage from "@/pages/CommunityPage";
 import { ThemeProvider } from "@/context/ThemeContext";
 import { API_BASE } from '@/lib/api';
 
@@ -590,6 +591,7 @@ function Router() {
     <Switch>
       <Route path="/" component={Home} />
       <Route path="/courses" component={CoursesPage} />
+      <Route path="/community" component={CommunityPage} />
       <Route path="/about" component={AboutPage} />
       <Route path="/contact" component={ContactPage} />
       <Route path="/register" component={RegisterPage} />

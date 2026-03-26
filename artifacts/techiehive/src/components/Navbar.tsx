@@ -6,6 +6,7 @@ import logo from "@/assets/Techiehive_Logo.jpeg";
 const navLinks = [
   { label: "Home", href: "/" },
   { label: "Courses", href: "/courses" },
+  { label: "Community", href: "/community" },
   { label: "About", href: "/about" },
   { label: "Contact", href: "/contact" },
 ];

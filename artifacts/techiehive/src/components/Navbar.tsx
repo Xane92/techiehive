@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "wouter";
 import { useTheme } from "@/context/ThemeContext";
+import logo from "@/assets/Techiehive_Logo.jpeg";
 
 const navLinks = [
   { label: "Home", href: "/" },
@@ -221,6 +222,8 @@ export default function Navbar() {
         <Link
           href="/"
           style={{
+            display: "flex",
+            alignItems: "center",
             color: "#F5C400",
             fontWeight: 800,
             fontSize: "1.1rem",
@@ -229,6 +232,11 @@ export default function Navbar() {
             textDecoration: "none",
           }}
         >
+          <img
+            src={logo}
+            alt="Techiehive logo"
+            style={{ height: "36px", width: "auto", marginRight: "8px", borderRadius: "4px", display: "block" }}
+          />
           Techiehive
         </Link>
 

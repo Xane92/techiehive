@@ -1,4 +1,5 @@
 import { Link } from "wouter";
+import logo from "@/assets/Techiehive_Logo.jpeg";
 
 function InstagramIcon() {
   return (
@@ -24,9 +25,16 @@ export default function Footer() {
         }}
       >
         <div>
-          <span style={{ color: "#F5C400", fontWeight: 800, fontSize: "1.3rem", display: "block", marginBottom: "12px" }}>
-            Techiehive
-          </span>
+          <div style={{ display: "flex", alignItems: "center", marginBottom: "12px" }}>
+            <img
+              src={logo}
+              alt="Techiehive logo"
+              style={{ height: "28px", width: "auto", marginRight: "8px", borderRadius: "3px", display: "block" }}
+            />
+            <span style={{ color: "#F5C400", fontWeight: 800, fontSize: "1.3rem" }}>
+              Techiehive
+            </span>
+          </div>
           <p style={{ color: "var(--th-muted)", fontSize: "0.875rem", lineHeight: 1.7, margin: 0, maxWidth: "220px" }}>
             Empowering the next generation of African tech professionals through quality education.
           </p>

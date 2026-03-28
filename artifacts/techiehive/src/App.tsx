@@ -475,7 +475,7 @@ function BenefitsSection() {
       id="benefits"
       ref={ref as React.RefObject<HTMLElement>}
       className="th-scroll th-section-pad"
-      style={{ background: "var(--th-surface-alt)", padding: "96px 24px", borderTop: "1px solid var(--th-border)", borderBottom: "1px solid var(--th-border)" }}
+      style={{ background: "var(--th-surface-alt)", padding: "96px 24px 48px 24px", borderTop: "1px solid var(--th-border)", borderBottom: "1px solid var(--th-border)" }}
     >
       <div style={{ maxWidth: "1200px", margin: "0 auto" }}>
         <div style={{ textAlign: "center", marginBottom: "56px" }}>
@@ -541,7 +541,7 @@ function CoreValuesSection() {
       ref={ref as React.RefObject<HTMLElement>}
       id="core-values"
       className="th-scroll th-section-pad"
-      style={{ background: "var(--th-bg)", padding: "96px 24px", borderBottom: "1px solid var(--th-border)" }}
+      style={{ background: "var(--th-bg)", padding: "48px 24px 96px 24px", borderBottom: "1px solid var(--th-border)" }}
     >
       <div style={{ maxWidth: "1200px", margin: "0 auto" }}>
         <div style={{ textAlign: "center", marginBottom: "56px" }}>

@@ -503,7 +503,7 @@ function BenefitsSection() {
           }}
         >
           {benefits.map((benefit, i) => (
-            <div key={benefit.title} className={`th-scroll th-scroll-d${i + 1}`} style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
+            <div key={benefit.title} style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
               <div
                 style={{
                   width: "56px",

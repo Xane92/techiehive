@@ -539,6 +539,7 @@ function CoreValuesSection() {
   return (
     <section
       ref={ref as React.RefObject<HTMLElement>}
+      id="core-values"
       className="th-scroll th-section-pad"
       style={{ background: "var(--th-bg)", padding: "96px 24px", borderBottom: "1px solid var(--th-border)" }}
     >

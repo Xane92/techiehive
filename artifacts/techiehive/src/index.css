@@ -596,3 +596,12 @@
     margin-bottom: 36px !important;
   }
 }
+
+/* ─── Tighten gap between Benefits and Core Values ─────── */
+#benefits    { padding-bottom: 56px !important; }
+#core-values { padding-top:    56px !important; }
+
+@media (max-width: 767px) {
+  #benefits    { padding-bottom: 32px !important; }
+  #core-values { padding-top:    32px !important; }
+}

@@ -151,6 +151,7 @@ function Hero() {
   return (
     <section
       ref={heroRef}
+      className="th-hero-pad"
       style={{
         background: "var(--th-bg)",
         minHeight: "90vh",
@@ -294,7 +295,7 @@ function CoursesSection() {
     <section
       id="courses-section"
       ref={ref as React.RefObject<HTMLElement>}
-      className="th-scroll"
+      className="th-scroll th-section-pad"
       style={{ background: "var(--th-bg)", padding: "96px 24px" }}
     >
       <div style={{ maxWidth: "1200px", margin: "0 auto" }}>
@@ -473,7 +474,7 @@ function BenefitsSection() {
     <section
       id="benefits"
       ref={ref as React.RefObject<HTMLElement>}
-      className="th-scroll"
+      className="th-scroll th-section-pad"
       style={{ background: "var(--th-surface-alt)", padding: "96px 24px", borderTop: "1px solid var(--th-border)", borderBottom: "1px solid var(--th-border)" }}
     >
       <div style={{ maxWidth: "1200px", margin: "0 auto" }}>
@@ -538,7 +539,7 @@ function CoreValuesSection() {
   return (
     <section
       ref={ref as React.RefObject<HTMLElement>}
-      className="th-scroll"
+      className="th-scroll th-section-pad"
       style={{ background: "var(--th-bg)", padding: "96px 24px", borderBottom: "1px solid var(--th-border)" }}
     >
       <div style={{ maxWidth: "1200px", margin: "0 auto" }}>

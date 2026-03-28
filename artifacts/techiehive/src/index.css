@@ -579,3 +579,20 @@
 @media (max-width: 560px) {
   .core-values-grid { grid-template-columns: 1fr; }
 }
+
+/* ─── Mobile section spacing ─────────────────────────────── */
+@media (max-width: 767px) {
+  .th-section-pad {
+    padding-top: 52px !important;
+    padding-bottom: 52px !important;
+  }
+  .th-hero-pad {
+    padding-top: 64px !important;
+    padding-bottom: 52px !important;
+    min-height: 80vh !important;
+  }
+  /* Tighten inner heading margins */
+  .th-section-pad > div > div:first-child {
+    margin-bottom: 36px !important;
+  }
+}

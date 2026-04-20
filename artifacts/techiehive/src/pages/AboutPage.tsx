@@ -1,5 +1,7 @@
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import codingClassImg from "@/assets/coding class africa.jpg";
+import africanStudentsImg from "@/assets/african students laptop.jpg";
 
 const differentiators = [
   {
@@ -64,6 +66,15 @@ export default function AboutPage() {
       <Navbar />
       <PageHeader />
 
+      {/* Hero Image */}
+      <div style={{ width: "100%", maxHeight: "480px", overflow: "hidden" }}>
+        <img
+          src={codingClassImg}
+          alt="Techiehive students learning together"
+          style={{ width: "100%", height: "480px", objectFit: "cover", objectPosition: "center" }}
+        />
+      </div>
+
       <div style={{ maxWidth: "800px", margin: "0 auto", padding: "80px 24px" }}>
 
         <section style={{ marginBottom: "64px" }}>
@@ -77,13 +88,23 @@ export default function AboutPage() {
 
         <div style={{ borderTop: "1px solid var(--th-border)", marginBottom: "64px" }} />
 
-        <section style={{ marginBottom: "64px" }}>
-          <h2 style={{ color: "#F5C400", fontSize: "0.8rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: "16px" }}>
-            Our Mission
-          </h2>
-          <p style={{ color: "var(--th-text-sec)", fontSize: "1.05rem", lineHeight: 1.8, margin: 0 }}>
-            To make quality tech education accessible to every African who wants to build a career in the digital economy.
-          </p>
+        {/* Two column image + text */}
+        <section style={{ marginBottom: "64px", display: "grid", gridTemplateColumns: "1fr 1fr", gap: "40px", alignItems: "center" }}>
+          <div>
+            <h2 style={{ color: "#F5C400", fontSize: "0.8rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: "16px" }}>
+              Our Mission
+            </h2>
+            <p style={{ color: "var(--th-text-sec)", fontSize: "1.05rem", lineHeight: 1.8, margin: 0 }}>
+              To make quality tech education accessible to every African who wants to build a career in the digital economy.
+            </p>
+          </div>
+          <div style={{ borderRadius: "12px", overflow: "hidden" }}>
+            <img
+              src={africanStudentsImg}
+              alt="African students with laptops"
+              style={{ width: "100%", height: "220px", objectFit: "cover", borderRadius: "12px" }}
+            />
+          </div>
         </section>
 
         <div style={{ borderTop: "1px solid var(--th-border)", marginBottom: "64px" }} />

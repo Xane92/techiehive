@@ -1,9 +1,9 @@
 import { useEffect, useRef } from "react";
 import NavbarShared from "@/components/Navbar";
 import FooterShared from "@/components/Footer";
-import techCommunityImg from "@/assets/tech community africa.jpg";
-import africanStudentsImg from "@/assets/african students laptop.jpg";
-import codingClassImg from "@/assets/coding class africa.jpg";
+import techCommunityImg from "@assets/tech-community-africa.jpg";
+import africanStudentsImg from "@assets/african-students-laptop.jpg";
+import codingClassImg from "@assets/coding-class-africa.jpg";
 
 function useScrollFade(threshold = 0.15) {
   const ref = useRef<HTMLElement>(null);

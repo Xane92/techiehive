@@ -1,6 +1,9 @@
 import { useEffect, useRef } from "react";
 import NavbarShared from "@/components/Navbar";
 import FooterShared from "@/components/Footer";
+import techCommunityImg from "@/assets/tech community africa.jpg";
+import africanStudentsImg from "@/assets/african students laptop.jpg";
+import codingClassImg from "@/assets/coding class africa.jpg";
 
 function useScrollFade(threshold = 0.15) {
   const ref = useRef<HTMLElement>(null);
@@ -73,6 +76,7 @@ const benefits = [
 
 export default function CommunityPage() {
   const aboutRef = useScrollFade() as React.RefObject<HTMLElement>;
+  const photoRef = useScrollFade() as React.RefObject<HTMLElement>;
   const whyRef = useScrollFade() as React.RefObject<HTMLElement>;
   const ctaRef = useScrollFade() as React.RefObject<HTMLElement>;
 
@@ -144,6 +148,31 @@ export default function CommunityPage() {
           >
             A vibrant community uniting individuals with cutting-edge digital skills
           </p>
+        </div>
+      </section>
+
+      {/* ── Photo Grid ── */}
+      <section
+        ref={photoRef as React.RefObject<HTMLElement>}
+        className="th-scroll"
+        style={{ padding: "0", overflow: "hidden" }}
+      >
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", height: "320px" }}>
+          <img
+            src={techCommunityImg}
+            alt="Tech community"
+            style={{ width: "100%", height: "100%", objectFit: "cover" }}
+          />
+          <img
+            src={codingClassImg}
+            alt="Coding class"
+            style={{ width: "100%", height: "100%", objectFit: "cover" }}
+          />
+          <img
+            src={africanStudentsImg}
+            alt="African students"
+            style={{ width: "100%", height: "100%", objectFit: "cover" }}
+          />
         </div>
       </section>
 
@@ -262,7 +291,7 @@ export default function CommunityPage() {
           >
             To join the Techiehive community, follow us on Instagram and click the link in bio.
           </p>
-          <a
+
             href="https://www.instagram.com/techiehive_"
             target="_blank"
             rel="noopener noreferrer"

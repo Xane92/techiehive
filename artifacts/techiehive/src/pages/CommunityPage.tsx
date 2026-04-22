@@ -292,7 +292,7 @@ export default function CommunityPage() {
             To join the Techiehive community, follow us on Instagram and click the link in bio.
           </p>
 
-            href="https://www.instagram.com/techiehive_"
+           <a href="https://www.instagram.com/techiehive_"
             target="_blank"
             rel="noopener noreferrer"
             style={{ textDecoration: "none" }}

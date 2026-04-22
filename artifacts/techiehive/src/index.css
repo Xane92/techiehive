@@ -70,78 +70,36 @@
 :root {
   --button-outline: rgba(0,0,0, .10);
   --badge-outline: rgba(0,0,0, .05);
-
-  /* Automatic computation of border around primary / danger buttons */
-  --opaque-button-border-intensity: -8; /* In terms of percentages */
-
-  /* Backgrounds applied on top of other backgrounds when hovered/active */
+  --opaque-button-border-intensity: -8;
   --elevate-1: rgba(0,0,0, .03);
   --elevate-2: rgba(0,0,0, .08);
-
-  /* #0A0A0A - near black */
   --background: 0 0% 4%;
-
-  /* #FFFFFF - white */
   --foreground: 0 0% 100%;
-
-  /* subtle border */
   --border: 0 0% 15%;
-
-  /* #111111 - surface */
   --card: 0 0% 7%;
-
   --card-foreground: 0 0% 100%;
-
   --card-border: 0 0% 15%;
-
-  /* #111111 - surface */
   --sidebar: 0 0% 7%;
-
   --sidebar-foreground: 0 0% 100%;
-
   --sidebar-border: 0 0% 15%;
-
-  /* #F5C400 - primary yellow */
   --sidebar-primary: 48 100% 48%;
-
   --sidebar-primary-foreground: 0 0% 4%;
-
   --sidebar-accent: 0 0% 10%;
-
   --sidebar-accent-foreground: 0 0% 100%;
-
   --sidebar-ring: 48 100% 48%;
-
   --popover: 0 0% 7%;
-
   --popover-foreground: 0 0% 100%;
-
   --popover-border: 0 0% 15%;
-
-  /* #F5C400 - primary yellow */
   --primary: 48 100% 48%;
-
   --primary-foreground: 0 0% 4%;
-
-  /* #111111 surface as secondary */
   --secondary: 0 0% 10%;
-
   --secondary-foreground: 0 0% 100%;
-
-  /* muted background */
   --muted: 0 0% 12%;
-
-  /* #888888 muted text */
   --muted-foreground: 0 0% 53%;
-
   --accent: 0 0% 12%;
-
   --accent-foreground: 0 0% 100%;
-
   --destructive: 0 84% 60%;
-
   --destructive-foreground: 0 0% 100%;
-
   --input: 0 0% 15%;
   --ring: 48 100% 48%;
   --chart-1: 48 100% 48%;
@@ -149,132 +107,10 @@
   --chart-3: 220 70% 60%;
   --chart-4: 280 65% 60%;
   --chart-5: 340 75% 55%;
-
   --app-font-sans: 'Inter', sans-serif;
   --app-font-serif: Georgia, serif;
   --app-font-mono: Menlo, monospace;
-  --radius: .5rem; /* 8px */
-  --shadow-2xs: 0px 2px 0px 0px hsl(202.8169 89.1213% 53.1373% / 0.00); /*replace with H S L */
-  --shadow-xs: 0px 2px 0px 0px hsl(202.8169 89.1213% 53.1373% / 0.00); /*replace with H S L */
-  --shadow-sm: 0px 2px 0px 0px hsl(202.8169 89.1213% 53.1373% / 0.00), 0px 1px 2px -1px hsl(202.8169 89.1213% 53.1373% / 0.00);
-  --shadow: 0px 2px 0px 0px hsl(202.8169 89.1213% 53.1373% / 0.00), 0px 1px 2px -1px hsl(202.8169 89.1213% 53.1373% / 0.00);
-  --shadow-md: 0px 2px 0px 0px hsl(202.8169 89.1213% 53.1373% / 0.00), 0px 2px 4px -1px hsl(202.8169 89.1213% 53.1373% / 0.00);
-  --shadow-lg: 0px 2px 0px 0px hsl(202.8169 89.1213% 53.1373% / 0.00), 0px 4px 6px -1px hsl(202.8169 89.1213% 53.1373% / 0.00);
-  --shadow-xl: 0px 2px 0px 0px hsl(202.8169 89.1213% 53.1373% / 0.00), 0px 8px 10px -1px hsl(202.8169 89.1213% 53.1373% / 0.00);
-  --shadow-2xl: 0px 2px 0px 0px hsl(202.8169 89.1213% 53.1373% / 0.00);
-  --tracking-normal: 0em;
-  --spacing: 0.25rem;
-
-  /* Automatically computed borders - intensity can be controlled by the user by the --opaque-button-border-intensity setting */
-
-  /* Fallback for older browsers */
-  --sidebar-primary-border: hsl(var(--sidebar-primary));
-  --sidebar-primary-border: hsl(from hsl(var(--sidebar-primary)) h s calc(l + var(--opaque-button-border-intensity)) / alpha);
-
-  /* Fallback for older browsers */
-  --sidebar-accent-border: hsl(var(--sidebar-accent));
-  --sidebar-accent-border: hsl(from hsl(var(--sidebar-accent)) h s calc(l + var(--opaque-button-border-intensity)) / alpha);
-
-  /* Fallback for older browsers */
-  --primary-border: hsl(var(--primary));
-  --primary-border: hsl(from hsl(var(--primary)) h s calc(l + var(--opaque-button-border-intensity)) / alpha);
-
-  /* Fallback for older browsers */
-  --secondary-border: hsl(var(--secondary));
-  --secondary-border: hsl(from hsl(var(--secondary)) h s calc(l + var(--opaque-button-border-intensity)) / alpha);
-
-  /* Fallback for older browsers */
-  --muted-border: hsl(var(--muted));
-  --muted-border: hsl(from hsl(var(--muted)) h s calc(l + var(--opaque-button-border-intensity)) / alpha);
-
-  /* Fallback for older browsers */
-  --accent-border: hsl(var(--accent));
-  --accent-border: hsl(from hsl(var(--accent)) h s calc(l + var(--opaque-button-border-intensity)) / alpha);
-
-  /* Fallback for older browsers */
-  --destructive-border: hsl(var(--destructive));
-  --destructive-border: hsl(from hsl(var(--destructive)) h s calc(l + var(--opaque-button-border-intensity)) / alpha);
-}
-
-.dark {
-  --button-outline: rgba(255,255,255, .10);
-  --badge-outline: rgba(255,255,255, .05);
-
-  --opaque-button-border-intensity: 9;  /* In terms of percentages */
-
-  /* Backgrounds applied on top of other backgrounds when hovered/active */
-  --elevate-1: rgba(255,255,255, .04);
-  --elevate-2: rgba(255,255,255, .09);
-
-  /* #0A0A0A - near black */
-  --background: 0 0% 4%;
-
-  /* #FFFFFF - white */
-  --foreground: 0 0% 100%;
-
-  --border: 0 0% 15%;
-
-  /* #111111 - surface */
-  --card: 0 0% 7%;
-
-  --card-foreground: 0 0% 100%;
-
-  --card-border: 0 0% 15%;
-
-  /* #111111 - surface */
-  --sidebar: 0 0% 7%;
-
-  --sidebar-foreground: 0 0% 100%;
-
-  --sidebar-border: 0 0% 15%;
-
-  /* #F5C400 - primary yellow */
-  --sidebar-primary: 48 100% 48%;
-
-  --sidebar-primary-foreground: 0 0% 4%;
-
-  --sidebar-accent: 0 0% 12%;
-
-  --sidebar-accent-foreground: 0 0% 100%;
-
-  --sidebar-ring: 48 100% 48%;
-
-  --popover: 0 0% 7%;
-
-  --popover-foreground: 0 0% 100%;
-
-  --popover-border: 0 0% 15%;
-
-  /* #F5C400 - primary yellow */
-  --primary: 48 100% 48%;
-
-  --primary-foreground: 0 0% 4%;
-
-  --secondary: 0 0% 10%;
-
-  --secondary-foreground: 0 0% 100%;
-
-  --muted: 0 0% 12%;
-
-  /* #888888 muted text */
-  --muted-foreground: 0 0% 53%;
-
-  --accent: 0 0% 12%;
-
-  --accent-foreground: 0 0% 100%;
-
-  --destructive: 0 84% 60%;
-
-  --destructive-foreground: 0 0% 100%;
-
-  --input: 0 0% 20%;
-  --ring: 48 100% 48%;
-  --chart-1: 48 100% 48%;
-  --chart-2: 180 60% 50%;
-  --chart-3: 220 70% 60%;
-  --chart-4: 280 65% 60%;
-  --chart-5: 340 75% 55%;
-
+  --radius: .5rem;
   --shadow-2xs: 0px 2px 0px 0px hsl(202.8169 89.1213% 53.1373% / 0.00);
   --shadow-xs: 0px 2px 0px 0px hsl(202.8169 89.1213% 53.1373% / 0.00);
   --shadow-sm: 0px 2px 0px 0px hsl(202.8169 89.1213% 53.1373% / 0.00), 0px 1px 2px -1px hsl(202.8169 89.1213% 53.1373% / 0.00);
@@ -283,7 +119,72 @@
   --shadow-lg: 0px 2px 0px 0px hsl(202.8169 89.1213% 53.1373% / 0.00), 0px 4px 6px -1px hsl(202.8169 89.1213% 53.1373% / 0.00);
   --shadow-xl: 0px 2px 0px 0px hsl(202.8169 89.1213% 53.1373% / 0.00), 0px 8px 10px -1px hsl(202.8169 89.1213% 53.1373% / 0.00);
   --shadow-2xl: 0px 2px 0px 0px hsl(202.8169 89.1213% 53.1373% / 0.00);
+  --tracking-normal: 0em;
+  --spacing: 0.25rem;
+  --sidebar-primary-border: hsl(var(--sidebar-primary));
+  --sidebar-primary-border: hsl(from hsl(var(--sidebar-primary)) h s calc(l + var(--opaque-button-border-intensity)) / alpha);
+  --sidebar-accent-border: hsl(var(--sidebar-accent));
+  --sidebar-accent-border: hsl(from hsl(var(--sidebar-accent)) h s calc(l + var(--opaque-button-border-intensity)) / alpha);
+  --primary-border: hsl(var(--primary));
+  --primary-border: hsl(from hsl(var(--primary)) h s calc(l + var(--opaque-button-border-intensity)) / alpha);
+  --secondary-border: hsl(var(--secondary));
+  --secondary-border: hsl(from hsl(var(--secondary)) h s calc(l + var(--opaque-button-border-intensity)) / alpha);
+  --muted-border: hsl(var(--muted));
+  --muted-border: hsl(from hsl(var(--muted)) h s calc(l + var(--opaque-button-border-intensity)) / alpha);
+  --accent-border: hsl(var(--accent));
+  --accent-border: hsl(from hsl(var(--accent)) h s calc(l + var(--opaque-button-border-intensity)) / alpha);
+  --destructive-border: hsl(var(--destructive));
+  --destructive-border: hsl(from hsl(var(--destructive)) h s calc(l + var(--opaque-button-border-intensity)) / alpha);
+}
 
+.dark {
+  --button-outline: rgba(255,255,255, .10);
+  --badge-outline: rgba(255,255,255, .05);
+  --opaque-button-border-intensity: 9;
+  --elevate-1: rgba(255,255,255, .04);
+  --elevate-2: rgba(255,255,255, .09);
+  --background: 0 0% 4%;
+  --foreground: 0 0% 100%;
+  --border: 0 0% 15%;
+  --card: 0 0% 7%;
+  --card-foreground: 0 0% 100%;
+  --card-border: 0 0% 15%;
+  --sidebar: 0 0% 7%;
+  --sidebar-foreground: 0 0% 100%;
+  --sidebar-border: 0 0% 15%;
+  --sidebar-primary: 48 100% 48%;
+  --sidebar-primary-foreground: 0 0% 4%;
+  --sidebar-accent: 0 0% 12%;
+  --sidebar-accent-foreground: 0 0% 100%;
+  --sidebar-ring: 48 100% 48%;
+  --popover: 0 0% 7%;
+  --popover-foreground: 0 0% 100%;
+  --popover-border: 0 0% 15%;
+  --primary: 48 100% 48%;
+  --primary-foreground: 0 0% 4%;
+  --secondary: 0 0% 10%;
+  --secondary-foreground: 0 0% 100%;
+  --muted: 0 0% 12%;
+  --muted-foreground: 0 0% 53%;
+  --accent: 0 0% 12%;
+  --accent-foreground: 0 0% 100%;
+  --destructive: 0 84% 60%;
+  --destructive-foreground: 0 0% 100%;
+  --input: 0 0% 20%;
+  --ring: 48 100% 48%;
+  --chart-1: 48 100% 48%;
+  --chart-2: 180 60% 50%;
+  --chart-3: 220 70% 60%;
+  --chart-4: 280 65% 60%;
+  --chart-5: 340 75% 55%;
+  --shadow-2xs: 0px 2px 0px 0px hsl(202.8169 89.1213% 53.1373% / 0.00);
+  --shadow-xs: 0px 2px 0px 0px hsl(202.8169 89.1213% 53.1373% / 0.00);
+  --shadow-sm: 0px 2px 0px 0px hsl(202.8169 89.1213% 53.1373% / 0.00), 0px 1px 2px -1px hsl(202.8169 89.1213% 53.1373% / 0.00);
+  --shadow: 0px 2px 0px 0px hsl(202.8169 89.1213% 53.1373% / 0.00), 0px 1px 2px -1px hsl(202.8169 89.1213% 53.1373% / 0.00);
+  --shadow-md: 0px 2px 0px 0px hsl(202.8169 89.1213% 53.1373% / 0.00), 0px 2px 4px -1px hsl(202.8169 89.1213% 53.1373% / 0.00);
+  --shadow-lg: 0px 2px 0px 0px hsl(202.8169 89.1213% 53.1373% / 0.00), 0px 4px 6px -1px hsl(202.8169 89.1213% 53.1373% / 0.00);
+  --shadow-xl: 0px 2px 0px 0px hsl(202.8169 89.1213% 53.1373% / 0.00), 0px 8px 10px -1px hsl(202.8169 89.1213% 53.1373% / 0.00);
+  --shadow-2xl: 0px 2px 0px 0px hsl(202.8169 89.1213% 53.1373% / 0.00);
 }
 
 @layer base {
@@ -298,76 +199,38 @@
   }
 }
 
-/**
- * Using the elevate system.
- * Automatic contrast adjustment.
- *
- * <element className="hover-elevate" />
- * <element className="active-elevate-2" />
- *
- * // Using the tailwind utility when a data attribute is "on"
- * <element className="toggle-elevate data-[state=on]:toggle-elevated" />
- * // Or manually controlling the toggle state
- * <element className="toggle-elevate toggle-elevated" />
- *
- * Elevation systems have to handle many states.
- * - not-hovered, vs. hovered vs. active  (three mutually exclusive states)
- * - toggled or not
- * - focused or not (this is not handled with these utilities)
- *
- * Even without handling focused or not, this is six possible combinations that
- * need to be distinguished from eachother visually.
- */
 @layer utilities {
-
-  /* Hide ugly search cancel button in Chrome until we can style it properly */
   input[type="search"]::-webkit-search-cancel-button {
     @apply hidden;
   }
 
-  /* Placeholder styling for contentEditable div */
   [contenteditable][data-placeholder]:empty::before {
     content: attr(data-placeholder);
     color: hsl(var(--muted-foreground));
     pointer-events: none;
   }
 
-  /* .no-default-hover-elevate/no-default-active-elevate is an escape hatch so consumers of
-   * buttons/badges can remove the automatic brightness adjustment on interactions
-   * and program their own. */
   .no-default-hover-elevate {}
-
   .no-default-active-elevate {}
 
-
-  /**
-   * Toggleable backgrounds go behind the content. Hoverable/active goes on top.
-   * This way they can stack/compound. Both will overlap the parent's borders!
-   * So borders will be automatically adjusted both on toggle, and hover/active,
-   * and they will be compounded.
-   */
   .toggle-elevate::before,
   .toggle-elevate-2::before {
     content: "";
     pointer-events: none;
     position: absolute;
     inset: 0px;
-    /*border-radius: inherit;   match rounded corners */
     border-radius: inherit;
     z-index: -1;
-    /* sits behind content but above backdrop */
   }
 
   .toggle-elevate.toggle-elevated::before {
     background-color: var(--elevate-2);
   }
 
-  /* If there's a 1px border, adjust the inset so that it covers that parent's border */
   .border.toggle-elevate::before {
     inset: -1px;
   }
 
-  /* Does not work on elements with overflow:hidden! */
   .hover-elevate:not(.no-default-hover-elevate),
   .active-elevate:not(.no-default-active-elevate),
   .hover-elevate-2:not(.no-default-hover-elevate),
@@ -384,10 +247,8 @@
     pointer-events: none;
     position: absolute;
     inset: 0px;
-    /*border-radius: inherit;   match rounded corners */
     border-radius: inherit;
     z-index: 999;
-    /* sits in front of content */
   }
 
   .hover-elevate:hover:not(.no-default-hover-elevate)::after,
@@ -400,7 +261,6 @@
     background-color: var(--elevate-2);
   }
 
-  /* If there's a 1px border, adjust the inset so that it covers that parent's border */
   .border.hover-elevate:not(.no-hover-interaction-elevate)::after,
   .border.active-elevate:not(.no-active-interaction-elevate)::after,
   .border.hover-elevate-2:not(.no-hover-interaction-elevate)::after,
@@ -425,26 +285,21 @@
   gap: 28px;
 }
 
-/* ============================================================
-   Techiehive — Mobile responsive overrides (< 768px)
-   ============================================================ */
 @media (max-width: 767px) {
-  /* Course grids: single column */
   .courses-grid,
   .courses-detail-grid {
     grid-template-columns: 1fr;
   }
 
-  /* Course cards on homepage: compact padding */
   .courses-grid > div {
     padding: 20px 18px;
   }
 
-  /* Prevent hero from causing horizontal scroll */
   body {
     overflow-x: hidden;
   }
 }
+
 /* ============================================================
    Techiehive — Theme CSS variables
    ============================================================ */
@@ -462,20 +317,20 @@
   --th-dot: #222222;
 }
 
-/* Light mode */
+/* Light mode — warm off-white with depth */
 [data-theme="light"] {
-  --th-bg: #FFFFFF;
-  --th-surface: #F5F5F5;
-  --th-surface-alt: #EBEBEB;
-  --th-text: #1a1a1a;
-  --th-text-sec: #444444;
-  --th-muted: #555555;
-  --th-border: #e0e0e0;
-  --th-nav-bg: rgba(255, 255, 255, 0.75);
-  --th-dot: #d8d8d8;
+  --th-bg: #F7F5F0;
+  --th-surface: #EFECEA;
+  --th-surface-alt: #E8E4DF;
+  --th-text: #1A1714;
+  --th-text-sec: #3D3830;
+  --th-muted: #7A7268;
+  --th-border: #D6D0C8;
+  --th-nav-bg: rgba(247, 245, 240, 0.82);
+  --th-dot: #C8C2B8;
 }
 
-/* Smooth theme transition — only during the switch */
+/* Smooth theme transition */
 .theme-transitioning,
 .theme-transitioning *,
 .theme-transitioning *::before,
@@ -488,19 +343,16 @@
    Techiehive — Homepage animations
    ============================================================ */
 
-/* ─── Fade-up (hero stagger base) ─── */
 @keyframes th-fade-up {
   from { opacity: 0; transform: translateY(28px); }
   to   { opacity: 1; transform: translateY(0); }
 }
 
-/* ─── Word reveal (blur + rise) ─── */
 @keyframes th-word-in {
   from { opacity: 0; transform: translateY(24px); filter: blur(4px); }
   to   { opacity: 1; transform: translateY(0);    filter: blur(0);   }
 }
 
-/* ─── Card bounce-in ─── */
 @keyframes th-bounce-in {
   0%   { opacity: 0; transform: translateY(46px) scale(0.94); }
   55%  { opacity: 1; transform: translateY(-8px) scale(1.018); }
@@ -508,100 +360,10 @@
   100% { opacity: 1; transform: translateY(0) scale(1); }
 }
 
-/* ─── Button glow pulse ─── */
 @keyframes th-pulse-glow {
   0%, 100% { box-shadow: 0 0 0 0 rgba(245,196,0,0); }
   50%       { box-shadow: 0 0 0 6px rgba(245,196,0,0.2), 0 0 28px rgba(245,196,0,0.13); }
 }
 
-/* ─── Animated mesh orb drifts ─── */
 @keyframes th-orb-1 {
-  0%   { transform: translate(0, 0) scale(1); }
-  33%  { transform: translate(80px, -55px) scale(1.1); }
-  66%  { transform: translate(-55px, 75px) scale(0.92); }
-  100% { transform: translate(0, 0) scale(1); }
-}
-@keyframes th-orb-2 {
-  0%   { transform: translate(0, 0) scale(1); }
-  33%  { transform: translate(-65px, 45px) scale(0.95); }
-  66%  { transform: translate(55px, -65px) scale(1.08); }
-  100% { transform: translate(0, 0) scale(1); }
-}
-@keyframes th-orb-3 {
-  0%   { transform: translate(0, 0); }
-  50%  { transform: translate(45px, 65px); }
-  100% { transform: translate(0, 0); }
-}
-
-/* ─── Hero stagger classes ─── */
-.th-anim { opacity: 0; animation: th-fade-up 0.7s cubic-bezier(.22,.68,0,1.2) forwards; }
-.th-anim-d0 { animation-delay: 0.05s; }
-.th-anim-d1 { animation-delay: 0.2s; }
-.th-anim-d2 { animation-delay: 0.35s; }
-.th-anim-d3 { animation-delay: 0.5s; }
-
-/* ─── Scroll-triggered fade (snappier) ─── */
-.th-scroll {
-  opacity: 0;
-  transform: translateY(52px);
-  transition: opacity 0.5s ease, transform 0.5s cubic-bezier(.22,.68,0,1.15);
-}
-.th-scroll.th-in {
-  opacity: 1;
-  transform: translateY(0);
-}
-.th-scroll-d1 { transition-delay: 0.07s; }
-.th-scroll-d2 { transition-delay: 0.14s; }
-.th-scroll-d3 { transition-delay: 0.21s; }
-.th-scroll-d4 { transition-delay: 0.28s; }
-.th-scroll-d5 { transition-delay: 0.35s; }
-
-/* ─── Card bounce entry ─── */
-.th-card-bounce { opacity: 0; }
-.th-card-bounce.th-in {
-  animation: th-bounce-in 0.62s cubic-bezier(.22,.68,0,1.2) forwards;
-}
-
-/* ─── Button glow pulse ─── */
-.th-btn-pulse {
-  animation: th-pulse-glow 2.8s ease-in-out infinite;
-}
-
-/* ─── Core-values grid ─── */
-.core-values-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 24px;
-}
-@media (max-width: 900px) {
-  .core-values-grid { grid-template-columns: repeat(2, 1fr); }
-}
-@media (max-width: 560px) {
-  .core-values-grid { grid-template-columns: 1fr; }
-}
-
-/* ─── Mobile section spacing ─────────────────────────────── */
-@media (max-width: 767px) {
-  .th-section-pad {
-    padding-top: 52px !important;
-    padding-bottom: 52px !important;
-  }
-  .th-hero-pad {
-    padding-top: 64px !important;
-    padding-bottom: 52px !important;
-    min-height: 80vh !important;
-  }
-  /* Tighten inner heading margins */
-  .th-section-pad > div > div:first-child {
-    margin-bottom: 36px !important;
-  }
-}
-
-/* ─── Tighten gap between Benefits and Core Values ─────── */
-#benefits    { padding-bottom: 56px !important; }
-#core-values { padding-top:    56px !important; }
-
-@media (max-width: 767px) {
-  #benefits    { padding-bottom: 32px !important; }
-  #core-values { padding-top:    32px !important; }
-}
+  0%   { transform: translate(

@@ -25,6 +25,105 @@ function useScrollFade(threshold = 0.15) {
   return ref;
 }
 
+const carouselImages = [
+  { src: techCommunityImg, alt: "Tech community in Africa" },
+  { src: codingClassImg, alt: "Coding class in Africa" },
+  { src: africanStudentsImg, alt: "African students with laptops" },
+  { src: techCommunityImg, alt: "Tech community in Africa 2" },
+  { src: codingClassImg, alt: "Coding class in Africa 2" },
+  { src: africanStudentsImg, alt: "African students with laptops 2" },
+];
+
+function PhotoCarousel() {
+  const trackRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const track = trackRef.current;
+    if (!track) return;
+    let animId: number;
+    let pos = 0;
+    const speed = 0.5;
+    const totalWidth = track.scrollWidth / 2;
+
+    function animate() {
+      pos += speed;
+      if (pos >= totalWidth) pos = 0;
+      track.style.transform = `translateX(-${pos}px)`;
+      animId = requestAnimationFrame(animate);
+    }
+
+    animId = requestAnimationFrame(animate);
+    return () => cancelAnimationFrame(animId);
+  }, []);
+
+  return (
+    <div
+      style={{
+        width: "100%",
+        overflow: "hidden",
+        height: "320px",
+        position: "relative",
+      }}
+    >
+      {/* Left fade */}
+      <div
+        style={{
+          position: "absolute",
+          left: 0,
+          top: 0,
+          bottom: 0,
+          width: "80px",
+          background: "linear-gradient(to right, var(--th-bg), transparent)",
+          zIndex: 2,
+          pointerEvents: "none",
+        }}
+      />
+      {/* Right fade */}
+      <div
+        style={{
+          position: "absolute",
+          right: 0,
+          top: 0,
+          bottom: 0,
+          width: "80px",
+          background: "linear-gradient(to left, var(--th-bg), transparent)",
+          zIndex: 2,
+          pointerEvents: "none",
+        }}
+      />
+      <div
+        ref={trackRef}
+        style={{
+          display: "flex",
+          gap: "12px",
+          height: "100%",
+          width: "max-content",
+          willChange: "transform",
+        }}
+      >
+        {carouselImages.map((img, i) => (
+          <div
+            key={i}
+            style={{
+              width: "420px",
+              height: "320px",
+              flexShrink: 0,
+              borderRadius: "12px",
+              overflow: "hidden",
+            }}
+          >
+            <img
+              src={img.src}
+              alt={img.alt}
+              style={{ width: "100%", height: "100%", objectFit: "cover" }}
+            />
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 const benefits = [
   {
     icon: (
@@ -76,7 +175,6 @@ const benefits = [
 
 export default function CommunityPage() {
   const aboutRef = useScrollFade() as React.RefObject<HTMLElement>;
-  const photoRef = useScrollFade() as React.RefObject<HTMLElement>;
   const whyRef = useScrollFade() as React.RefObject<HTMLElement>;
   const ctaRef = useScrollFade() as React.RefObject<HTMLElement>;
 
@@ -151,29 +249,9 @@ export default function CommunityPage() {
         </div>
       </section>
 
-      {/* Photo Grid */}
-      <section
-        ref={photoRef as React.RefObject<HTMLElement>}
-        className="th-scroll"
-        style={{ padding: "0", overflow: "hidden" }}
-      >
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", height: "320px" }}>
-          <img
-            src={techCommunityImg}
-            alt="Tech community"
-            style={{ width: "100%", height: "100%", objectFit: "cover" }}
-          />
-          <img
-            src={codingClassImg}
-            alt="Coding class"
-            style={{ width: "100%", height: "100%", objectFit: "cover" }}
-          />
-          <img
-            src={africanStudentsImg}
-            alt="African students"
-            style={{ width: "100%", height: "100%", objectFit: "cover" }}
-          />
-        </div>
+      {/* Auto-scrolling Photo Carousel */}
+      <section style={{ padding: "48px 0", background: "var(--th-bg)" }}>
+        <PhotoCarousel />
       </section>
 
       {/* About */}
@@ -284,7 +362,7 @@ export default function CommunityPage() {
             To join the Techiehive community, follow us on Instagram and click the link in bio.
           </p>
 
-           <a href="https://www.instagram.com/techiehive_"
+            href="https://www.instagram.com/techiehive_"
             target="_blank"
             rel="noopener noreferrer"
             style={{ textDecoration: "none" }}

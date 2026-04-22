@@ -1,7 +1,7 @@
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import codingClassImg from "@assets/coding-class-africa.jpg";
-import africanStudentsImg from "@assets/african-students-laptop.jpg";
+import main1Img from "@assets/main1.jpg";
+import main2Img from "@assets/main2.jpg";
 
 const differentiators = [
   {
@@ -94,8 +94,8 @@ export default function AboutPage() {
       {/* Hero Image */}
       <div style={{ width: "100%", maxHeight: "480px", overflow: "hidden" }}>
         <img
-          src={codingClassImg}
-          alt="Techiehive students learning together"
+          src={main1Img}
+          alt="Techiehive student working"
           style={{
             width: "100%",
             height: "480px",
@@ -180,8 +180,8 @@ export default function AboutPage() {
           </div>
           <div style={{ borderRadius: "12px", overflow: "hidden" }}>
             <img
-              src={africanStudentsImg}
-              alt="African students with laptops"
+              src={main2Img}
+              alt="Students learning together"
               style={{
                 width: "100%",
                 height: "220px",

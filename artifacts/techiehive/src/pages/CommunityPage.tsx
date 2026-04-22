@@ -25,102 +25,93 @@ function useScrollFade(threshold = 0.15) {
   return ref;
 }
 
-const carouselImages = [
+const baseImages = [
   { src: techCommunityImg, alt: "Tech community in Africa" },
   { src: codingClassImg, alt: "Coding class in Africa" },
   { src: africanStudentsImg, alt: "African students with laptops" },
-  { src: techCommunityImg, alt: "Tech community in Africa 2" },
-  { src: codingClassImg, alt: "Coding class in Africa 2" },
-  { src: africanStudentsImg, alt: "African students with laptops 2" },
 ];
 
+const carouselImages = [...baseImages, ...baseImages, ...baseImages];
+
 function PhotoCarousel() {
-  const trackRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const track = trackRef.current;
-    if (!track) return;
-    let animId: number;
-    let pos = 0;
-    const speed = 0.5;
-    const totalWidth = track.scrollWidth / 2;
-
-    function animate() {
-      pos += speed;
-      if (pos >= totalWidth) pos = 0;
-      track.style.transform = `translateX(-${pos}px)`;
-      animId = requestAnimationFrame(animate);
-    }
-
-    animId = requestAnimationFrame(animate);
-    return () => cancelAnimationFrame(animId);
-  }, []);
-
   return (
-    <div
-      style={{
-        width: "100%",
-        overflow: "hidden",
-        height: "320px",
-        position: "relative",
-      }}
-    >
-      {/* Left fade */}
+    <>
+      <style>{`
+        @keyframes carousel-scroll {
+          0% { transform: translateX(0); }
+          100% { transform: translateX(-33.333%); }
+        }
+        .carousel-track {
+          animation: carousel-scroll 18s linear infinite;
+        }
+        .carousel-track:hover {
+          animation-play-state: paused;
+        }
+      `}</style>
       <div
         style={{
-          position: "absolute",
-          left: 0,
-          top: 0,
-          bottom: 0,
-          width: "80px",
-          background: "linear-gradient(to right, var(--th-bg), transparent)",
-          zIndex: 2,
-          pointerEvents: "none",
-        }}
-      />
-      {/* Right fade */}
-      <div
-        style={{
-          position: "absolute",
-          right: 0,
-          top: 0,
-          bottom: 0,
-          width: "80px",
-          background: "linear-gradient(to left, var(--th-bg), transparent)",
-          zIndex: 2,
-          pointerEvents: "none",
-        }}
-      />
-      <div
-        ref={trackRef}
-        style={{
-          display: "flex",
-          gap: "12px",
-          height: "100%",
-          width: "max-content",
-          willChange: "transform",
+          width: "100%",
+          overflow: "hidden",
+          height: "320px",
+          position: "relative",
         }}
       >
-        {carouselImages.map((img, i) => (
-          <div
-            key={i}
-            style={{
-              width: "420px",
-              height: "320px",
-              flexShrink: 0,
-              borderRadius: "12px",
-              overflow: "hidden",
-            }}
-          >
-            <img
-              src={img.src}
-              alt={img.alt}
-              style={{ width: "100%", height: "100%", objectFit: "cover" }}
-            />
-          </div>
-        ))}
+        {/* Left fade */}
+        <div
+          style={{
+            position: "absolute",
+            left: 0,
+            top: 0,
+            bottom: 0,
+            width: "80px",
+            background: "linear-gradient(to right, var(--th-bg), transparent)",
+            zIndex: 2,
+            pointerEvents: "none",
+          }}
+        />
+        {/* Right fade */}
+        <div
+          style={{
+            position: "absolute",
+            right: 0,
+            top: 0,
+            bottom: 0,
+            width: "80px",
+            background: "linear-gradient(to left, var(--th-bg), transparent)",
+            zIndex: 2,
+            pointerEvents: "none",
+          }}
+        />
+        <div
+          className="carousel-track"
+          style={{
+            display: "flex",
+            gap: "12px",
+            height: "100%",
+            width: "max-content",
+          }}
+        >
+          {carouselImages.map((img, i) => (
+            <div
+              key={i}
+              style={{
+                width: "420px",
+                height: "320px",
+                flexShrink: 0,
+                borderRadius: "12px",
+                overflow: "hidden",
+              }}
+            >
+              <img
+                src={img.src}
+                alt={img.alt}
+                style={{ width: "100%", height: "100%", objectFit: "cover" }}
+              />
+            </div>
+          ))}
+        </div>
       </div>
-    </div>
+    </>
   );
 }
 

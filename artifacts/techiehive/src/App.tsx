@@ -23,6 +23,8 @@ import ResetPasswordPage from "@/pages/ResetPasswordPage";
 import CommunityPage from "@/pages/CommunityPage";
 import { ThemeProvider } from "@/context/ThemeContext";
 import { API_BASE } from '@/lib/api';
+import main1Img from "@assets/main1.jpg";
+import webDevImg from "@assets/web-development-coding.jpg";
 
 const queryClient = new QueryClient();
 const COURSE_AMOUNT = 15000;
@@ -164,7 +166,6 @@ function Hero() {
         overflow: "hidden",
       }}
     >
-      {/* Parallax dot layer */}
       <div
         style={{
           position: "absolute",
@@ -176,11 +177,9 @@ function Hero() {
           pointerEvents: "none",
         }}
       />
-      {/* Animated mesh orbs */}
       <div style={{ position: "absolute", width: "700px", height: "700px", top: "5%", left: "15%", borderRadius: "50%", background: "radial-gradient(circle, rgba(245,196,0,0.07) 0%, transparent 65%)", animation: "th-orb-1 14s ease-in-out infinite", pointerEvents: "none" }} />
       <div style={{ position: "absolute", width: "550px", height: "550px", top: "25%", right: "10%", borderRadius: "50%", background: "radial-gradient(circle, rgba(160,100,0,0.09) 0%, transparent 65%)", animation: "th-orb-2 18s ease-in-out infinite", pointerEvents: "none" }} />
       <div style={{ position: "absolute", width: "420px", height: "420px", bottom: "8%", left: "28%", borderRadius: "50%", background: "radial-gradient(circle, rgba(245,196,0,0.05) 0%, transparent 65%)", animation: "th-orb-3 22s ease-in-out infinite", pointerEvents: "none" }} />
-      {/* Static yellow radial glow */}
       <div
         style={{
           position: "absolute",
@@ -191,7 +190,6 @@ function Hero() {
       />
 
       <div style={{ maxWidth: "780px", position: "relative", zIndex: 1 }}>
-        {/* Badge */}
         <div
           className="th-anim th-anim-d0"
           style={{
@@ -211,7 +209,6 @@ function Hero() {
           Africa's Premium EdTech Platform
         </div>
 
-        {/* Headline — word-by-word reveal */}
         <h1
           style={{
             color: "var(--th-text)",
@@ -227,7 +224,6 @@ function Hero() {
           <WordReveal text="Get Certified." delay={0.72} color="#F5C400" />
         </h1>
 
-        {/* Subtext */}
         <p
           className="th-anim th-anim-d2"
           style={{
@@ -241,7 +237,6 @@ function Hero() {
           Techiehive offers structured video courses in web development, design, and digital skills — built for beginners who want real results.
         </p>
 
-        {/* Buttons */}
         <div className="th-anim th-anim-d3" style={{ display: "flex", gap: "16px", justifyContent: "center", flexWrap: "wrap" }}>
           <Link href="/courses" style={{ textDecoration: "none" }}>
             <button
@@ -283,6 +278,180 @@ function Hero() {
           >
             Learn More
           </button>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function ImageShowcase() {
+  const leftRef = useRef<HTMLDivElement>(null);
+  const rightRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const els = [leftRef.current, rightRef.current];
+    const observers = els.map((el, i) => {
+      if (!el) return null;
+      const observer = new IntersectionObserver(
+        ([entry]) => {
+          if (entry.isIntersecting) {
+            setTimeout(() => {
+              el.style.opacity = "1";
+              el.style.transform = "translateY(0)";
+            }, i * 150);
+            observer.unobserve(el);
+          }
+        },
+        { threshold: 0.15 }
+      );
+      observer.observe(el);
+      return observer;
+    });
+    return () => observers.forEach((o) => o?.disconnect());
+  }, []);
+
+  return (
+    <section
+      style={{
+        background: "var(--th-bg)",
+        padding: "80px 24px",
+        borderTop: "1px solid var(--th-border)",
+      }}
+    >
+      <div
+        style={{
+          maxWidth: "1200px",
+          margin: "0 auto",
+          display: "grid",
+          gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
+          gap: "20px",
+          alignItems: "stretch",
+        }}
+      >
+        {/* Large image with overlay text */}
+        <div
+          ref={leftRef}
+          style={{
+            position: "relative",
+            borderRadius: "16px",
+            overflow: "hidden",
+            height: "420px",
+            opacity: 0,
+            transform: "translateY(40px)",
+            transition: "opacity 0.7s ease, transform 0.7s ease",
+          }}
+        >
+          <img
+            src={main1Img}
+            alt="Techiehive student"
+            style={{ width: "100%", height: "100%", objectFit: "cover" }}
+          />
+          <div
+            style={{
+              position: "absolute",
+              inset: 0,
+              background: "linear-gradient(to top, rgba(0,0,0,0.75) 0%, transparent 55%)",
+            }}
+          />
+          <div
+            style={{
+              position: "absolute",
+              bottom: "28px",
+              left: "28px",
+              right: "28px",
+            }}
+          >
+            <div
+              style={{
+                display: "inline-block",
+                background: "#F5C400",
+                color: "#0A0A0A",
+                fontSize: "0.75rem",
+                fontWeight: 700,
+                padding: "4px 12px",
+                borderRadius: "999px",
+                marginBottom: "10px",
+                textTransform: "uppercase",
+                letterSpacing: "0.06em",
+              }}
+            >
+              Learn Anywhere
+            </div>
+            <p
+              style={{
+                color: "#fff",
+                fontSize: "1.1rem",
+                fontWeight: 700,
+                margin: 0,
+                lineHeight: 1.4,
+              }}
+            >
+              World-class skills from the comfort of your space
+            </p>
+          </div>
+        </div>
+
+        {/* Right image with overlay text */}
+        <div
+          ref={rightRef}
+          style={{
+            position: "relative",
+            borderRadius: "16px",
+            overflow: "hidden",
+            height: "420px",
+            opacity: 0,
+            transform: "translateY(40px)",
+            transition: "opacity 0.7s ease, transform 0.7s ease",
+          }}
+        >
+          <img
+            src={webDevImg}
+            alt="Web development"
+            style={{ width: "100%", height: "100%", objectFit: "cover" }}
+          />
+          <div
+            style={{
+              position: "absolute",
+              inset: 0,
+              background: "linear-gradient(to top, rgba(0,0,0,0.75) 0%, transparent 55%)",
+            }}
+          />
+          <div
+            style={{
+              position: "absolute",
+              bottom: "28px",
+              left: "28px",
+              right: "28px",
+            }}
+          >
+            <div
+              style={{
+                display: "inline-block",
+                background: "#F5C400",
+                color: "#0A0A0A",
+                fontSize: "0.75rem",
+                fontWeight: 700,
+                padding: "4px 12px",
+                borderRadius: "999px",
+                marginBottom: "10px",
+                textTransform: "uppercase",
+                letterSpacing: "0.06em",
+              }}
+            >
+              Real Skills
+            </div>
+            <p
+              style={{
+                color: "#fff",
+                fontSize: "1.1rem",
+                fontWeight: 700,
+                margin: 0,
+                lineHeight: 1.4,
+              }}
+            >
+              Build real projects that get you hired
+            </p>
+          </div>
         </div>
       </div>
     </section>
@@ -502,7 +671,7 @@ function BenefitsSection() {
             gap: "32px",
           }}
         >
-          {benefits.map((benefit, i) => (
+          {benefits.map((benefit) => (
             <div key={benefit.title} style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
               <div
                 style={{
@@ -644,6 +813,7 @@ function Home() {
     <div style={{ backgroundColor: "var(--th-bg)", minHeight: "100vh", color: "var(--th-text)" }}>
       <NavbarShared />
       <Hero />
+      <ImageShowcase />
       <CoursesSection />
       <BenefitsSection />
       <CoreValuesSection />

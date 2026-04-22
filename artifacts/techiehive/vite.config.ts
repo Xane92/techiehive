@@ -7,9 +7,7 @@ const rawPort = process.env.PORT;
 const port = rawPort && !isNaN(Number(rawPort)) && Number(rawPort) > 0
   ? Number(rawPort)
   : 5173;
-
 const basePath = process.env.BASE_PATH || "/";
-
 const isReplit = process.env.REPL_ID !== undefined;
 const isDev = process.env.NODE_ENV !== "production";
 
@@ -35,7 +33,7 @@ export default defineConfig(async () => ({
   resolve: {
     alias: {
       "@": path.resolve(import.meta.dirname, "src"),
-      "@assets": path.resolve(import.meta.dirname, "..", "..", "attached_assets"),
+      "@assets": path.resolve(import.meta.dirname, "src", "assets"),
     },
     dedupe: ["react", "react-dom"],
   },

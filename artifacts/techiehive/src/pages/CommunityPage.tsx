@@ -84,7 +84,7 @@ export default function CommunityPage() {
     <div style={{ backgroundColor: "var(--th-bg)", minHeight: "100vh", color: "var(--th-text)" }}>
       <NavbarShared />
 
-      {/* ── Page Header ── */}
+      {/* Page Header */}
       <section
         style={{
           background: "var(--th-bg)",
@@ -151,7 +151,7 @@ export default function CommunityPage() {
         </div>
       </section>
 
-      {/* ── Photo Grid ── */}
+      {/* Photo Grid */}
       <section
         ref={photoRef as React.RefObject<HTMLElement>}
         className="th-scroll"
@@ -176,7 +176,7 @@ export default function CommunityPage() {
         </div>
       </section>
 
-      {/* ── Section 1: About ── */}
+      {/* About */}
       <section
         ref={aboutRef as React.RefObject<HTMLElement>}
         className="th-scroll"
@@ -199,20 +199,13 @@ export default function CommunityPage() {
           >
             About the <span style={{ color: "#F5C400" }}>Community</span>
           </h2>
-          <p
-            style={{
-              color: "var(--th-muted)",
-              fontSize: "1rem",
-              lineHeight: 1.85,
-              margin: 0,
-            }}
-          >
+          <p style={{ color: "var(--th-muted)", fontSize: "1rem", lineHeight: 1.85, margin: 0 }}>
             Techiehive is a vibrant community that unites individuals with cutting-edge digital skills, empowering them to thrive in the fast-paced world of tech. Backed by Techiehive Academy, led by expert tutors in full-stack web development, graphic design, product management, 3D animation, video editing, forex, and crypto, we ensure that every member who passes through our doors is job-ready, primed to crush it in their chosen digital niche.
           </p>
         </div>
       </section>
 
-      {/* ── Section 2: Why Join ── */}
+      {/* Why Join */}
       <section
         ref={whyRef as React.RefObject<HTMLElement>}
         className="th-scroll"
@@ -243,7 +236,6 @@ export default function CommunityPage() {
               Techiehive community is different — we thrive on inclusivity, no skill level left behind. We land you jobs, mentor you, give stuff away, and take you on media tours to tech hubs matching your passion.
             </p>
           </div>
-
           <div
             style={{
               display: "grid",
@@ -258,7 +250,7 @@ export default function CommunityPage() {
         </div>
       </section>
 
-      {/* ── Section 3: CTA ── */}
+      {/* CTA */}
       <section
         ref={ctaRef as React.RefObject<HTMLElement>}
         className="th-scroll"
@@ -312,8 +304,16 @@ export default function CommunityPage() {
                 gap: "10px",
                 transition: "opacity 0.2s, transform 0.2s",
               }}
-              onMouseEnter={(e) => { const b = e.currentTarget as HTMLButtonElement; b.style.opacity = "0.88"; b.style.transform = "translateY(-2px)"; }}
-              onMouseLeave={(e) => { const b = e.currentTarget as HTMLButtonElement; b.style.opacity = "1"; b.style.transform = "translateY(0)"; }}
+              onMouseEnter={(e) => {
+                const b = e.currentTarget as HTMLButtonElement;
+                b.style.opacity = "0.88";
+                b.style.transform = "translateY(-2px)";
+              }}
+              onMouseLeave={(e) => {
+                const b = e.currentTarget as HTMLButtonElement;
+                b.style.opacity = "1";
+                b.style.transform = "translateY(0)";
+              }}
             >
               <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                 <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>

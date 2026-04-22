@@ -31,7 +31,7 @@ const baseImages = [
   { src: africanStudentsImg, alt: "African students with laptops" },
 ];
 
-const carouselImages = [...baseImages, ...baseImages, ...baseImages];
+const carouselImages = [...baseImages, ...baseImages];
 
 function PhotoCarousel() {
   return (
@@ -39,7 +39,7 @@ function PhotoCarousel() {
       <style>{`
         @keyframes carousel-scroll {
           0% { transform: translateX(0); }
-          100% { transform: translateX(-33.333%); }
+          100% { transform: translateX(-50%); }
         }
         .carousel-track {
           animation: carousel-scroll 18s linear infinite;

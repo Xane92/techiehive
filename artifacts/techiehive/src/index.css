@@ -366,4 +366,84 @@
 }
 
 @keyframes th-orb-1 {
-  0%   { transform: translate(
+  0%   { transform: translate(0, 0) scale(1); }
+  33%  { transform: translate(80px, -55px) scale(1.1); }
+  66%  { transform: translate(-55px, 75px) scale(0.92); }
+  100% { transform: translate(0, 0) scale(1); }
+}
+@keyframes th-orb-2 {
+  0%   { transform: translate(0, 0) scale(1); }
+  33%  { transform: translate(-65px, 45px) scale(0.95); }
+  66%  { transform: translate(55px, -65px) scale(1.08); }
+  100% { transform: translate(0, 0) scale(1); }
+}
+@keyframes th-orb-3 {
+  0%   { transform: translate(0, 0); }
+  50%  { transform: translate(45px, 65px); }
+  100% { transform: translate(0, 0); }
+}
+
+.th-anim { opacity: 0; animation: th-fade-up 0.7s cubic-bezier(.22,.68,0,1.2) forwards; }
+.th-anim-d0 { animation-delay: 0.05s; }
+.th-anim-d1 { animation-delay: 0.2s; }
+.th-anim-d2 { animation-delay: 0.35s; }
+.th-anim-d3 { animation-delay: 0.5s; }
+
+.th-scroll {
+  opacity: 0;
+  transform: translateY(52px);
+  transition: opacity 0.5s ease, transform 0.5s cubic-bezier(.22,.68,0,1.15);
+}
+.th-scroll.th-in {
+  opacity: 1;
+  transform: translateY(0);
+}
+.th-scroll-d1 { transition-delay: 0.07s; }
+.th-scroll-d2 { transition-delay: 0.14s; }
+.th-scroll-d3 { transition-delay: 0.21s; }
+.th-scroll-d4 { transition-delay: 0.28s; }
+.th-scroll-d5 { transition-delay: 0.35s; }
+
+.th-card-bounce { opacity: 0; }
+.th-card-bounce.th-in {
+  animation: th-bounce-in 0.62s cubic-bezier(.22,.68,0,1.2) forwards;
+}
+
+.th-btn-pulse {
+  animation: th-pulse-glow 2.8s ease-in-out infinite;
+}
+
+.core-values-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+@media (max-width: 900px) {
+  .core-values-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 560px) {
+  .core-values-grid { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 767px) {
+  .th-section-pad {
+    padding-top: 52px !important;
+    padding-bottom: 52px !important;
+  }
+  .th-hero-pad {
+    padding-top: 64px !important;
+    padding-bottom: 52px !important;
+    min-height: 80vh !important;
+  }
+  .th-section-pad > div > div:first-child {
+    margin-bottom: 36px !important;
+  }
+}
+
+#benefits    { padding-bottom: 56px !important; }
+#core-values { padding-top:    56px !important; }
+
+@media (max-width: 767px) {
+  #benefits    { padding-bottom: 32px !important; }
+  #core-values { padding-top:    32px !important; }
+}

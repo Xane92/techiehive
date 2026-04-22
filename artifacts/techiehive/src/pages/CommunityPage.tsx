@@ -44,9 +44,7 @@ function PhotoCarousel() {
         .carousel-track {
           animation: carousel-scroll 18s linear infinite;
         }
-        .carousel-track:hover {
-          animation-play-state: paused;
-        }
+        
       `}</style>
       <div
         style={{

@@ -319,15 +319,15 @@
 
 /* Light mode — warm off-white with depth */
 [data-theme="light"] {
-  --th-bg: #F7F5F0;
-  --th-surface: #EFECEA;
-  --th-surface-alt: #E8E4DF;
-  --th-text: #1A1714;
-  --th-text-sec: #3D3830;
-  --th-muted: #7A7268;
-  --th-border: #D6D0C8;
-  --th-nav-bg: rgba(247, 245, 240, 0.82);
-  --th-dot: #C8C2B8;
+  --th-bg: #FDFCF8;
+  --th-surface: #F0EDE4;
+  --th-surface-alt: #E8E4DC;
+  --th-text: #0A0A0A;
+  --th-text-sec: #2A2720;
+  --th-muted: #777060;
+  --th-border: #E8E4DC;
+  --th-nav-bg: rgba(253, 252, 248, 0.88);
+  --th-dot: #DDD9D0;
 }
 
 /* Smooth theme transition */

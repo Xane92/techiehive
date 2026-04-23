@@ -320,14 +320,14 @@
 /* Light mode — warm off-white with depth */
 [data-theme="light"] {
   --th-bg: #FDFCF8;
-  --th-surface: #F0EDE4;
-  --th-surface-alt: #E8E4DC;
+  --th-surface: #F5EFD6;
+  --th-surface-alt: #EDE4BE;
   --th-text: #0A0A0A;
   --th-text-sec: #2A2720;
   --th-muted: #777060;
-  --th-border: #E8E4DC;
+  --th-border: #C8B96E;
   --th-nav-bg: rgba(253, 252, 248, 0.88);
-  --th-dot: #DDD9D0;
+  --th-dot: #C8B96E;
 }
 
 [data-theme="light"] body {
